@@ -1,0 +1,1000 @@
+<title>รสยาแผนไทย</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Chonburi&family=Sarabun:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #f5efdd;
+    --surface: #fffdf6;
+    --surface-2: #efe4c9;
+    --text: #2a2117;
+    --text-muted: #6d6048;
+    --primary: #3f5d42;
+    --primary-soft: #e6ecdf;
+    --primary-contrast: #ffffff;
+    --accent: #c1791f;
+    --accent-soft: #f6e2bf;
+    --bad: #93392f;
+    --bad-soft: #f3ded9;
+    --border: #ddcfa9;
+    --shadow: 0 10px 30px -12px rgba(43, 33, 18, 0.28);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1710;
+      --surface: #242019;
+      --surface-2: #2c271d;
+      --text: #ecE4d2;
+      --text-muted: #b3a789;
+      --primary: #8bb083;
+      --primary-soft: #2b3527;
+      --primary-contrast: #14200f;
+      --accent: #e3a94b;
+      --accent-soft: #3a2f1a;
+      --bad: #e08b7d;
+      --bad-soft: #3a231f;
+      --border: #3c352590;
+      --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #1a1710;
+    --surface: #242019;
+    --surface-2: #2c271d;
+    --text: #ece4d2;
+    --text-muted: #b3a789;
+    --primary: #8bb083;
+    --primary-soft: #2b3527;
+    --primary-contrast: #14200f;
+    --accent: #e3a94b;
+    --accent-soft: #3a2f1a;
+    --bad: #e08b7d;
+    --bad-soft: #3a231f;
+    --border: #3c352590;
+    --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sarabun', 'Noto Sans Thai', system-ui, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+
+  header.top {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  h1 {
+    font-family: 'Chonburi', 'Sarabun', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 6vw, 40px);
+    margin: 0 0 8px;
+    color: var(--primary);
+    text-wrap: balance;
+  }
+
+  .sub {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin: 0;
+    max-width: 46ch;
+    margin-inline: auto;
+    line-height: 1.6;
+  }
+
+  nav.tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 24px 0 28px;
+    background: var(--surface-2);
+    padding: 6px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+  }
+
+  nav.tabs button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+
+  nav.tabs button.active {
+    background: var(--primary);
+    color: var(--primary-contrast);
+  }
+
+  nav.tabs button:not(.active):hover {
+    background: var(--primary-soft);
+    color: var(--text);
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 28px;
+  }
+
+  /* ---------- Quiz ---------- */
+
+  .quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .quiz-meta strong {
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress-track {
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+
+  .question-text {
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.55;
+    margin: 0 0 22px;
+    text-wrap: balance;
+  }
+
+  .choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: right;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15.5px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+    line-height: 1.5;
+  }
+
+  .choice:hover:not(:disabled) {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+  }
+
+  .choice .letter {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .choice.correct {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+  }
+  .choice.correct .letter {
+    background: var(--primary);
+    color: var(--primary-contrast);
+    border-color: var(--primary);
+  }
+
+  .choice.wrong {
+    background: var(--bad-soft);
+    border-color: var(--bad);
+  }
+  .choice.wrong .letter {
+    background: var(--bad);
+    color: #fff;
+    border-color: var(--bad);
+  }
+
+  .choice:disabled { cursor: default; }
+  .choice:disabled:not(.correct):not(.wrong) { opacity: 0.55; }
+
+  .explain-box {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    animation: fade-in 0.25s ease;
+  }
+
+  .explain-box.is-correct {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+  }
+
+  .explain-box.is-wrong {
+    background: var(--bad-soft);
+    border-color: var(--bad);
+  }
+
+  .explain-verdict {
+    margin: 0 0 4px;
+    font-weight: 700;
+    font-size: 14.5px;
+  }
+
+  .explain-box.is-correct .explain-verdict { color: var(--primary); }
+  .explain-box.is-wrong .explain-verdict { color: var(--bad); }
+
+  .explain-text {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .quiz-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 22px;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 12px;
+    padding: 11px 22px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.1s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-contrast);
+  }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; filter: none; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .btn-ghost:hover { background: var(--primary-soft); }
+
+  .result {
+    text-align: center;
+    padding: 12px 0 4px;
+  }
+
+  .result .score {
+    font-family: 'Chonburi', serif;
+    font-size: 54px;
+    color: var(--accent);
+    margin: 6px 0 4px;
+    line-height: 1;
+  }
+
+  .result .score small {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 20px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .result .verdict {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin-bottom: 26px;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- Essay ---------- */
+
+  .essay-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .essay-lead {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 48ch;
+  }
+
+  .essay-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    background: var(--surface-2);
+  }
+
+  .essay-item + .essay-item {
+    margin-top: 14px;
+  }
+
+  .essay-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--primary-contrast);
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-inline-end: 8px;
+    flex: none;
+  }
+
+  .essay-q {
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.55;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+
+  .essay-item textarea {
+    width: 100%;
+    min-height: 96px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+
+  .essay-item textarea:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+  }
+
+  .essay-item textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.75;
+  }
+
+  .essay-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+
+  .essay-answer {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+  }
+
+  .essay-answer.shown { display: block; }
+
+  .essay-answer .tag {
+    margin: 0 0 4px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .essay-answer p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  /* ---------- Flashcards ---------- */
+
+  .fc-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .fc-meta strong { color: var(--text); font-variant-numeric: tabular-nums; }
+
+  .fc-stage {
+    perspective: 1400px;
+    margin-bottom: 20px;
+  }
+
+  .fc-card {
+    position: relative;
+    height: 260px;
+    border-radius: 18px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(.4,.2,.2,1);
+  }
+
+  .fc-card.flipped { transform: rotateY(180deg); }
+
+  .fc-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .fc-front {
+    background: var(--primary-soft);
+  }
+
+  .fc-front .fc-tag {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .fc-front .fc-term {
+    font-family: 'Chonburi', serif;
+    font-size: clamp(22px, 5vw, 30px);
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  .fc-back {
+    background: var(--accent-soft);
+    transform: rotateY(180deg);
+  }
+
+  .fc-back .fc-tag {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .fc-back .fc-def {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .fc-hint {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: -8px 0 22px;
+  }
+
+  .fc-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  footer.page-foot {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 30px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fc-card, .progress-fill, .choice { transition: none !important; }
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 20px; }
+    .choice { font-size: 14.5px; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">การแพทย์แผนไทย</p>
+    <h1>รสยาแผนไทย</h1>
+    <p class="sub">ทบทวนตำรับยาตามทฤษฎีการแพทย์แผนไทย ด้วยแบบทดสอบสุ่ม 10 ข้อ ข้อเขียนสุ่ม 5 ข้อ และบัตรคำช่วยจำ — จากเอกสาร "การวิเคราะห์ตำรับยา"</p>
+  </header>
+
+  <nav class="tabs">
+    <button id="tab-quiz" class="active" onclick="switchTab('quiz')">แบบทดสอบ</button>
+    <button id="tab-essay" onclick="switchTab('essay')">ข้อเขียน</button>
+    <button id="tab-fc" onclick="switchTab('fc')">บัตรคำช่วยจำ</button>
+  </nav>
+
+  <!-- QUIZ PANEL -->
+  <section id="panel-quiz" class="panel active">
+    <div class="card">
+      <div id="quiz-active">
+        <div class="quiz-meta">
+          <span>ข้อที่ <strong id="q-index">1</strong> / <strong id="q-total">10</strong></span>
+          <span>ตอบถูก <strong id="q-score">0</strong> ข้อ</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:10%"></div>
+        </div>
+        <p class="question-text" id="question-text">กำลังโหลดคำถาม…</p>
+        <div class="choices" id="choices"></div>
+        <div class="explain-box" id="explain-box" style="display:none">
+          <p class="explain-verdict" id="explain-verdict"></p>
+          <p class="explain-text" id="explain-text"></p>
+        </div>
+        <div class="quiz-footer">
+          <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>ข้อถัดไป</button>
+        </div>
+      </div>
+
+      <div id="quiz-result" class="result" style="display:none">
+        <p class="eyebrow" style="margin-bottom:0;">สรุปผล</p>
+        <p class="score"><span id="final-score">0</span><small> / <span id="final-total">10</span></small></p>
+        <p class="verdict" id="verdict-text">มาดูกันว่าทำได้ดีแค่ไหน</p>
+        <div class="result-actions">
+          <button class="btn btn-primary" onclick="startQuiz()">สุ่มข้อสอบชุดใหม่</button>
+          <button class="btn btn-ghost" onclick="switchTab('fc')">ไปทบทวนบัตรคำ</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESSAY PANEL -->
+  <section id="panel-essay" class="panel">
+    <div class="card">
+      <div class="essay-head">
+        <p class="essay-lead">ตอบคำถามด้วยคำพูดของตนเอง แล้วกด "ดูเฉลย" เพื่อเทียบคำตอบ — สุ่มใหม่ได้ 5 ข้อทุกครั้ง</p>
+        <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="startEssay()">สุ่มข้อเขียนชุดใหม่</button>
+      </div>
+      <div id="essay-list"></div>
+    </div>
+  </section>
+
+  <!-- FLASHCARD PANEL -->
+  <section id="panel-fc" class="panel">
+    <div class="card">
+      <div class="fc-meta">
+        <span>บัตรที่ <strong id="fc-index">1</strong> / <strong id="fc-total">30</strong></span>
+        <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="shuffleDeck()">สลับสำรับใหม่</button>
+      </div>
+      <div class="fc-stage">
+        <div class="fc-card" id="fc-card" onclick="flipCard()">
+          <div class="fc-face fc-front">
+            <p class="fc-tag">คำศัพท์</p>
+            <p class="fc-term" id="fc-term">—</p>
+          </div>
+          <div class="fc-face fc-back">
+            <p class="fc-tag">ความหมาย</p>
+            <p class="fc-def" id="fc-def">—</p>
+          </div>
+        </div>
+      </div>
+      <p class="fc-hint">แตะที่บัตรเพื่อพลิกดูคำตอบ</p>
+      <div class="fc-controls">
+        <button class="btn btn-ghost" onclick="prevCard()">‹ ก่อนหน้า</button>
+        <button class="btn btn-primary" onclick="nextCard()">ถัดไป ›</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-foot">อ้างอิงจากสไลด์ "ตำรับยาที่ใช้รักษาตามทฤษฎีการแพทย์แผนไทยและการแพทย์พื้นบ้านไทย"</footer>
+</div>
+
+<script>
+  // ---------------- Data ----------------
+  const QUESTION_BANK = [
+    { q: "หลักการรู้จักยาสำหรับบำบัดโรคตามตำรับยาไทยมีกี่ข้อ", choices: ["3 ข้อ", "4 ข้อ", "5 ข้อ", "6 ข้อ"], a: 1, e: "มี 4 ข้อ คือ รู้จักตัวยา รู้จักสรรพคุณและรสยา รู้จักพิกัดยา และรู้จักการปรุงยา" },
+    { q: "ข้อใดไม่ใช่หนึ่งในหลักการรู้จักยา 4 ประการ", choices: ["ต้องรู้จักตัวยา (เภสัชวัตถุ)", "ต้องรู้จักสรรพคุณและรสของยา", "พิกัดยา (คณาเภสัช)", "ต้องรู้จักราคายาในท้องตลาด"], a: 3, e: "หลักการรู้จักยา 4 ข้อ คือ ตัวยา สรรพคุณและรสยา พิกัดยา และการปรุงยา ไม่เกี่ยวกับราคา" },
+    { q: "เภสัชวัตถุ แบ่งออกเป็นกี่ประเภท", choices: ["2 ประเภท", "3 ประเภท", "4 ประเภท", "5 ประเภท"], a: 1, e: "เภสัชวัตถุแบ่งเป็น 3 ประเภท คือ พืชวัตถุ สัตว์วัตถุ และธาตุวัตถุ" },
+    { q: "ข้อใดไม่ใช่ประเภทของเภสัชวัตถุ", choices: ["พืชวัตถุ", "สัตว์วัตถุ", "ธาตุวัตถุ", "เคมีวัตถุ"], a: 3, e: "เภสัชวัตถุมี 3 ประเภทเท่านั้น คือ พืชวัตถุ สัตว์วัตถุ ธาตุวัตถุ ไม่มี \"เคมีวัตถุ\"" },
+    { q: "การ \"รู้จักตัวยา\" (เภสัชวัตถุ) ตามเอกสาร ต้องรู้จักด้านใดบ้าง ข้อใด *ไม่* ถูกต้อง", choices: ["รู้จักรูปร่างลักษณะ", "รู้จักสี รู้จักกลิ่น", "รู้จักราคาซื้อขายในตลาด", "รู้จักชื่อ"], a: 2, e: "การรู้จักตัวยาต้องรู้จักรูปร่างลักษณะ สี รส กลิ่น และชื่อ ไม่รวมเรื่องราคาตลาด" },
+    { q: "รสยา หมายถึงอะไรตามทฤษฎีการแพทย์แผนไทย", choices: ["สิ่งที่แสดงถึงสรรพคุณของตัวยาที่ใช้รักษาโรค", "รสชาติที่ใช้ปรุงอาหาร", "กลิ่นเฉพาะของสมุนไพร", "สีตามธรรมชาติของตัวยา"], a: 0, e: "เอกสารระบุว่า รสยา คือสิ่งแสดงถึงสรรพคุณของตัวยาที่ใช้รักษาโรคตามทฤษฎีการแพทย์แผนไทย" },
+    { q: "\"ยารสประธาน\" หมายถึงอะไร", choices: ["รสยาที่ปรุงหรือผสมเป็นตำรับแล้วนำไปใช้รักษาโรค", "รสตามธรรมชาติของสมุนไพรชนิดเดียว", "รสยาที่ห้ามใช้ในตำรับ", "ชื่อคัมภีร์ยาไทยเล่มหนึ่ง"], a: 0, e: "ยารสประธาน คือรสยาของตำรับที่ปรุงหรือผสมแล้ว นำไปใช้รักษาโรค" },
+    { q: "ยารสเย็นตามที่เอกสารระบุ ปรุงจากเครื่องยาลักษณะใด", choices: ["ใบไม้ เกสรดอกไม้ สัตตะเขา หรือเครื่องยาที่สุมไฟเผาเป็นถ่าน", "รากไม้ที่มีรสร้อนจัด", "เปลือกไม้แห้งคั่วไฟ", "เมล็ดพืชที่มีน้ำมันมาก"], a: 0, e: "ยารสเย็นปรุงด้วยเครื่องยาที่มีรสไม่ร้อน เช่น ใบไม้ เกสรดอกไม้ สัตตะเขา หรือเครื่องยาที่สุมไฟเผาเป็นถ่าน" },
+    { q: "ยารสเย็น ใช้แก้โรคในทางใด", choices: ["วาโยธาตุ", "เตโชธาตุ", "อาโปธาตุ", "ปถวีธาตุ"], a: 1, e: "ยารสเย็นใช้สำหรับแก้โรคในทางเตโชธาตุ" },
+    { q: "คัมภีร์ใดกล่าวถึง \"ช่องทางการสำแดงฤทธิ์\" ของรสยา", choices: ["คัมภีร์ธาตุวิภังค์", "คัมภีร์ฉันทศาสตร์", "คัมภีร์วรโยคสาร", "คัมภีร์ธาตุวิวรณ์"], a: 0, e: "คัมภีร์ธาตุวิภังค์ บอกช่องทางการสำแดงฤทธิ์ของรสยา" },
+    { q: "ตามคัมภีร์ธาตุวิภังค์ รสยาฝาดซาบไปที่ใด", choices: ["ผิวเนื้อและเส้นเอ็น", "กระดูกทั่วร่างกาย", "ลำไส้น้อย", "เส้นเลือด"], a: 0, e: "คัมภีร์ธาตุวิภังค์ระบุว่า รสยาฝาดซาบไปในผิวเนื้อและเส้นเอ็น" },
+    { q: "ตามคัมภีร์ธาตุวิภังค์ รสยาเค็มซาบไปที่ใด", choices: ["ทุกเส้นเอ็นและกระดูกทั่วสรรพางค์กาย", "ผิวหนังชั้นนอกเท่านั้น", "กระเพาะอาหาร", "ปอด"], a: 0, e: "คัมภีร์ธาตุวิภังค์ระบุว่า รสยาเค็มซาบไปในทุกเส้นเอ็นและกระดูกทั่วสรรพางค์กาย" },
+    { q: "คัมภีร์วรโยคสาร บอกเรื่องใดของรสยา", choices: ["ลักษณะแห่งการออกฤทธิ์ของรสยา", "ตำแหน่งที่กลไกออกฤทธิ์ทำงาน", "ผลแห่งสรรพคุณโอสถสาร", "ช่องทางการสำแดงฤทธิ์"], a: 0, e: "คัมภีร์วรโยคสาร บอกลักษณะแห่งการออกฤทธิ์ของรสยา" },
+    { q: "\"กาสาวะ\" ในคัมภีร์วรโยคสาร หมายถึงรสใด", choices: ["รสฝาด", "รสเค็ม", "รสหวาน", "รสขม"], a: 0, e: "กาสาวะ คือรสฝาด มีสรรพคุณเจริญไฟธาตุ เจริญผิวกายและเนื้อ" },
+    { q: "\"ลวณะ\" คือรสเค็ม มีสรรพคุณตามคัมภีร์วรโยคสารอย่างไร", choices: ["เจริญไฟธาตุ เผาโทษ เผาเขฬะ (น้ำลาย)", "บำรุงกำลัง ทำให้เนื้อชุ่มชื่น", "สมานบาดแผล ปิดธาตุ", "แก้ร้อน เจริญรสอาหาร"], a: 0, e: "ลวณะ (รสเค็ม) มีสรรพคุณเจริญไฟธาตุ เผาโทษ เผาเขฬะ (น้ำลาย)" },
+    { q: "\"มธุระ\" ในคัมภีร์วรโยคสาร คือรสใด", choices: ["รสหวาน", "รสฝาด", "รสเผ็ด", "รสมัน"], a: 0, e: "มธุระ คือรสหวาน มีสรรพคุณชอบกับยา ให้เจริญรสธาตุ" },
+    { q: "\"ติตติกะ\" คือรสขม มีสรรพคุณตามคัมภีร์วรโยคสารอย่างไร", choices: ["เจริญไฟธาตุ เจริญรสอาหาร แก้ร้อน", "เจริญไฟธาตุ เผาโทษ เผาเขฬะ", "ให้เจริญรสธาตุ ชอบกับยา", "สมานบาดแผล คุมธาตุ"], a: 0, e: "ติตติกะ (รสขม) มีสรรพคุณเจริญไฟธาตุ เจริญรสอาหาร แก้ร้อน" },
+    { q: "คัมภีร์ธาตุวิวรณ์ กล่าวถึงสิ่งใด", choices: ["ตำแหน่งที่กลไกการออกฤทธิ์ของรสยาทำงาน (เว้นรสเมาเบื่อ)", "ผลแห่งสรรพคุณโอสถสาร", "รสยาแก้ตามฤดู", "ชนิดของเภสัชวัตถุ"], a: 0, e: "คัมภีร์ธาตุวิวรณ์ บอกตำแหน่งที่กลไกการออกฤทธิ์ของทุกรส (ยกเว้นรสเมาเบื่อ) ทำงาน" },
+    { q: "ตามคัมภีร์ธาตุวิวรณ์ รสฝาดย่อมซาบไปที่ใด", choices: ["มังสา (เนื้อ)", "นหารู (เส้นเอ็น)", "อันตะคุณัง (ลำไส้น้อย)", "อัฏฐิ (กระดูก)"], a: 0, e: "คัมภีร์ธาตุวิวรณ์ระบุว่า รสฝาดย่อมซาบมังสา (เนื้อ)" },
+    { q: "ตามคัมภีร์ธาตุวิวรณ์ รสเค็มย่อมซาบไปที่ใด", choices: ["นหารู (เส้นเอ็น)", "มังสา (เนื้อ)", "อัฏฐิ (กระดูก)", "อันตะคุณัง (ลำไส้น้อย)"], a: 0, e: "คัมภีร์ธาตุวิวรณ์ระบุว่า รสเค็มย่อมซาบนหารู (เส้นเอ็น)" },
+    { q: "ตามคัมภีร์ธาตุวิวรณ์ รสเปรี้ยวย่อมซาบไปที่ใด", choices: ["อันตะคุณัง (ลำไส้น้อย)", "มังสา (เนื้อ)", "นหารู (เส้นเอ็น)", "อัฏฐิ (กระดูก)"], a: 0, e: "คัมภีร์ธาตุวิวรณ์ระบุว่า รสเปรี้ยวย่อมซาบอันตะคุณัง (ลำไส้น้อย)" },
+    { q: "รสเผ็ดและรสร้อน ตามคัมภีร์ธาตุวิวรณ์ ย่อมซาบไปที่ใด", choices: ["อัฏฐิ (กระดูก)", "มังสา (เนื้อ)", "นหารู (เส้นเอ็น)", "เขฬะ (น้ำลาย)"], a: 0, e: "คัมภีร์ธาตุวิวรณ์ระบุว่า รสเผ็ดและรสร้อนย่อมซาบอัฏฐิ (กระดูก)" },
+    { q: "คัมภีร์ฉันทศาสตร์ กล่าวถึงสิ่งใด", choices: ["ผลแห่งสรรพคุณโอสถสารผ่านกลไกการออกฤทธิ์", "ช่องทางการสำแดงฤทธิ์", "ตำแหน่งที่รสยาออกฤทธิ์", "รสยาแก้ตามวัย"], a: 0, e: "คัมภีร์ฉันทศาสตร์ บอกผลแห่งสรรพคุณโอสถสารผ่านกลไกการออกฤทธิ์" },
+    { q: "ตามคัมภีร์ฉันทศาสตร์ รสฝาดมีสรรพคุณอย่างไร", choices: ["สมานบาดแผล แก้บิด ปิดธาตุ คุมธาตุ", "แก้ลม กระจายลม บำรุงธาตุ", "แก้เส้นเอ็นพิการ บำรุงเส้นเอ็น", "บำรุงหัวใจ บำรุงครรภ์"], a: 0, e: "คัมภีร์ฉันทศาสตร์ระบุว่า รสฝาดสมานบาดแผล แก้บิด ปิดธาตุ คุมธาตุ" },
+    { q: "ตามคัมภีร์ฉันทศาสตร์ รสเผ็ดร้อนมีสรรพคุณอย่างไร", choices: ["แก้ลม แก้ลมจุกเสียดแน่นเฟ้อ ขับผายลม บำรุงธาตุ กระจายลม", "สมานบาดแผล คุมธาตุ", "แก้เส้นเอ็นพิการ", "ทำให้ชื่นใจ บำรุงหัวใจ"], a: 0, e: "รสเผ็ดร้อนแก้ลม แก้ลมจุกเสียดแน่นเฟ้อ ขับผายลม บำรุงธาตุ กระจายลม" },
+    { q: "รสมัน ตามคัมภีร์ฉันทศาสตร์ มีสรรพคุณเด่นด้านใด", choices: ["แก้เส้นเอ็น แก้เส้นเอ็นพิการ บำรุงเส้นเอ็น", "แก้ลม ขับผายลม", "สมานบาดแผล", "บำรุงหัวใจ บำรุงครรภ์"], a: 0, e: "รสมันเด่นเรื่องแก้เส้นเอ็น แก้เส้นเอ็นพิการ และบำรุงเส้นเอ็น" },
+    { q: "รสหอมเย็น ตามคัมภีร์ฉันทศาสตร์ มีสรรพคุณเด่นด้านใด", choices: ["ทำให้ชื่นใจ บำรุงหัวใจ บำรุงครรภ์", "แก้บิด ปิดธาตุ", "บำรุงเส้นเอ็น", "ขับผายลม กระจายลม"], a: 0, e: "รสหอมเย็นทำให้ชื่นใจ บำรุงหัวใจ และบำรุงครรภ์" },
+    { q: "ปฐมวัย (วัยเด็ก) ตามรสยาแก้ตามธาตุสมุฏฐาน มีช่วงอายุใด", choices: ["แรกเกิด - 16 ปี", "16 - 32 ปี", "32 - 48 ปี", "มากกว่า 48 ปี"], a: 0, e: "ปฐมวัย (วัยเด็ก) คือช่วงแรกเกิดถึงอายุ 16 ปี" },
+    { q: "ในวัยเด็ก (ปฐมวัย) เป็นโรคเพื่อสมุฏฐานใด ควรใช้ยารสใด", choices: ["เสมหะสมุฏฐานอาโป ควรใช้ยารสขม รสหวาน และรสเปรี้ยว", "ปิตตะสมุฏฐาน ควรใช้ยารสเย็น", "วาตะสมุฏฐาน ควรใช้ยารสร้อน", "ควรใช้ยารสเค็มเพียงอย่างเดียว"], a: 0, e: "วัยเด็กเป็นโรคเพื่อเสมหะสมุฏฐานอาโป ควรใช้ยารสขม รสหวาน และรสเปรี้ยว" },
+    { q: "มัชฌิมวัย (วัยกลาง หรือวัยหนุ่มสาว) มีช่วงอายุใด", choices: ["16 - 32 ปี", "แรกเกิด - 16 ปี", "32 - 60 ปี", "มากกว่า 60 ปี"], a: 0, e: "มัชฌิมวัย (วัยกลางหรือวัยหนุ่มสาว) อยู่ในช่วงอายุ 16-32 ปี" },
+    { q: "คนไข้ที่มีผิวเนื้อขาว โลหิตรสหวาน ควรใช้ยารสใดรักษา", choices: ["รสเผ็ด รสร้อน และรสขม", "รสเค็ม", "รสเปรี้ยว", "รสหวาน"], a: 0, e: "คนไข้ผิวเนื้อขาว โลหิตรสหวาน ให้ใช้ยารสเผ็ด รสร้อน และรสขม" },
+    { q: "คนไข้ผิวเนื้อขาวเหลือง โลหิตรสเปรี้ยว ควรใช้ยารสใด", choices: ["รสเค็ม (ใส่เกลือเจือให้มาก)", "รสขม", "รสหวาน", "รสฝาด"], a: 0, e: "คนไข้ผิวเนื้อขาวเหลือง โลหิตรสเปรี้ยว ให้ใช้ยารสเค็ม โดยใส่เกลือเจือให้มาก" },
+    { q: "คิมหันตฤดู เกิดโรคเพื่อธาตุใด และควรใช้ยารสใด", choices: ["เตโชธาตุ สมุฏฐานปิตตะ ควรใช้ยารสเย็น", "วาโยธาตุ สมุฏฐานวาตะ ควรใช้ยารสร้อน", "อาโปธาตุ ควรใช้ยารสหวาน", "ปถวีธาตุ ควรใช้ยารสมัน"], a: 0, e: "คิมหันตฤดูเกิดโรคเพื่อเตโชธาตุ สมุฏฐานปิตตะ ควรใช้ยารสเย็น" },
+    { q: "วสันตฤดู เกิดโรคเพื่อธาตุใด", choices: ["วาโยธาตุ สมุฏฐานวาตะ", "เตโชธาตุ สมุฏฐานปิตตะ", "อาโปธาตุ สมุฏฐานเสมหะ", "ปถวีธาตุ"], a: 0, e: "วสันตฤดูเกิดโรคเพื่อวาโยธาตุ สมุฏฐานวาตะ" },
+    { q: "\"รสยาแก้ตามกาล\" จัดขึ้นเพื่อจุดประสงค์ใด", choices: ["ให้ผู้ป่วยได้รับประทานยาให้ทันกาล หรือตรงกับสมุฏฐานของโรค", "กำหนดราคายาตามช่วงเวลา", "กำหนดชื่อยาให้จำง่าย", "กำหนดสีของยาให้สวยงาม"], a: 0, e: "รสยาแก้ตามกาล จัดไว้เพื่อให้ผู้ป่วยได้รับประทานยาให้ทันกาล หรือตรงกับสมุฏฐานของโรค" },
+    { q: "รสยา 9 รส ตามกลไกการออกฤทธิ์ พิจารณาผลต่อสิ่งใดบ้าง", choices: ["เสมหะ ปิตตะ วาตะ", "เลือด ลม ไฟ", "ดิน น้ำ ลม ไฟ", "หัวใจ ตับ ไต"], a: 0, e: "ตารางรสยา 9 รส พิจารณาผลของแต่ละรสต่อเสมหะ ปิตตะ และวาตะ" },
+    { q: "รสฝาด มีผลต่อเสมหะอย่างไรตามตารางรสยา 9 รส", choices: ["ทำให้เสมหะงวด", "ทำให้เสมหะเฟื่องใส", "ทำให้เสมหะแห้ง", "ไม่มีผลต่อเสมหะ"], a: 0, e: "ตามตาราง รสฝาดทำให้เสมหะงวด" },
+    { q: "รสเค็ม มีผลต่อวาตะอย่างไรตามตารางรสยา 9 รส", choices: ["วาตะกำลังแรงมากขึ้น", "วาตะทำงานได้ช้าลง", "วาตะวิ่งซ่าลง", "ไม่มีผลต่อวาตะ"], a: 0, e: "ตามตาราง รสเค็มทำให้วาตะกำลังแรงมากขึ้น" },
+    { q: "รสเมาเบื่อ มีสรรพคุณเด่นตามเอกสารอย่างไร", choices: ["กระทุ้งพิษ (เสมหะ วาตะ ปิตตะ)", "บำรุงหัวใจ", "สมานบาดแผล", "แก้ลม"], a: 0, e: "รสเมาเบื่อมีฤทธิ์กระทุ้งพิษ ในเสมหะ วาตะ และปิตตะ" },
+    { q: "รสเครื่องยาแบ่งตามคุณสมบัติร้อน-เย็น ข้อใดจัดอยู่ในกลุ่ม \"ร้อน\"", choices: ["ฝาด หวาน มัน เค็ม ร้อน", "ขม เปรี้ยว หอมเย็น", "ฝาด ขม เปรี้ยว", "หวาน หอมเย็น มัน"], a: 0, e: "กลุ่มรสร้อนได้แก่ ฝาด หวาน มัน เค็ม ร้อน ส่วนกลุ่มเย็นคือ ขม เปรี้ยว หอมเย็น" },
+    { q: "รสใดต่อไปนี้จัดอยู่ในกลุ่ม \"เย็น\"", choices: ["ขม เปรี้ยว หอมเย็น", "ฝาด หวาน มัน", "เค็ม ร้อน", "ฝาด ขม เค็ม"], a: 0, e: "กลุ่มรสเย็นได้แก่ ขม เปรี้ยว หอมเย็น" },
+    { q: "การเลือกเครื่องยาตามความแรงโอสถสาร เรียงลำดับอย่างไร", choices: ["เรียงตามแรงโอสถมากไปหาแรงโอสถน้อย", "เรียงตามราคาแพงไปถูก", "เรียงตามสีเข้มไปสีอ่อน", "ไม่มีการเรียงลำดับ"], a: 0, e: "การเลือกเครื่องยาตามความแรงโอสถสาร เรียงจากแรงโอสถมากไปหาแรงโอสถน้อย" },
+    { q: "เครื่องยาส่วนใดมีฤทธิ์แรงมากที่สุด และใช้ในปริมาณน้อย", choices: ["แก่น เปลือก เนื้อไม้ ราก", "ใบ ดอก ผล", "ต้น กระพี้", "เมล็ด"], a: 0, e: "ส่วนแก่น เปลือก เนื้อไม้ ราก มีฤทธิ์แรงมาก จึงใช้ในปริมาณน้อย" },
+    { q: "เครื่องยาส่วนใดมีฤทธิ์อ่อนที่สุด และใช้ในปริมาณมาก", choices: ["ใบ ดอก ผล", "แก่น เปลือก ราก", "ต้น กระพี้", "เนื้อไม้"], a: 0, e: "ส่วนใบ ดอก ผล มีฤทธิ์แรงน้อย จึงใช้ในปริมาณมาก" },
+    { q: "\"ตัวยาตรง\" หมายถึงอะไร", choices: ["เครื่องยาที่มีสรรพคุณบำบัดโรคและไข้โดยตรง", "เครื่องยาที่ช่วยเสริมฤทธิ์ยาอื่น", "เครื่องยาที่ใช้แต่งกลิ่นเท่านั้น", "เครื่องยาที่ใช้แต่งสีเท่านั้น"], a: 0, e: "ตัวยาตรง คือเครื่องยาที่มีสรรพคุณบำบัดโรคและไข้โดยตรง" },
+    { q: "ข้อควรปฏิบัติในการปรุงยา ต้องพิจารณาสิ่งใดบ้าง", choices: ["เครื่องยา สรรพคุณยา น้ำหนักและปริมาณยา", "เฉพาะราคายาเท่านั้น", "เฉพาะสีของยาเท่านั้น", "เฉพาะรสชาติเท่านั้น"], a: 0, e: "ข้อควรปฏิบัติคือ พิจารณาเครื่องยา สรรพคุณยา และน้ำหนัก/ปริมาณยา" },
+    { q: "ยาต้ม ควรปฏิบัติอย่างไรตามเอกสาร", choices: ["ควรต้มกินในแต่ละวัน ไม่ควรเก็บค้างคืน ถ้าเก็บต้องอุ่นทุกวัน", "เก็บไว้ได้นาน 1 ปีโดยไม่ต้องอุ่น", "ต้มครั้งเดียวกินได้ตลอดไป", "ไม่ต้องต้ม กินสดได้เลย"], a: 0, e: "ยาต้มควรต้มกินในแต่ละวัน ไม่ควรเก็บค้างคืน หากเก็บค้างคืนต้องอุ่นทุกวัน" },
+    { q: "ยาชง เหมาะกับสมุนไพรลักษณะใด", choices: ["สมุนไพรที่มีสารออกฤทธิ์ละลายน้ำได้ดี", "สมุนไพรที่มีสารออกฤทธิ์ละลายในแอลกอฮอล์ได้ดี", "สมุนไพรที่เป็นพิษเท่านั้น", "สมุนไพรที่มีรสขมจัดเท่านั้น"], a: 0, e: "ยาชงเหมาะสำหรับสมุนไพรที่มีสารออกฤทธิ์ละลายน้ำได้ดี" },
+    { q: "ยาดองเหล้า ใช้กับสมุนไพรลักษณะใด", choices: ["สมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี", "สมุนไพรที่ละลายน้ำได้ดีเท่านั้น", "สมุนไพรสดทุกชนิดไม่จำกัด", "สมุนไพรที่มีกลิ่นหอมเท่านั้น"], a: 0, e: "ยาดองเหล้าใช้กับสมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี โดยใช้เหล้าเป็นตัวทำละลาย" },
+    { q: "เหตุใดยาที่ครบกำหนดอายุแล้วจึงไม่ควรนำไปใช้", choices: ["การรักษาไม่ได้ผล และยาบางชนิดอาจแปรสภาพเป็นสารมีพิษเป็นอันตราย", "เพราะสีของยาจะเปลี่ยนไปเท่านั้น", "เพราะยาจะมีราคาแพงขึ้น", "ไม่มีเหตุผลพิเศษ"], a: 0, e: "ยาที่ครบอายุแล้วรักษาไม่ได้ผล และบางชนิดอาจแปรสภาพเป็นสารพิษเป็นอันตรายต่อผู้ใช้" },
+    { q: "ยาผงหรือยาลูกกลอนจากใบไม้ล้วน กำหนดอายุที่ให้สรรพคุณทางยาสูงคือช่วงใด", choices: ["ภายใน 6-8 เดือน", "ภายใน 1-2 เดือน", "ภายใน 2 ปี", "ภายใน 1 สัปดาห์"], a: 0, e: "ยาผงจากใบไม้ล้วน ให้สรรพคุณทางยาสูงภายใน 6-8 เดือน" },
+    { q: "อายุที่หมดคุณภาพของยาผงจากใบไม้ล้วน คือเมื่อใด", choices: ["หลังจาก 1 ปี", "หลังจาก 1 เดือน", "หลังจาก 5 ปี", "ไม่มีวันหมดอายุ"], a: 0, e: "ยาผงจากใบไม้ล้วน หมดคุณภาพหลังจาก 1 ปี" }
+  ];
+
+  const FLASHCARDS = [
+    { term: "เภสัชวัตถุ", def: "วัตถุที่ใช้ปรุงยา แบ่งเป็น 3 ประเภท คือ พืชวัตถุ สัตว์วัตถุ และธาตุวัตถุ" },
+    { term: "รสยา", def: "สิ่งที่แสดงถึงสรรพคุณของตัวยาที่ใช้รักษาโรค ตามทฤษฎีการแพทย์แผนไทย" },
+    { term: "ยารสร้อน", def: "ตำรับยาที่ใช้แก้โรคทางวาโย (ลม)" },
+    { term: "ยารสเย็น", def: "ตำรับยาที่ปรุงด้วยเครื่องยารสไม่ร้อน เช่น ใบไม้ เกสรดอกไม้ ใช้แก้โรคทางเตโชธาตุ" },
+    { term: "คัมภีร์ธาตุวิภังค์", def: "บอกช่องทางการสำแดงฤทธิ์ของรสยา" },
+    { term: "คัมภีร์วรโยคสาร", def: "บอกลักษณะแห่งการออกฤทธิ์ของรสยา" },
+    { term: "คัมภีร์ธาตุวิวรณ์", def: "บอกตำแหน่งที่กลไกการออกฤทธิ์ทำงาน (ทุกรส เว้นรสเมาเบื่อ)" },
+    { term: "คัมภีร์ฉันทศาสตร์", def: "บอกผลแห่งสรรพคุณโอสถสาร ผ่านกลไกการออกฤทธิ์" },
+    { term: "กาสาวะ", def: "รสฝาด — สรรพคุณเจริญไฟธาตุ เจริญผิวกายและเนื้อ" },
+    { term: "ลวณะ", def: "รสเค็ม — สรรพคุณเจริญไฟธาตุ เผาโทษ เผาเขฬะ (น้ำลาย)" },
+    { term: "มธุระ", def: "รสหวาน — สรรพคุณชอบกับยา ให้เจริญรสธาตุ" },
+    { term: "ติตติกะ", def: "รสขม — สรรพคุณเจริญไฟธาตุ เจริญรสอาหาร แก้ร้อน" },
+    { term: "รสฝาด (ธาตุวิวรณ์)", def: "ย่อมซาบไปที่มังสา (เนื้อ)" },
+    { term: "รสเค็ม (ธาตุวิวรณ์)", def: "ย่อมซาบไปที่นหารู (เส้นเอ็น)" },
+    { term: "รสเปรี้ยว (ธาตุวิวรณ์)", def: "ย่อมซาบไปที่อันตะคุณัง (ลำไส้น้อย)" },
+    { term: "รสเผ็ดและรสร้อน (ธาตุวิวรณ์)", def: "ย่อมซาบไปที่อัฏฐิ (กระดูก)" },
+    { term: "รสฝาด (ฉันทศาสตร์)", def: "สมานบาดแผล แก้บิด ปิดธาตุ คุมธาตุ" },
+    { term: "รสหวาน (ฉันทศาสตร์)", def: "ซึมซาบไปตามเนื้อ ทำให้เนื้อชุ่มชื่น บำรุงกำลัง" },
+    { term: "รสเผ็ดร้อน (ฉันทศาสตร์)", def: "แก้ลม แก้จุกเสียดแน่นเฟ้อ ขับผายลม บำรุงธาตุ กระจายลม" },
+    { term: "รสมัน (ฉันทศาสตร์)", def: "แก้เส้นเอ็น แก้เส้นเอ็นพิการ บำรุงเส้นเอ็น" },
+    { term: "รสหอมเย็น (ฉันทศาสตร์)", def: "ทำให้ชื่นใจ บำรุงหัวใจ บำรุงครรภ์" },
+    { term: "ปฐมวัย", def: "แรกเกิด - 16 ปี เป็นโรคเพื่อเสมหะสมุฏฐานอาโป ควรใช้ยารสขม รสหวาน รสเปรี้ยว" },
+    { term: "มัชฌิมวัย", def: "อายุ 16 - 32 ปี (วัยกลาง/วัยหนุ่มสาว) เป็นโรคเพื่อโลหิตและดี" },
+    { term: "คิมหันตฤดู", def: "เกิดโรคเพื่อเตโชธาตุ สมุฏฐานปิตตะ ควรใช้ยารสเย็น" },
+    { term: "วสันตฤดู", def: "เกิดโรคเพื่อวาโยธาตุ สมุฏฐานวาตะ ควรใช้ยารสร้อน" },
+    { term: "ตัวยาตรง", def: "เครื่องยาที่มีสรรพคุณบำบัดโรคและไข้โดยตรง" },
+    { term: "ยาต้ม", def: "ควรต้มกินในแต่ละวัน ไม่ควรเก็บค้างคืน ถ้าเก็บค้างคืนต้องอุ่นทุกวัน" },
+    { term: "ยาชง", def: "เหมาะสำหรับสมุนไพรที่มีสารออกฤทธิ์ละลายน้ำได้ดี" },
+    { term: "ยาดองเหล้า", def: "เหมาะสำหรับสมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี ใช้เหล้าเป็นตัวทำละลาย" },
+    { term: "รสเมาเบื่อ", def: "มีฤทธิ์กระทุ้งพิษ ในเสมหะ วาตะ และปิตตะ" }
+  ];
+
+  const ESSAY_BANK = [
+    { q: "อธิบายความหมายของ \"รสยา\" ตามทฤษฎีการแพทย์แผนไทย", a: "รสยา คือสิ่งที่แสดงถึงสรรพคุณของตัวยาที่ใช้รักษาโรค ตามทฤษฎีการแพทย์แผนไทย เป็นตัวบ่งบอกฤทธิ์และแนวทางการนำไปใช้รักษาโรคแต่ละชนิด" },
+    { q: "หลักการรู้จักยาสำหรับบำบัดโรคมี 4 ข้อ อะไรบ้าง จงอธิบายโดยย่อ", a: "1) ต้องรู้จักตัวยา (เภสัชวัตถุ) 2) ต้องรู้จักสรรพคุณและรสของยา 3) พิกัดยา (คณาเภสัช) 4) การปรุงยา (หลักเภสัชกรรม)" },
+    { q: "เภสัชวัตถุแบ่งออกเป็นกี่ประเภท อะไรบ้าง", a: "แบ่งออกเป็น 3 ประเภท คือ พืชวัตถุ สัตว์วัตถุ และธาตุวัตถุ" },
+    { q: "จงอธิบายความแตกต่างระหว่างยารสร้อนและยารสเย็น", a: "ยารสร้อนใช้แก้โรคทางวาโย (ลม) ส่วนยารสเย็นปรุงจากเครื่องยาที่มีรสไม่ร้อน เช่น ใบไม้ เกสรดอกไม้ สัตตะเขา หรือเครื่องยาที่สุมไฟเผาเป็นถ่าน ใช้สำหรับแก้โรคในทางเตโชธาตุ" },
+    { q: "คัมภีร์ที่เกี่ยวกับรสยามีกี่คัมภีร์ อะไรบ้าง แต่ละคัมภีร์กล่าวถึงเรื่องใด", a: "มี 4 คัมภีร์ ได้แก่ คัมภีร์ธาตุวิภังค์ (บอกช่องทางการสำแดงฤทธิ์) คัมภีร์วรโยคสาร (บอกลักษณะแห่งการออกฤทธิ์) คัมภีร์ธาตุวิวรณ์ (บอกตำแหน่งที่กลไกการออกฤทธิ์ทำงาน) และคัมภีร์ฉันทศาสตร์ (บอกผลแห่งสรรพคุณโอสถสารผ่านกลไกการออกฤทธิ์)" },
+    { q: "จงอธิบายสรรพคุณของรสฝาดตามคัมภีร์ฉันทศาสตร์", a: "รสฝาดมีสรรพคุณสมานบาดแผล แก้บิด ปิดธาตุ และคุมธาตุ" },
+    { q: "ตามคัมภีร์ธาตุวิวรณ์ รสยาแต่ละรสซาบไปที่ส่วนใดของร่างกาย จงยกตัวอย่างอย่างน้อย 3 รส", a: "รสฝาดซาบมังสา (เนื้อ) รสเค็มซาบนหารู (เส้นเอ็น) รสเปรี้ยวซาบอันตะคุณัง (ลำไส้น้อย) ส่วนรสเผ็ดและรสร้อนซาบอัฏฐิ (กระดูก)" },
+    { q: "จงอธิบายรสยาแก้ตามธาตุสมุฏฐาน (ตามวัย) ของปฐมวัยและมัชฌิมวัย", a: "ปฐมวัย (แรกเกิด - 16 ปี) เป็นโรคเพื่อเสมหะสมุฏฐานอาโป ควรใช้ยารสขม รสหวาน และรสเปรี้ยว ส่วนมัชฌิมวัย (16 - 32 ปี) เป็นโรคเพื่อโลหิตและดี" },
+    { q: "การใช้ยารักษาโรคตามโลหิตฉวี มีหลักการอย่างไร จงยกตัวอย่างประกอบ", a: "พิจารณาจากสีผิวและรสของโลหิตผู้ป่วย เช่น คนไข้ผิวเนื้อขาว โลหิตรสหวาน ให้ใช้ยารสเผ็ด รสร้อน และรสขม ส่วนคนไข้ผิวเนื้อขาวเหลือง โลหิตรสเปรี้ยว ให้ใช้ยารสเค็ม โดยใส่เกลือเจือให้มาก" },
+    { q: "จงอธิบายรสยาแก้ตามฤดู ของคิมหันตฤดูและวสันตฤดู", a: "คิมหันตฤดูเกิดโรคเพื่อเตโชธาตุ สมุฏฐานปิตตะ ควรใช้ยารสเย็น ส่วนวสันตฤดูเกิดโรคเพื่อวาโยธาตุ สมุฏฐานวาตะ ควรใช้ยารสร้อน" },
+    { q: "\"ตัวยาตรง\" และ \"ตัวยาช่วย\" ต่างกันอย่างไร", a: "ตัวยาตรง คือเครื่องยาที่มีสรรพคุณบำบัดโรคและไข้โดยตรง ส่วนตัวยาช่วย คือเครื่องยาที่ช่วยเสริมฤทธิ์หรือสนับสนุนการทำงานของตัวยาตรงในตำรับ" },
+    { q: "ข้อควรปฏิบัติในการปรุงยามีอะไรบ้าง", a: "ต้องพิจารณาเครื่องยา พิจารณาสรรพคุณยา และพิจารณาน้ำหนักและปริมาณยาและเครื่องยา" },
+    { q: "จงอธิบายรูปแบบการปรุงยา 3 แบบ ได้แก่ ยาต้ม ยาชง และยาดองเหล้า", a: "ยาต้มควรต้มกินในแต่ละวัน ไม่ควรเก็บค้างคืน ถ้าเก็บค้างคืนต้องอุ่นทุกวัน ยาชงเหมาะสำหรับสมุนไพรที่มีสารออกฤทธิ์ละลายน้ำได้ดี ส่วนยาดองเหล้าเหมาะสำหรับสมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี โดยใช้เหล้าเป็นตัวทำละลาย" },
+    { q: "เพราะเหตุใดยาที่ครบกำหนดอายุแล้วจึงไม่ควรนำไปใช้รักษาโรค", a: "เพราะการรักษาจะไม่ได้ผล และยาบางชนิดอาจแปรสภาพกลายเป็นสารมีพิษ ซึ่งเป็นอันตรายต่อผู้ใช้" },
+    { q: "จงเรียงลำดับส่วนของเครื่องยาตามความแรงของฤทธิ์ จากมากไปน้อย พร้อมอธิบาย", a: "เรียงจากฤทธิ์แรงมากไปน้อยคือ แก่น เปลือก เนื้อไม้ ราก (ฤทธิ์แรงมาก ใช้ปริมาณน้อย) รองลงมาคือ ต้น กระพี้ (ฤทธิ์ปานกลาง) และท้ายสุดคือ ใบ ดอก ผล (ฤทธิ์แรงน้อย ใช้ปริมาณมาก)" },
+    { q: "จงอธิบายความหมายของ \"กาสาวะ\" \"ลวณะ\" \"มธุระ\" และ \"ติตติกะ\" ตามคัมภีร์วรโยคสาร", a: "กาสาวะ คือรสฝาด (เจริญไฟธาตุ เจริญผิวกายและเนื้อ) ลวณะ คือรสเค็ม (เจริญไฟธาตุ เผาโทษ เผาเขฬะ) มธุระ คือรสหวาน (ชอบกับยา ให้เจริญรสธาตุ) และติตติกะ คือรสขม (เจริญไฟธาตุ เจริญรสอาหาร แก้ร้อน)" }
+  ];
+
+  const ESSAY_ROUND_SIZE = 5;
+  const ROUND_SIZE = 10;
+
+  // ---------------- Utilities ----------------
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // ---------------- Tabs ----------------
+  function switchTab(name) {
+    document.getElementById('panel-quiz').classList.toggle('active', name === 'quiz');
+    document.getElementById('panel-essay').classList.toggle('active', name === 'essay');
+    document.getElementById('panel-fc').classList.toggle('active', name === 'fc');
+    document.getElementById('tab-quiz').classList.toggle('active', name === 'quiz');
+    document.getElementById('tab-essay').classList.toggle('active', name === 'essay');
+    document.getElementById('tab-fc').classList.toggle('active', name === 'fc');
+  }
+
+  // ---------------- Quiz state ----------------
+  let round = [];
+  let qIndex = 0;
+  let score = 0;
+  let answered = false;
+
+  function startQuiz() {
+    round = shuffle(QUESTION_BANK).slice(0, ROUND_SIZE).map(item => {
+      const order = shuffle(item.choices.map((c, i) => i));
+      return {
+        q: item.q,
+        choices: order.map(i => item.choices[i]),
+        correct: order.indexOf(item.a),
+        explain: item.e || ""
+      };
+    });
+    qIndex = 0;
+    score = 0;
+    answered = false;
+    document.getElementById('quiz-result').style.display = 'none';
+    document.getElementById('quiz-active').style.display = 'block';
+    document.getElementById('q-total').textContent = round.length;
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const item = round[qIndex];
+    document.getElementById('q-index').textContent = qIndex + 1;
+    document.getElementById('q-score').textContent = score;
+    document.getElementById('progress-fill').style.width = ((qIndex) / round.length * 100) + '%';
+    document.getElementById('question-text').textContent = item.q;
+
+    const letters = ['ก', 'ข', 'ค', 'ง'];
+    const box = document.getElementById('choices');
+    box.innerHTML = '';
+    item.choices.forEach((choice, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'choice';
+      btn.innerHTML = '<span>' + choice + '</span><span class="letter">' + letters[i] + '</span>';
+      btn.onclick = () => selectAnswer(i);
+      box.appendChild(btn);
+    });
+
+    answered = false;
+    document.getElementById('next-btn').disabled = true;
+    document.getElementById('next-btn').textContent = (qIndex === round.length - 1) ? 'ดูผลคะแนน' : 'ข้อถัดไป';
+
+    const explainBox = document.getElementById('explain-box');
+    explainBox.style.display = 'none';
+    explainBox.classList.remove('is-correct', 'is-wrong');
+  }
+
+  function selectAnswer(i) {
+    if (answered) return;
+    answered = true;
+    const item = round[qIndex];
+    const buttons = document.querySelectorAll('#choices .choice');
+    buttons.forEach((btn, idx) => {
+      btn.disabled = true;
+      if (idx === item.correct) btn.classList.add('correct');
+      else if (idx === i) btn.classList.add('wrong');
+    });
+
+    const isCorrect = i === item.correct;
+    if (isCorrect) score++;
+    document.getElementById('q-score').textContent = score;
+    document.getElementById('next-btn').disabled = false;
+
+    const letters = ['ก', 'ข', 'ค', 'ง'];
+    const explainBox = document.getElementById('explain-box');
+    const verdictEl = document.getElementById('explain-verdict');
+    const textEl = document.getElementById('explain-text');
+    explainBox.classList.toggle('is-correct', isCorrect);
+    explainBox.classList.toggle('is-wrong', !isCorrect);
+    verdictEl.textContent = isCorrect
+      ? 'ถูกต้อง!'
+      : 'ไม่ถูกต้อง — คำตอบที่ถูกคือ ' + letters[item.correct] + '. ' + item.choices[item.correct];
+    textEl.textContent = item.explain;
+    explainBox.style.display = 'block';
+  }
+
+  function nextQuestion() {
+    if (!answered) return;
+    if (qIndex === round.length - 1) {
+      showResult();
+      return;
+    }
+    qIndex++;
+    renderQuestion();
+  }
+
+  function showResult() {
+    document.getElementById('progress-fill').style.width = '100%';
+    document.getElementById('quiz-active').style.display = 'none';
+    document.getElementById('quiz-result').style.display = 'block';
+    document.getElementById('final-score').textContent = score;
+    document.getElementById('final-total').textContent = round.length;
+    const pct = score / round.length;
+    let verdict;
+    if (pct === 1) verdict = "ยอดเยี่ยม! ตอบถูกครบทุกข้อ เชี่ยวชาญเรื่องรสยาแล้ว";
+    else if (pct >= 0.8) verdict = "เก่งมาก ใกล้เต็มแล้ว ลองอีกรอบเพื่อความแม่นยำ";
+    else if (pct >= 0.5) verdict = "พื้นฐานดี ลองทบทวนบัตรคำแล้วมาทดสอบใหม่";
+    else verdict = "ยังไม่แม่นนัก แนะนำให้ไปทบทวนบัตรคำก่อนสุ่มข้อสอบชุดใหม่";
+    document.getElementById('verdict-text').textContent = verdict;
+  }
+
+  // ---------------- Essay state ----------------
+  function startEssay() {
+    const picks = shuffle(ESSAY_BANK).slice(0, ESSAY_ROUND_SIZE);
+    const list = document.getElementById('essay-list');
+    list.innerHTML = '';
+    picks.forEach((item, idx) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'essay-item';
+
+      const qEl = document.createElement('p');
+      qEl.className = 'essay-q';
+      qEl.innerHTML = '<span class="essay-number">' + (idx + 1) + '</span><span>' + item.q + '</span>';
+
+      const textarea = document.createElement('textarea');
+      textarea.placeholder = 'เขียนคำตอบของคุณที่นี่…';
+
+      const actions = document.createElement('div');
+      actions.className = 'essay-actions';
+      const revealBtn = document.createElement('button');
+      revealBtn.className = 'btn btn-ghost';
+      revealBtn.style.padding = '8px 16px';
+      revealBtn.style.fontSize = '13.5px';
+      revealBtn.textContent = 'ดูเฉลย';
+
+      const answerBox = document.createElement('div');
+      answerBox.className = 'essay-answer';
+      answerBox.innerHTML = '<p class="tag">แนวคำตอบ</p><p>' + item.a + '</p>';
+
+      revealBtn.onclick = () => {
+        const shown = answerBox.classList.toggle('shown');
+        revealBtn.textContent = shown ? 'ซ่อนเฉลย' : 'ดูเฉลย';
+      };
+
+      actions.appendChild(revealBtn);
+      wrap.appendChild(qEl);
+      wrap.appendChild(textarea);
+      wrap.appendChild(actions);
+      wrap.appendChild(answerBox);
+      list.appendChild(wrap);
+    });
+  }
+
+  // ---------------- Flashcard state ----------------
+  let deck = [];
+  let cardIndex = 0;
+
+  function shuffleDeck() {
+    deck = shuffle(FLASHCARDS);
+    cardIndex = 0;
+    document.getElementById('fc-total').textContent = deck.length;
+    renderCard();
+  }
+
+  function renderCard() {
+    const card = deck[cardIndex];
+    document.getElementById('fc-card').classList.remove('flipped');
+    document.getElementById('fc-index').textContent = cardIndex + 1;
+    document.getElementById('fc-term').textContent = card.term;
+    document.getElementById('fc-def').textContent = card.def;
+  }
+
+  function flipCard() {
+    document.getElementById('fc-card').classList.toggle('flipped');
+  }
+
+  function nextCard() {
+    cardIndex = (cardIndex + 1) % deck.length;
+    renderCard();
+  }
+
+  function prevCard() {
+    cardIndex = (cardIndex - 1 + deck.length) % deck.length;
+    renderCard();
+  }
+
+  // ---------------- Init ----------------
+  startQuiz();
+  startEssay();
+  shuffleDeck();
+</script>
