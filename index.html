@@ -1,4 +1,4 @@
-<title>รสยาแผนไทย</title>
+<title>เวชกรรม &amp; กายวิภาค</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Chonburi&family=Sarabun:wght@400;500;600;700&display=swap');
 
@@ -15,6 +15,16 @@
     --accent-soft: #f6e2bf;
     --bad: #93392f;
     --bad-soft: #f3ded9;
+    --thai-primary: #3f5d42;
+    --thai-primary-soft: #e6ecdf;
+    --thai-primary-contrast: #ffffff;
+    --thai-accent: #c1791f;
+    --thai-accent-soft: #f6e2bf;
+    --anat-primary: #1f6f6b;
+    --anat-primary-soft: #ddecea;
+    --anat-primary-contrast: #ffffff;
+    --anat-accent: #bf5443;
+    --anat-accent-soft: #f8e0d9;
     --border: #ddcfa9;
     --shadow: 0 10px 30px -12px rgba(43, 33, 18, 0.28);
   }
@@ -33,7 +43,17 @@
       --accent-soft: #3a2f1a;
       --bad: #e08b7d;
       --bad-soft: #3a231f;
-      --border: #3c352590;
+      --thai-primary: #8bb083;
+    --thai-primary-soft: #2b3527;
+    --thai-primary-contrast: #14200f;
+    --thai-accent: #e3a94b;
+    --thai-accent-soft: #3a2f1a;
+    --anat-primary: #6fb8b1;
+    --anat-primary-soft: #1f302e;
+    --anat-primary-contrast: #0e1f1d;
+    --anat-accent: #e78b78;
+    --anat-accent-soft: #3a2420;
+    --border: #3c352590;
       --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
     }
   }
@@ -51,6 +71,16 @@
     --accent-soft: #3a2f1a;
     --bad: #e08b7d;
     --bad-soft: #3a231f;
+    --thai-primary: #8bb083;
+    --thai-primary-soft: #2b3527;
+    --thai-primary-contrast: #14200f;
+    --thai-accent: #e3a94b;
+    --thai-accent-soft: #3a2f1a;
+    --anat-primary: #6fb8b1;
+    --anat-primary-soft: #1f302e;
+    --anat-primary-contrast: #0e1f1d;
+    --anat-accent: #e78b78;
+    --anat-accent-soft: #3a2420;
     --border: #3c352590;
     --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
   }
@@ -590,94 +620,368 @@
     .card { padding: 20px; }
     .choice { font-size: 14.5px; }
   }
-</style>
+  /* ---------- Two-level navigation ---------- */
 
+  .thai-scope {
+    --primary: var(--thai-primary);
+    --primary-soft: var(--thai-primary-soft);
+    --primary-contrast: var(--thai-primary-contrast);
+    --accent: var(--thai-accent);
+    --accent-soft: var(--thai-accent-soft);
+  }
+
+  .anat-scope {
+    --primary: var(--anat-primary);
+    --primary-soft: var(--anat-primary-soft);
+    --primary-contrast: var(--anat-primary-contrast);
+    --accent: var(--anat-accent);
+    --accent-soft: var(--anat-accent-soft);
+  }
+
+  nav.maintabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 26px 0 18px;
+    flex-wrap: wrap;
+  }
+
+  nav.maintabs button {
+    flex: 1 1 220px;
+    max-width: 340px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 15.5px;
+    font-weight: 700;
+    padding: 14px 18px;
+    border-radius: 16px;
+    cursor: pointer;
+    line-height: 1.4;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+  }
+
+  nav.maintabs button .mt-sub {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: 3px;
+  }
+
+  nav.maintabs button:hover:not(.active) {
+    border-color: currentColor;
+    transform: translateY(-1px);
+  }
+
+  #mt-thai { color: var(--thai-primary); }
+  #mt-anat { color: var(--anat-primary); }
+
+  #mt-thai.active {
+    background: var(--thai-primary);
+    color: var(--thai-primary-contrast);
+    border-color: var(--thai-primary);
+  }
+
+  #mt-anat.active {
+    background: var(--anat-primary);
+    color: var(--anat-primary-contrast);
+    border-color: var(--anat-primary);
+  }
+
+  .mainpanel { display: none; }
+  .mainpanel.active { display: block; }
+
+  /* ---------- Disease case mode ---------- */
+
+  .case-scenario {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+
+  .case-label {
+    margin: 0 0 6px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .case-disease {
+    margin: 0 0 8px;
+    font-family: 'Chonburi', serif;
+    font-size: clamp(19px, 4.4vw, 24px);
+    line-height: 1.4;
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  .case-symptom {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  .case-prompt {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 14px;
+  }
+
+  .organ-reveal {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+  }
+
+  .organ-reveal .tag {
+    margin: 0 0 4px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .organ-reveal p.body {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .organ-reveal strong { font-weight: 700; }
+</style>
 <div class="wrap">
   <header class="top">
-    <p class="eyebrow">การแพทย์แผนไทย</p>
-    <h1>รสยาแผนไทย</h1>
-    <p class="sub">ทบทวนตำรับยาตามทฤษฎีการแพทย์แผนไทย ด้วยแบบทดสอบสุ่ม 10 ข้อ ข้อเขียนสุ่ม 5 ข้อ และบัตรคำช่วยจำ — จากเอกสาร "การวิเคราะห์ตำรับยา"</p>
+    <p class="eyebrow">คลังทบทวนการแพทย์แผนไทย</p>
+    <h1>ห้องทบทวนเวชกรรม &amp; กายวิภาค</h1>
+    <p class="sub">แบบทดสอบสุ่ม บัตรคำช่วยจำ และกรณีศึกษาโรค — จากเอกสารตำรับยาไทยและสรุป Anatomy</p>
   </header>
 
-  <nav class="tabs">
-    <button id="tab-quiz" class="active" onclick="switchTab('quiz')">แบบทดสอบ</button>
-    <button id="tab-essay" onclick="switchTab('essay')">ข้อเขียน</button>
-    <button id="tab-fc" onclick="switchTab('fc')">บัตรคำช่วยจำ</button>
+  <nav class="maintabs">
+    <button id="mt-thai" class="active" onclick="switchMain('thai')">รสยาแผนไทย<span class="mt-sub">เวชกรรม</span></button>
+    <button id="mt-anat" onclick="switchMain('anat')">Anatomy<span class="mt-sub">กายวิภาคศาสตร์</span></button>
   </nav>
 
-  <!-- QUIZ PANEL -->
-  <section id="panel-quiz" class="panel active">
-    <div class="card">
-      <div id="quiz-active">
-        <div class="quiz-meta">
-          <span>ข้อที่ <strong id="q-index">1</strong> / <strong id="q-total">10</strong></span>
-          <span>ตอบถูก <strong id="q-score">0</strong> ข้อ</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progress-fill" style="width:10%"></div>
-        </div>
-        <p class="question-text" id="question-text">กำลังโหลดคำถาม…</p>
-        <div class="choices" id="choices"></div>
-        <div class="explain-box" id="explain-box" style="display:none">
-          <p class="explain-verdict" id="explain-verdict"></p>
-          <p class="explain-text" id="explain-text"></p>
-        </div>
-        <div class="quiz-footer">
-          <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>ข้อถัดไป</button>
-        </div>
-      </div>
+  <!-- ============ MAIN PANEL: THAI MEDICINE ============ -->
+  <section id="main-thai" class="mainpanel active thai-scope">
+    <nav class="tabs">
+      <button id="tab-quiz" class="active" onclick="switchTab('quiz')">แบบทดสอบ</button>
+      <button id="tab-essay" onclick="switchTab('essay')">ข้อเขียน</button>
+      <button id="tab-fc" onclick="switchTab('fc')">บัตรคำช่วยจำ</button>
+    </nav>
 
-      <div id="quiz-result" class="result" style="display:none">
-        <p class="eyebrow" style="margin-bottom:0;">สรุปผล</p>
-        <p class="score"><span id="final-score">0</span><small> / <span id="final-total">10</span></small></p>
-        <p class="verdict" id="verdict-text">มาดูกันว่าทำได้ดีแค่ไหน</p>
-        <div class="result-actions">
-          <button class="btn btn-primary" onclick="startQuiz()">สุ่มข้อสอบชุดใหม่</button>
-          <button class="btn btn-ghost" onclick="switchTab('fc')">ไปทบทวนบัตรคำ</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ESSAY PANEL -->
-  <section id="panel-essay" class="panel">
-    <div class="card">
-      <div class="essay-head">
-        <p class="essay-lead">ตอบคำถามด้วยคำพูดของตนเอง แล้วกด "ดูเฉลย" เพื่อเทียบคำตอบ — สุ่มใหม่ได้ 5 ข้อทุกครั้ง</p>
-        <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="startEssay()">สุ่มข้อเขียนชุดใหม่</button>
-      </div>
-      <div id="essay-list"></div>
-    </div>
-  </section>
-
-  <!-- FLASHCARD PANEL -->
-  <section id="panel-fc" class="panel">
-    <div class="card">
-      <div class="fc-meta">
-        <span>บัตรที่ <strong id="fc-index">1</strong> / <strong id="fc-total">30</strong></span>
-        <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="shuffleDeck()">สลับสำรับใหม่</button>
-      </div>
-      <div class="fc-stage">
-        <div class="fc-card" id="fc-card" onclick="flipCard()">
-          <div class="fc-face fc-front">
-            <p class="fc-tag">คำศัพท์</p>
-            <p class="fc-term" id="fc-term">—</p>
+    <section id="panel-quiz" class="panel active">
+      <div class="card">
+        <div id="quiz-active">
+          <div class="quiz-meta">
+            <span>ข้อที่ <strong id="q-index">1</strong> / <strong id="q-total">10</strong></span>
+            <span>ตอบถูก <strong id="q-score">0</strong> ข้อ</span>
           </div>
-          <div class="fc-face fc-back">
-            <p class="fc-tag">ความหมาย</p>
-            <p class="fc-def" id="fc-def">—</p>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+          <p class="question-text" id="question-text">กำลังโหลดคำถาม…</p>
+          <div class="choices" id="choices"></div>
+          <div class="explain-box" id="explain-box" style="display:none">
+            <p class="explain-verdict" id="explain-verdict"></p>
+            <p class="explain-text" id="explain-text"></p>
+          </div>
+          <div class="quiz-footer">
+            <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>ข้อถัดไป</button>
+          </div>
+        </div>
+
+        <div id="quiz-result" class="result" style="display:none">
+          <p class="eyebrow" style="margin-bottom:0;">สรุปผล</p>
+          <p class="score"><span id="final-score">0</span><small> / <span id="final-total">10</span></small></p>
+          <p class="verdict" id="verdict-text">มาดูกันว่าทำได้ดีแค่ไหน</p>
+          <div class="result-actions">
+            <button class="btn btn-primary" onclick="startQuiz()">สุ่มข้อสอบชุดใหม่</button>
+            <button class="btn btn-ghost" onclick="switchTab('fc')">ไปทบทวนบัตรคำ</button>
           </div>
         </div>
       </div>
-      <p class="fc-hint">แตะที่บัตรเพื่อพลิกดูคำตอบ</p>
-      <div class="fc-controls">
-        <button class="btn btn-ghost" onclick="prevCard()">‹ ก่อนหน้า</button>
-        <button class="btn btn-primary" onclick="nextCard()">ถัดไป ›</button>
+    </section>
+
+    <section id="panel-essay" class="panel">
+      <div class="card">
+        <div class="essay-head">
+          <p class="essay-lead">ตอบคำถามด้วยคำพูดของตนเอง แล้วกด "ดูเฉลย" เพื่อเทียบคำตอบ — สุ่มใหม่ได้ 5 ข้อทุกครั้ง</p>
+          <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="startEssay()">สุ่มข้อเขียนชุดใหม่</button>
+        </div>
+        <div id="essay-list"></div>
       </div>
-    </div>
+    </section>
+
+    <section id="panel-fc" class="panel">
+      <div class="card">
+        <div class="fc-meta">
+          <span>บัตรที่ <strong id="fc-index">1</strong> / <strong id="fc-total">54</strong></span>
+          <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="shuffleDeck()">สลับสำรับใหม่</button>
+        </div>
+        <div class="fc-stage">
+          <div class="fc-card" id="fc-card" onclick="flipCard()">
+            <div class="fc-face fc-front">
+              <p class="fc-tag">คำศัพท์</p>
+              <p class="fc-term" id="fc-term">—</p>
+            </div>
+            <div class="fc-face fc-back">
+              <p class="fc-tag">ความหมาย</p>
+              <p class="fc-def" id="fc-def">—</p>
+            </div>
+          </div>
+        </div>
+        <p class="fc-hint">แตะที่บัตรเพื่อพลิกดูคำตอบ</p>
+        <div class="fc-controls">
+          <button class="btn btn-ghost" onclick="prevCard()">‹ ก่อนหน้า</button>
+          <button class="btn btn-primary" onclick="nextCard()">ถัดไป ›</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-foot">อ้างอิงจาก "ตำรับยาที่ใช้รักษาตามทฤษฎีการแพทย์แผนไทยและการแพทย์พื้นบ้านไทย" และ "คู่มือยาสามัญประจำบ้านแผนโบราณ 24 ขนาน"</footer>
   </section>
 
-  <footer class="page-foot">อ้างอิงจากสไลด์ "ตำรับยาที่ใช้รักษาตามทฤษฎีการแพทย์แผนไทยและการแพทย์พื้นบ้านไทย"</footer>
+  <!-- ============ MAIN PANEL: ANATOMY ============ -->
+  <section id="main-anat" class="mainpanel anat-scope">
+    <nav class="tabs">
+      <button id="tab-acase" class="active" onclick="switchTabA('acase')">วิเคราะห์โรค</button>
+      <button id="tab-aquiz" onclick="switchTabA('aquiz')">แบบทดสอบ</button>
+      <button id="tab-aessay" onclick="switchTabA('aessay')">ข้อเขียน</button>
+      <button id="tab-afc" onclick="switchTabA('afc')">บัตรคำ</button>
+    </nav>
+
+    <!-- Disease case mode -->
+    <section id="panel-acase" class="panel active">
+      <div class="card">
+        <div id="case-active">
+          <div class="quiz-meta">
+            <span>เคสที่ <strong id="c-index">1</strong> / <strong id="c-total">8</strong></span>
+            <span>ตอบถูก <strong id="c-score">0</strong> เคส</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="c-progress" style="width:0%"></div></div>
+
+          <div class="case-scenario">
+            <p class="case-label">กรณีศึกษา</p>
+            <p class="case-disease" id="case-disease">—</p>
+            <p class="case-symptom" id="case-symptom">—</p>
+          </div>
+
+          <p class="case-prompt">โรคนี้เกิดจากความผิดปกติของระบบใด?</p>
+          <div class="choices" id="case-choices"></div>
+
+          <div class="explain-box" id="case-verdict-box" style="display:none">
+            <p class="explain-verdict" id="case-verdict"></p>
+            <div class="organ-reveal" style="margin-top:10px">
+              <p class="tag">อวัยวะ / โครงสร้างที่เกี่ยวข้อง</p>
+              <p class="body"><strong id="case-organ"></strong></p>
+            </div>
+            <div class="organ-reveal" style="margin-top:10px">
+              <p class="tag">คำอธิบาย</p>
+              <p class="body" id="case-explain"></p>
+            </div>
+          </div>
+
+          <div class="quiz-footer">
+            <button class="btn btn-primary" id="case-next" onclick="nextCase()" disabled>เคสถัดไป</button>
+          </div>
+        </div>
+
+        <div id="case-result" class="result" style="display:none">
+          <p class="eyebrow" style="margin-bottom:0;">สรุปผล</p>
+          <p class="score"><span id="c-final">0</span><small> / <span id="c-fintotal">8</span></small></p>
+          <p class="verdict" id="c-verdict-text"></p>
+          <div class="result-actions">
+            <button class="btn btn-primary" onclick="startCases()">สุ่มเคสชุดใหม่</button>
+            <button class="btn btn-ghost" onclick="switchTabA('afc')">ไปทบทวนบัตรคำ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Anatomy MCQ -->
+    <section id="panel-aquiz" class="panel">
+      <div class="card">
+        <div id="aquiz-active">
+          <div class="quiz-meta">
+            <span>ข้อที่ <strong id="aq-index">1</strong> / <strong id="aq-total">10</strong></span>
+            <span>ตอบถูก <strong id="aq-score">0</strong> ข้อ</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="aq-progress" style="width:0%"></div></div>
+          <p class="question-text" id="aq-text">กำลังโหลดคำถาม…</p>
+          <div class="choices" id="aq-choices"></div>
+          <div class="explain-box" id="aq-explain-box" style="display:none">
+            <p class="explain-verdict" id="aq-verdict"></p>
+            <p class="explain-text" id="aq-explain"></p>
+          </div>
+          <div class="quiz-footer">
+            <button class="btn btn-primary" id="aq-next" onclick="nextAQuestion()" disabled>ข้อถัดไป</button>
+          </div>
+        </div>
+
+        <div id="aquiz-result" class="result" style="display:none">
+          <p class="eyebrow" style="margin-bottom:0;">สรุปผล</p>
+          <p class="score"><span id="aq-final">0</span><small> / <span id="aq-fintotal">10</span></small></p>
+          <p class="verdict" id="aq-verdict-text"></p>
+          <div class="result-actions">
+            <button class="btn btn-primary" onclick="startAQuiz()">สุ่มข้อสอบชุดใหม่</button>
+            <button class="btn btn-ghost" onclick="switchTabA('acase')">ไปวิเคราะห์โรค</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Anatomy essay -->
+    <section id="panel-aessay" class="panel">
+      <div class="card">
+        <div class="essay-head">
+          <p class="essay-lead">อธิบายด้วยคำพูดของตนเอง แล้วกด "ดูเฉลย" เพื่อเทียบแนวคำตอบ — สุ่มใหม่ได้ 5 ข้อทุกครั้ง</p>
+          <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="startAEssay()">สุ่มข้อเขียนชุดใหม่</button>
+        </div>
+        <div id="aessay-list"></div>
+      </div>
+    </section>
+
+    <!-- Anatomy flashcards -->
+    <section id="panel-afc" class="panel">
+      <div class="card">
+        <div class="fc-meta">
+          <span>บัตรที่ <strong id="afc-index">1</strong> / <strong id="afc-total">40</strong></span>
+          <button class="btn btn-ghost" style="padding:6px 14px;font-size:13px;" onclick="shuffleADeck()">สลับสำรับใหม่</button>
+        </div>
+        <div class="fc-stage">
+          <div class="fc-card" id="afc-card" onclick="flipACard()">
+            <div class="fc-face fc-front">
+              <p class="fc-tag">คำศัพท์</p>
+              <p class="fc-term" id="afc-term">—</p>
+            </div>
+            <div class="fc-face fc-back">
+              <p class="fc-tag">ความหมาย</p>
+              <p class="fc-def" id="afc-def">—</p>
+            </div>
+          </div>
+        </div>
+        <p class="fc-hint">แตะที่บัตรเพื่อพลิกดูคำตอบ</p>
+        <div class="fc-controls">
+          <button class="btn btn-ghost" onclick="prevACard()">‹ ก่อนหน้า</button>
+          <button class="btn btn-primary" onclick="nextACard()">ถัดไป ›</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-foot">อ้างอิงจาก "สรุป Anatomy Shortnote" — เน้นระบบหายใจ ไหลเวียนเลือด ทางเดินอาหาร สืบพันธุ์ชาย-หญิง และต่อมไร้ท่อ</footer>
+  </section>
 </div>
 
 <script>
@@ -734,7 +1038,42 @@
     { q: "ยาดองเหล้า ใช้กับสมุนไพรลักษณะใด", choices: ["สมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี", "สมุนไพรที่ละลายน้ำได้ดีเท่านั้น", "สมุนไพรสดทุกชนิดไม่จำกัด", "สมุนไพรที่มีกลิ่นหอมเท่านั้น"], a: 0, e: "ยาดองเหล้าใช้กับสมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี โดยใช้เหล้าเป็นตัวทำละลาย" },
     { q: "เหตุใดยาที่ครบกำหนดอายุแล้วจึงไม่ควรนำไปใช้", choices: ["การรักษาไม่ได้ผล และยาบางชนิดอาจแปรสภาพเป็นสารมีพิษเป็นอันตราย", "เพราะสีของยาจะเปลี่ยนไปเท่านั้น", "เพราะยาจะมีราคาแพงขึ้น", "ไม่มีเหตุผลพิเศษ"], a: 0, e: "ยาที่ครบอายุแล้วรักษาไม่ได้ผล และบางชนิดอาจแปรสภาพเป็นสารพิษเป็นอันตรายต่อผู้ใช้" },
     { q: "ยาผงหรือยาลูกกลอนจากใบไม้ล้วน กำหนดอายุที่ให้สรรพคุณทางยาสูงคือช่วงใด", choices: ["ภายใน 6-8 เดือน", "ภายใน 1-2 เดือน", "ภายใน 2 ปี", "ภายใน 1 สัปดาห์"], a: 0, e: "ยาผงจากใบไม้ล้วน ให้สรรพคุณทางยาสูงภายใน 6-8 เดือน" },
-    { q: "อายุที่หมดคุณภาพของยาผงจากใบไม้ล้วน คือเมื่อใด", choices: ["หลังจาก 1 ปี", "หลังจาก 1 เดือน", "หลังจาก 5 ปี", "ไม่มีวันหมดอายุ"], a: 0, e: "ยาผงจากใบไม้ล้วน หมดคุณภาพหลังจาก 1 ปี" }
+    { q: "อายุที่หมดคุณภาพของยาผงจากใบไม้ล้วน คือเมื่อใด", choices: ["หลังจาก 1 ปี", "หลังจาก 1 เดือน", "หลังจาก 5 ปี", "ไม่มีวันหมดอายุ"], a: 0, e: "ยาผงจากใบไม้ล้วน หมดคุณภาพหลังจาก 1 ปี" },
+
+    { q: "คู่มือยาสามัญประจำบ้านแผนโบราณ ที่กล่าวถึงในเอกสาร มีทั้งหมดกี่ขนาน", choices: ["20 ขนาน", "24 ขนาน", "30 ขนาน", "12 ขนาน"], a: 1, e: "คู่มือฉบับนี้รวบรวมตำรับยาสามัญประจำบ้านแผนโบราณไว้ 24 ขนาน" },
+    { q: "บทบาทหน้าที่ของตัวยาในตำรับยาไทย แบ่งออกเป็นกี่บทบาทหลัก", choices: ["3 บทบาท", "4 บทบาท", "5 บทบาท", "2 บทบาท"], a: 1, e: "แบ่งเป็น 4 บทบาท คือ ตัวยาตรง(ยาหลัก) ตัวยารอง(ยาช่วย) ตัวยาคุมฤทธิ์/แต่งรสกลิ่น และตัวยานำทาง/น้ำกระสายยา" },
+    { q: "\"ตัวยานำทาง/น้ำกระสายยา\" ในตำรับยาไทย มีหน้าที่หลักอย่างไร", choices: ["ช่วยนำพาตัวยาเข้าสู่ร่างกายหรือเสริมฤทธิ์การออกฤทธิ์ของตำรับ", "เป็นตัวยาหลักที่บำบัดโรคโดยตรง", "แต่งกลิ่นให้ตำรับหอมเท่านั้น", "ใช้เพิ่มน้ำหนักของตำรับให้ได้ปริมาณตามต้องการ"], a: 0, e: "ตัวยานำทาง/น้ำกระสายยา เช่น น้ำต้มสุก น้ำขิงต้ม ทำหน้าที่นำพาตัวยาเข้าสู่ร่างกายหรือเสริมฤทธิ์ของตำรับ" },
+    { q: "ยาประสะกะเพรา จัดอยู่ในกลุ่มอาการใด", choices: ["กลุ่มยาบรรเทาอาการระบบทางเดินอาหาร", "กลุ่มยาแก้ไข้", "กลุ่มยาหอม บำรุงหัวใจ", "กลุ่มยาสตรี"], a: 0, e: "ยาประสะกะเพรา อยู่ในกลุ่มยาบรรเทาอาการระบบทางเดินอาหาร รสยาหลักคือรสเผ็ดร้อน" },
+    { q: "ตัวยาตรง (ยาหลัก) ของยาประสะกะเพรา คือข้อใด", choices: ["ใบกะเพราแดง", "ดอกกานพลู", "หัวไพล", "รากชะเอมเทศ"], a: 0, e: "ตัวยาตรงของยาประสะกะเพราคือใบกะเพราแดง (45 ส่วน) ขับลมในกระเพาะอาหารและลำไส้ แก้ปวดท้อง" },
+    { q: "ตัวยานำทาง/น้ำกระสายยาของยาประสะกะเพรา คือข้อใด", choices: ["เกลือสินเธาว์ หรือน้ำต้มสุก/น้ำขิงต้ม", "น้ำมะนาวแทรกเกลือ", "น้ำดอกมะลิต้ม", "น้ำซาวข้าว"], a: 0, e: "ยาประสะกะเพราใช้เกลือสินเธาว์กับน้ำต้มสุกหรือน้ำขิงต้มเป็นตัวยานำทาง ช่วยพายาซึมเข้าสู่เนื้อเยื่อและขับลม" },
+    { q: "ยาวิสัมพยาใหญ่ ตัวยาตรงคือข้อใด", choices: ["ผิวมะกรูด เหง้าขิงแห้ง", "ยาดำ", "แก่นจันทน์แดง", "ดอกมะลิสด"], a: 0, e: "ยาวิสัมพยาใหญ่มีตัวยาตรงคือผิวมะกรูดและเหง้าขิงแห้ง (อย่างละ 28 ส่วน) ขับลมขนานใหญ่ แก้ท้องขึ้นอืดเฟ้อ" },
+    { q: "ยาประสะกานพลู ตัวยาตรงคือข้อใด และมีสัดส่วนประมาณเท่าใดของตำรับ", choices: ["ดอกกานพลู ประมาณ 50% ของตำรับ", "ใบกะเพราแดง ประมาณ 45%", "ยาดำ ประมาณ 20%", "หัวไพล ประมาณ 50%"], a: 0, e: "ตัวยาตรงของยาประสะกานพลูคือดอกกานพลู มีน้ำหนักเท่าตัวยาอื่นๆรวมกัน คือประมาณ 50% ของตำรับ" },
+    { q: "ยามันทธาตุ ตัวยาตรงประกอบด้วยพิกัดใด", choices: ["พิกัดเบญจโกฐ", "พิกัดเทียนทั้งเก้า", "พิกัดตรีผลา", "พิกัดเกสรทั้งห้า"], a: 0, e: "ยามันทธาตุใช้พิกัดเบญจโกฐ (โกฐสอ โกฐเขมา โกฐหัวบัว โกฐเชียง โกฐจุฬาลำพา) เป็นตัวยาตรง แก้ธาตุไม่ปกติ บำรุงธาตุ" },
+    { q: "ยาประสะเจตพังคี ตัวยาตรงคือข้อใด", choices: ["รากเจตพังคี", "แก่นจันทน์ขาว", "ดอกกานพลู", "หัวเปราะหอม"], a: 0, e: "ตัวยาตรงของยาประสะเจตพังคีคือรากเจตพังคี (50% ของตำรับ) แก้กษัย จุกเสียด ขับลมในลำไส้" },
+    { q: "ยามหาจักรใหญ่ มีสรรพคุณเด่นด้านใด", choices: ["ระบายอุจจาระแข็งค้าง ขับลมเบื้องล่าง แก้ท้องอืดเฟ้อ", "บำรุงหัวใจและระบบไหลเวียนลม", "ดับพิษไข้ร้อนรุนแรง", "ขับเลือดประจำเดือนสตรี"], a: 0, e: "ยามหาจักรใหญ่ใช้เนื้อลูกสมอเทศและใบมะขามแขกเป็นตัวยาตรง เด่นเรื่องระบายอุจจาระแข็งค้างและขับลมเบื้องล่าง" },
+    { q: "ยาธรณีสันทฆาต ตัวยาตรงคือข้อใด", choices: ["ยาดำ", "รากเจตพังคี", "ดอกมะลิสด", "แก่นจันทน์แดง"], a: 0, e: "ยาธรณีสันทฆาตใช้ยาดำ (20 ส่วน) เป็นตัวยาตรง ระบายอุจจาระแข็งค้าง ตัดเถาดาน ถ่ายลมกษัยเส้น" },
+    { q: "ยาธาตุบรรจบ มีสรรพคุณเด่นด้านใด", choices: ["แก้ท้องเสียชนิดไม่ติดเชื้อ สมานลำไส้ คุมธาตุ", "แก้ไข้หัด ไข้สุกใส", "ขับลมกองหยาบ บำรุงหัวใจ", "แก้กษัย จุกเสียด"], a: 0, e: "ยาธาตุบรรจบใช้โกฐก้านพร้าวและเปลือกผลกล้วยตานีดิบเป็นตัวยาตรง เด่นเรื่องแก้ท้องเสียชนิดไม่ติดเชื้อ สมานลำไส้" },
+    { q: "ยาอามฤควาที จัดอยู่ในกลุ่มอาการใด", choices: ["กลุ่มยาบรรเทาอาการระบบทางเดินหายใจ", "กลุ่มยาบรรเทาอาการระบบทางเดินอาหาร", "กลุ่มยาแก้ไข้", "กลุ่มยาสำหรับเด็ก"], a: 0, e: "ยาอามฤควาทีอยู่ในกลุ่มยาบรรเทาอาการระบบทางเดินหายใจ รสยาหลักคือรสหวานชุ่มเปรี้ยวขมเล็กน้อย" },
+    { q: "ยาอามฤควาที ตัวยาตรงคือข้อใด", choices: ["รากชะเอมเทศ", "แก่นจันทน์แดง", "ยาดำ", "ดอกกานพลู"], a: 0, e: "ตัวยาตรงของยาอามฤควาทีคือรากชะเอมเทศ (50% ของตำรับ) แก้ไอ บำรุงกำลัง ละลายเสมหะเหนียวข้น" },
+    { q: "ยาประสะมะแว้ง ตัวยาตรงคือข้อใด", choices: ["ผลมะแว้งต้น ผลมะแว้งเครือ", "รากชะเอมเทศ", "หัวไพล", "แก่นจันทน์ขาว"], a: 0, e: "ตัวยาตรงของยาประสะมะแว้งคือผลมะแว้งต้นและผลมะแว้งเครือ แก้ไอ ละลายเสมหะเหนียว ขับปัสสาวะ" },
+    { q: "ยาจันทน์ลีลา จัดอยู่ในกลุ่มอาการใด", choices: ["กลุ่มยาแก้ไข้", "กลุ่มยาหอม บำรุงหัวใจและระบบไหลเวียนลม", "กลุ่มยาสตรี", "กลุ่มยาสำหรับเด็ก"], a: 0, e: "ยาจันทน์ลีลาอยู่ในกลุ่มยาแก้ไข้ รสยาหลักคือรสขมเย็นจืดสุขุม" },
+    { q: "ยาจันทน์ลีลา ตัวยาตรงคือข้อใด", choices: ["แก่นจันทน์ขาว แก่นจันทน์แดง รากปลาไหลเผือก", "แก่นจันทน์แดงเพียงชนิดเดียว", "โกฐสอ โกฐเขมา โกฐหัวบัว", "หมึกหอม"], a: 0, e: "ตัวยาตรงของยาจันทน์ลีลาคือแก่นจันทน์ขาว แก่นจันทน์แดง และรากปลาไหลเผือก (อย่างละ 4 ส่วน) แก้ไข้ ตัวร้อน" },
+    { q: "ยาประสะจันทน์แดง ตัวยาตรงคือข้อใด", choices: ["แก่นจันทน์แดง (50% ของตำรับ)", "แก่นจันทน์ขาว", "รากปลาไหลเผือก", "หมึกหอม"], a: 0, e: "ยาประสะจันทน์แดงใช้แก่นจันทน์แดงเป็นตัวยาตรงในสัดส่วนสูงถึง 50% ของตำรับ ดับพิษไข้ร้อน ไข้พิษ ไข้กาฬ" },
+    { q: "ยาเขียวหอม ตัวยาตรงคือข้อใด", choices: ["ใบพิมเสน ใบสันพร้าหอม ใบผักกระโฉก", "แก่นจันทน์แดงเพียงชนิดเดียว", "หมึกหอม", "ดอกมะลิสด"], a: 0, e: "ตัวยาตรงของยาเขียวหอมคือใบพิมเสน ใบสันพร้าหอม และใบผักกระโฉก ดับพิษไข้ร้อน แก้ไข้หัด ไข้สุกใส" },
+    { q: "ยาเขียวหอม มีสรรพคุณเด่นด้านใด", choices: ["ดับพิษไข้ร้อน แก้ไข้หัด ไข้สุกใส กระทุ้งพิษไข้ออกสู่ผิวหนัง", "ระบายอุจจาระแข็งค้าง", "ขับเลือดประจำเดือนสตรี", "บำรุงระบบทางเดินหายใจ"], a: 0, e: "ยาเขียวหอมเด่นเรื่องดับพิษไข้ร้อน แก้ไข้หัด ไข้สุกใส และกระทุ้งพิษไข้ออกสู่ผิวหนัง" },
+    { q: "ยามหานิลแท่งทอง ตัวยาตรงคือข้อใด", choices: ["หมึกหอม แก่นจันทน์แดง แก่นจันทน์ขาว", "รากชะเอมเทศ", "ยาดำ", "ใบพิมเสน ใบสันพร้าหอม"], a: 0, e: "ตัวยาตรงของยามหานิลแท่งทองคือหมึกหอม แก่นจันทน์แดง และแก่นจันทน์ขาว ดับพิษไข้ร้อนรุนแรง ไข้กาฬ ไข้พิษ" },
+    { q: "ยาหอมเทพจิตร จัดอยู่ในกลุ่มอาการใด", choices: ["กลุ่มยาหอม บำรุงหัวใจและระบบไหลเวียนลม", "กลุ่มยาแก้ไข้", "กลุ่มยาสตรี", "กลุ่มยาบรรเทาอาการระบบทางเดินอาหาร"], a: 0, e: "ยาหอมเทพจิตรอยู่ในกลุ่มยาหอม บำรุงหัวใจและระบบไหลเวียนลม รสยาหลักคือรสสุขุมหอมเย็นเด่นมะลิ" },
+    { q: "ยาหอมเทพจิตร ตัวยาตรงคือข้อใด", choices: ["ดอกมะลิสด", "แก่นจันทน์แดง", "ยาดำ", "หัวไพล"], a: 0, e: "ตัวยาตรงของยาหอมเทพจิตรคือดอกมะลิสด ซึ่งมีปริมาณมากที่สุดในตำรับ บำรุงดวงจิต แก้หน้ามืดใจสั่น วิงเวียนศีรษะ" },
+    { q: "ยาหอมทิพโอสถ ตัวยาตรงคือข้อใด", choices: ["พิกัดเกสรทั้งห้า/กลุ่มดอกไม้หอมหลากหลายชนิด", "พิกัดนวโกฐ", "พิกัดตรีผลา", "รากชะเอมเทศ"], a: 0, e: "ตัวยาตรงของยาหอมทิพโอสถคือพิกัดเกสรทั้งห้าหรือกลุ่มดอกไม้หอมหลากหลายชนิด แก้ลมวิงเวียน หน้ามืด บำรุงหัวใจ" },
+    { q: "ยาหอมอินทจักร์ ตัวยาตรงคือข้อใด", choices: ["แก่นไม้หอม (จันทน์ทั้งสอง กฤษณา กะลำพัก) และพิกัดนวโกฐ", "ดอกมะลิสดเพียงอย่างเดียว", "ยาดำ", "หัวเปราะหอม"], a: 0, e: "ตัวยาตรงของยาหอมอินทจักร์คือแก่นไม้หอม (จันทน์ทั้งสอง กฤษณา กะลำพัก) ร่วมกับพิกัดนวโกฐ แก้ลมบาดทะจิต แก้คลื่นเหียนอาเจียน" },
+    { q: "ยาหอมนวโกฐ ตัวยาตรงคือข้อใด", choices: ["พิกัดนวโกฐ (โกฐทั้ง 9 ชนิด)", "พิกัดเบญจโกฐ", "พิกัดเทียนทั้งเก้า", "พิกัดเกสรทั้งห้า"], a: 0, e: "ตัวยาตรงของยาหอมนวโกฐคือพิกัดนวโกฐ (โกฐทั้ง 9 ชนิด) แก้ลมปลายไข้ ลมวิงเวียน คลื่นเหียน สะอึก" },
+    { q: "ยาประสะไพล จัดอยู่ในกลุ่มอาการใด", choices: ["กลุ่มยาสตรี", "กลุ่มยาแก้ไข้", "กลุ่มยาหอม บำรุงหัวใจ", "กลุ่มยาสำหรับเด็ก"], a: 0, e: "ยาประสะไพลอยู่ในกลุ่มยาสตรี รสยาหลักคือรสเผ็ดร้อนจัดอมขมฝาดเล็กน้อย" },
+    { q: "ยาประสะไพล ตัวยาตรงคือข้อใด", choices: ["หัวไพล (50% ของตำรับ)", "รากชะเอมเทศ", "ดอกกานพลู", "ใบมะขามแขก"], a: 0, e: "ตัวยาตรงของยาประสะไพลคือหัวไพล ขับเลือดประจำเดือนสตรี ขับน้ำคาวปลา ช่วยให้มดลูกเข้าอู่เร็ว" },
+    { q: "ยาแสงหมึกและยาตรีหอม จัดอยู่ในกลุ่มอาการใด", choices: ["กลุ่มยาสำหรับเด็กและอื่นๆ", "กลุ่มยาแก้ไข้", "กลุ่มยาสตรี", "กลุ่มยาบรรเทาอาการระบบทางเดินหายใจ"], a: 0, e: "ทั้งยาแสงหมึกและยาตรีหอมอยู่ในกลุ่มยาสำหรับเด็กและอื่นๆ" },
+    { q: "ยาตรีหอม ตัวยาตรงคือข้อใด", choices: ["พิกัดตรีผลา (สมอไทย สมอพิเภก มะขามป้อม)", "พิกัดนวโกฐ", "หมึกหอม ใบพิมเสน", "รากเจตพังคี"], a: 0, e: "ตัวยาตรงของยาตรีหอมคือพิกัดตรีผลา (เนื้อลูกสมอไทย สมอพิเภก มะขามป้อม) เป็นยาระบายอ่อนๆสำหรับเด็ก" },
+    { q: "ยาถ่าย ตัวยาตรงคือข้อใด", choices: ["ใบมะขามแขก ฝักมะขามแขก", "ยาดำ", "รากชะเอมเทศ", "ขมิ้นชัน"], a: 0, e: "ตัวยาตรงของยาถ่ายคือใบมะขามแขกและฝักมะขามแขก กระตุ้นลำไส้ใหญ่ให้บีบตัว ระบายอุจจาระ" },
+    { q: "ยาเหลืองปิดสมุทร ตัวยาตรงคือข้อใด", choices: ["ขมิ้นชัน หัวกระเทียมไทย", "หัวไพล", "ใบมะขามแขก", "ดอกกานพลู"], a: 0, e: "ตัวยาตรงของยาเหลืองปิดสมุทรคือขมิ้นชันและหัวกระเทียมไทย แก้ท้องเสียชนิดไม่ติดเชื้อ บรรเทาปวดมวนท้อง" },
+    { q: "ยาประสะเปราะใหญ่ ตัวยาตรงคือข้อใด", choices: ["หัวเปราะหอม (50% ของตำรับ)", "รากชะเอมเทศ", "ยาดำ", "แก่นจันทน์แดงเพียงชนิดเดียว"], a: 0, e: "ตัวยาตรงของยาประสะเปราะใหญ่คือหัวเปราะหอม แก้ไข้ ถอนพิษตานซางในเด็ก ขับลมในลำไส้" }
   ];
 
   const FLASHCARDS = [
@@ -767,7 +1106,32 @@
     { term: "ยาต้ม", def: "ควรต้มกินในแต่ละวัน ไม่ควรเก็บค้างคืน ถ้าเก็บค้างคืนต้องอุ่นทุกวัน" },
     { term: "ยาชง", def: "เหมาะสำหรับสมุนไพรที่มีสารออกฤทธิ์ละลายน้ำได้ดี" },
     { term: "ยาดองเหล้า", def: "เหมาะสำหรับสมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี ใช้เหล้าเป็นตัวทำละลาย" },
-    { term: "รสเมาเบื่อ", def: "มีฤทธิ์กระทุ้งพิษ ในเสมหะ วาตะ และปิตตะ" }
+    { term: "รสเมาเบื่อ", def: "มีฤทธิ์กระทุ้งพิษ ในเสมหะ วาตะ และปิตตะ" },
+
+    { term: "ยาประสะกะเพรา", def: "กลุ่มยาบรรเทาอาการทางเดินอาหาร รสหลักเผ็ดร้อน ตัวยาตรงคือใบกะเพราแดง ขับลมในกระเพาะและลำไส้ แก้ปวดท้อง" },
+    { term: "ยาวิสัมพยาใหญ่", def: "กลุ่มยาบรรเทาอาการทางเดินอาหาร รสหลักเผ็ดร้อน ตัวยาตรงคือผิวมะกรูดและเหง้าขิงแห้ง ขับลมขนานใหญ่ แก้ท้องขึ้นอืดเฟ้อ" },
+    { term: "ยาประสะกานพลู", def: "รสหลักเผ็ดร้อนอมขมเล็กน้อย ตัวยาตรงคือดอกกานพลู แก้ปวดมวนท้อง กระทุ้งลม ขับลมในกระเพาะและลำไส้" },
+    { term: "ยามันทธาตุ", def: "รสหลักเผ็ดร้อนหอมสุขุม ตัวยาตรงคือพิกัดเบญจโกฐ แก้ธาตุไม่ปกติ แก้ปวดท้อง บำรุงธาตุเจริญอาหาร" },
+    { term: "ยาประสะเจตพังคี", def: "รสหลักเผ็ดร้อนอมขมปร่า ตัวยาตรงคือรากเจตพังคี แก้กษัย จุกเสียด ขับลมในลำไส้ ทลายลมก้อนในท้อง" },
+    { term: "ยามหาจักรใหญ่", def: "รสหลักขมร้อนอมเฝื่อน ตัวยาตรงคือเนื้อลูกสมอเทศและใบมะขามแขก ขับลมเบื้องล่าง ระบายอุจจาระแข็งค้าง" },
+    { term: "ยาธรณีสันทฆาต", def: "รสหลักขมร้อนเฉียบจัด ตัวยาตรงคือยาดำ ระบายอุจจาระแข็งค้าง ตัดเถาดาน ถ่ายลมกษัยเส้น" },
+    { term: "ยาธาตุบรรจบ", def: "รสหลักฝาดหอมร้อน ตัวยาตรงคือโกฐก้านพร้าวและเปลือกผลกล้วยตานีดิบ แก้ท้องเสียชนิดไม่ติดเชื้อ สมานลำไส้" },
+    { term: "ยาอามฤควาที", def: "กลุ่มยาบรรเทาอาการทางเดินหายใจ รสหลักหวานชุ่มเปรี้ยวขม ตัวยาตรงคือรากชะเอมเทศ แก้ไอ ละลายเสมหะเหนียวข้น" },
+    { term: "ยาประสะมะแว้ง", def: "รสหลักขมเปรี้ยวอมฝาด ตัวยาตรงคือผลมะแว้งต้นและผลมะแว้งเครือ แก้ไอ ละลายเสมหะเหนียว ขับปัสสาวะ" },
+    { term: "ยาจันทน์ลีลา", def: "กลุ่มยาแก้ไข้ รสหลักขมเย็นจืดสุขุม ตัวยาตรงคือแก่นจันทน์ขาว แก่นจันทน์แดง รากปลาไหลเผือก แก้ไข้ ตัวร้อน" },
+    { term: "ยาประสะจันทน์แดง", def: "รสหลักเย็นขมจัด ตัวยาตรงคือแก่นจันทน์แดง (50% ของตำรับ) ดับพิษไข้ร้อน ไข้พิษ ไข้กาฬ" },
+    { term: "ยาเขียวหอม", def: "กลุ่มยาแก้ไข้ รสหลักเย็นสุขุมหอมละมุน ตัวยาตรงคือใบพิมเสน ใบสันพร้าหอม ใบผักกระโฉก ดับพิษไข้ร้อน แก้ไข้หัด" },
+    { term: "ยามหานิลแท่งทอง", def: "รสหลักเย็นขมจัด ตัวยาตรงคือหมึกหอม แก่นจันทน์แดง แก่นจันทน์ขาว ดับพิษไข้ร้อนรุนแรง ไข้กาฬ ไข้พิษ" },
+    { term: "ยาหอมเทพจิตร", def: "กลุ่มยาหอม บำรุงหัวใจและระบบไหลเวียนลม รสหลักสุขุมหอมเย็นเด่นมะลิ ตัวยาตรงคือดอกมะลิสด บำรุงดวงจิต แก้หน้ามืดใจสั่น" },
+    { term: "ยาหอมทิพโอสถ", def: "รสหลักหอมเย็นอมขมมัน ตัวยาตรงคือพิกัดเกสรทั้งห้า/กลุ่มดอกไม้หอม แก้ลมวิงเวียน หน้ามืด ตาลาย บำรุงหัวใจ" },
+    { term: "ยาหอมอินทจักร์", def: "รสหลักหอมสุขุมเผ็ดร้อนเล็กน้อย ตัวยาตรงคือแก่นไม้หอมและพิกัดนวโกฐ แก้ลมบาดทะจิต แก้คลื่นเหียนอาเจียน" },
+    { term: "ยาหอมนวโกฐ", def: "รสหลักหอมสุขุมอมเผ็ดร้อน ตัวยาตรงคือพิกัดนวโกฐ (โกฐทั้ง 9 ชนิด) แก้ลมปลายไข้ ลมวิงเวียน คลื่นเหียน สะอึก" },
+    { term: "ยาประสะไพล", def: "กลุ่มยาสตรี รสหลักเผ็ดร้อนจัดอมขมฝาด ตัวยาตรงคือหัวไพล ขับเลือดประจำเดือนสตรี ช่วยให้มดลูกเข้าอู่เร็ว" },
+    { term: "ยาแสงหมึก", def: "กลุ่มยาสำหรับเด็ก รสหลักสุขุมเย็นอมเผ็ดร้อนเบาๆ ตัวยาตรงคือหมึกหอม ใบพิมเสน ใบสันพร้าหอม แก้ไข้ตัวร้อนในเด็ก" },
+    { term: "ยาตรีหอม", def: "กลุ่มยาสำหรับเด็ก รสหลักขมเอียนอมหวานชุ่ม ตัวยาตรงคือพิกัดตรีผลา เป็นยาระบายอ่อนๆสำหรับเด็ก แก้ไข้จากท้องผูก" },
+    { term: "ยาถ่าย", def: "รสหลักเอียนขมอมเผ็ดร้อนเล็กน้อย ตัวยาตรงคือใบมะขามแขกและฝักมะขามแขก กระตุ้นลำไส้ใหญ่ให้บีบตัว ระบายอุจจาระ" },
+    { term: "ยาเหลืองปิดสมุทร", def: "รสหลักเผ็ดร้อนอมขมฝาด ตัวยาตรงคือขมิ้นชันและหัวกระเทียมไทย แก้ท้องเสียชนิดไม่ติดเชื้อ บรรเทาปวดมวนท้อง" },
+    { term: "ยาประสะเปราะใหญ่", def: "กลุ่มยาสำหรับเด็ก รสหลักสุขุมหอมเย็นอมปร่าเผ็ดเบาๆ ตัวยาตรงคือหัวเปราะหอม แก้ไข้ ถอนพิษตานซางในเด็ก" }
   ];
 
   const ESSAY_BANK = [
@@ -786,7 +1150,16 @@
     { q: "จงอธิบายรูปแบบการปรุงยา 3 แบบ ได้แก่ ยาต้ม ยาชง และยาดองเหล้า", a: "ยาต้มควรต้มกินในแต่ละวัน ไม่ควรเก็บค้างคืน ถ้าเก็บค้างคืนต้องอุ่นทุกวัน ยาชงเหมาะสำหรับสมุนไพรที่มีสารออกฤทธิ์ละลายน้ำได้ดี ส่วนยาดองเหล้าเหมาะสำหรับสมุนไพรที่มีสารสำคัญละลายในแอลกอฮอล์ได้ดี โดยใช้เหล้าเป็นตัวทำละลาย" },
     { q: "เพราะเหตุใดยาที่ครบกำหนดอายุแล้วจึงไม่ควรนำไปใช้รักษาโรค", a: "เพราะการรักษาจะไม่ได้ผล และยาบางชนิดอาจแปรสภาพกลายเป็นสารมีพิษ ซึ่งเป็นอันตรายต่อผู้ใช้" },
     { q: "จงเรียงลำดับส่วนของเครื่องยาตามความแรงของฤทธิ์ จากมากไปน้อย พร้อมอธิบาย", a: "เรียงจากฤทธิ์แรงมากไปน้อยคือ แก่น เปลือก เนื้อไม้ ราก (ฤทธิ์แรงมาก ใช้ปริมาณน้อย) รองลงมาคือ ต้น กระพี้ (ฤทธิ์ปานกลาง) และท้ายสุดคือ ใบ ดอก ผล (ฤทธิ์แรงน้อย ใช้ปริมาณมาก)" },
-    { q: "จงอธิบายความหมายของ \"กาสาวะ\" \"ลวณะ\" \"มธุระ\" และ \"ติตติกะ\" ตามคัมภีร์วรโยคสาร", a: "กาสาวะ คือรสฝาด (เจริญไฟธาตุ เจริญผิวกายและเนื้อ) ลวณะ คือรสเค็ม (เจริญไฟธาตุ เผาโทษ เผาเขฬะ) มธุระ คือรสหวาน (ชอบกับยา ให้เจริญรสธาตุ) และติตติกะ คือรสขม (เจริญไฟธาตุ เจริญรสอาหาร แก้ร้อน)" }
+    { q: "จงอธิบายความหมายของ \"กาสาวะ\" \"ลวณะ\" \"มธุระ\" และ \"ติตติกะ\" ตามคัมภีร์วรโยคสาร", a: "กาสาวะ คือรสฝาด (เจริญไฟธาตุ เจริญผิวกายและเนื้อ) ลวณะ คือรสเค็ม (เจริญไฟธาตุ เผาโทษ เผาเขฬะ) มธุระ คือรสหวาน (ชอบกับยา ให้เจริญรสธาตุ) และติตติกะ คือรสขม (เจริญไฟธาตุ เจริญรสอาหาร แก้ร้อน)" },
+
+    { q: "บทบาทหน้าที่ของตัวยาในโครงสร้างตำรับยาไทย แบ่งเป็นกี่บทบาท อะไรบ้าง จงอธิบายโดยย่อ", a: "แบ่งเป็น 4 บทบาท คือ ตัวยาตรง (ยาหลัก) มีสรรพคุณบำบัดโรคโดยตรง ตัวยารอง (ยาช่วย) เสริมฤทธิ์ตัวยาหลัก ตัวยาคุมฤทธิ์/แต่งรสกลิ่น ควบคุมไม่ให้ยาแรงเกินไปและแต่งกลิ่นรสให้ทานง่าย และตัวยานำทาง/น้ำกระสายยา ช่วยนำพาตัวยาเข้าสู่ร่างกาย" },
+    { q: "ยาประสะกะเพรา มีตัวยาตรงคืออะไร และมีสรรพคุณอย่างไร", a: "ตัวยาตรงคือใบกะเพราแดง (45 ส่วน) รสเผ็ดร้อน มีสรรพคุณขับลมในกระเพาะอาหารและลำไส้ แก้ปวดท้อง ท้องอืดท้องเฟ้อ" },
+    { q: "จงเปรียบเทียบตัวยาตรงและสรรพคุณเด่นของยาจันทน์ลีลาและยาประสะจันทน์แดง", a: "ยาจันทน์ลีลาใช้แก่นจันทน์ขาว แก่นจันทน์แดง และรากปลาไหลเผือกเป็นตัวยาตรง เน้นแก้ไข้ทั่วไป ตัวร้อน ไข้เปลี่ยนฤดู ส่วนยาประสะจันทน์แดงใช้แก่นจันทน์แดงเพียงชนิดเดียวในสัดส่วนสูงถึง 50% ของตำรับ เน้นดับพิษไข้ร้อนรุนแรง เช่น ไข้พิษ ไข้กาฬ" },
+    { q: "ยาหอมเทพจิตรและยาหอมนวโกฐ ต่างกันอย่างไรในแง่ตัวยาตรงและสรรพคุณ", a: "ยาหอมเทพจิตรมีตัวยาตรงคือดอกมะลิสด เน้นบำรุงดวงจิต แก้หน้ามืดใจสั่นวิงเวียนศีรษะ ส่วนยาหอมนวโกฐมีตัวยาตรงคือพิกัดนวโกฐ (โกฐทั้ง 9 ชนิด) เน้นแก้ลมปลายไข้ คลื่นเหียนอาเจียน สะอึก และบำรุงฟื้นฟูธาตุ" },
+    { q: "จงอธิบายหน้าที่ของ \"ตัวยาคุมฤทธิ์/แต่งรสกลิ่น\" ในตำรับยาไทย พร้อมยกตัวอย่างประกอบ", a: "ตัวยาคุมฤทธิ์/แต่งรสกลิ่น ทำหน้าที่ควบคุมไม่ให้ฤทธิ์ของตัวยาตรงและตัวยารองรุนแรงเกินไป พร้อมแต่งกลิ่นรสให้รับประทานง่ายขึ้น เช่น ชะเอมเทศในยาประสะกะเพรา ช่วยคุมฤทธิ์ยาเผ็ดร้อนไม่ให้กัดกระเพาะ และสมานทางเดินอาหาร" },
+    { q: "ยาธรณีสันทฆาตและยามหาจักรใหญ่ มีความเหมือนหรือต่างกันอย่างไร", a: "ทั้งสองตำรับเป็นยาระบายที่มีสรรพคุณคล้ายกันคือช่วยระบายอุจจาระ แต่ยาธรณีสันทฆาตใช้ยาดำเป็นตัวยาตรงเพียงชนิดเดียว เน้นระบายอุจจาระแข็งค้างและตัดเถาดาน ส่วนยามหาจักรใหญ่ใช้เนื้อลูกสมอเทศผสมใบมะขามแขกเป็นตัวยาตรง เน้นขับลมเบื้องล่างร่วมกับการระบาย" },
+    { q: "จงอธิบายสรรพคุณและตัวยาตรงของยาประสะไพล", a: "ยาประสะไพลอยู่ในกลุ่มยาสตรี มีตัวยาตรงคือหัวไพล (50% ของตำรับ) รสเผ็ดร้อนปร่าขม มีสรรพคุณขับเลือดประจำเดือนสตรี ขับน้ำคาวปลา และช่วยให้มดลูกเข้าอู่เร็ว" },
+    { q: "ยาสำหรับเด็ก เช่น ยาแสงหมึก ยาตรีหอม และยาประสะเปราะใหญ่ มักใช้ตัวยาคุมฤทธิ์ชนิดใดร่วมกัน เพราะเหตุใด", a: "มักใช้ชะเอมเทศเป็นตัวยาคุมฤทธิ์/แต่งรสกลิ่นร่วมกัน เนื่องจากมีรสหวานชุ่ม ช่วยคุมฤทธิ์ยาที่มีรสขมหรือเผ็ดร้อนของตัวยาหลัก และแต่งรสให้เด็กรับประทานง่ายขึ้น" }
   ];
 
   const ESSAY_ROUND_SIZE = 5;
@@ -993,8 +1366,605 @@
     renderCard();
   }
 
-  // ---------------- Init ----------------
+  // ---------------- Thai section init ----------------
   startQuiz();
   startEssay();
   shuffleDeck();
+
+  // ================= ANATOMY: DISEASE CASE BANK =================
+  const SYSTEMS = [
+    "ระบบทางเดินหายใจ (Respiratory system)",
+    "ระบบไหลเวียนเลือด (Circulatory system)",
+    "ระบบทางเดินอาหาร (Digestive system)",
+    "ระบบสืบพันธุ์เพศชาย (Male reproductive system)",
+    "ระบบสืบพันธุ์เพศหญิง (Female reproductive system)",
+    "ระบบต่อมไร้ท่อ (Endocrine system)"
+  ];
+
+  const CASE_BANK = [
+    // ---- Respiratory ----
+    { d: "Sinusitis (ไซนัสอักเสบ)", s: "ผู้ป่วยมีอาการปวดตื้อรอบ ๆ ใบหน้า โหนกแก้มและหน้าผาก คัดจมูก มีน้ำมูกข้น หลังเป็นหวัดมาหลายวัน", sys: 0,
+      o: "โพรงอากาศข้างจมูก (Paranasal air sinus) ในโพรงจมูก (Nasal cavity)",
+      e: "ไซนัสคือโพรงอากาศรอบจมูกที่ช่วยให้กะโหลกเบาลง สร้างความชื้น และทำให้เสียงก้องกังวาน เมื่อเกิดการติดเชื้อหรือทางเดินอากาศอุดตัน จะเกิดการอักเสบทำให้ปวดรอบ ๆ ใบหน้า" },
+    { d: "Pneumothorax (ภาวะลมรั่วในช่องปอด)", s: "ผู้ป่วยชายหลังถูกกระแทกที่หน้าอก มีอาการเจ็บแปลบและหอบเหนื่อยเฉียบพลัน ฟังเสียงปอดข้างนั้นเบาลง", sys: 0,
+      o: "ช่องปอด (Pleural cavity) ซึ่งบุด้วย Parietal pleura และ Visceral pleura",
+      e: "ปกติในช่องปอดมี Pleural fluid ช่วยหล่อลื่น เมื่อมีลมรั่วเข้าไปในช่องนี้ อากาศจะเบียดเนื้อปอดจนขยายตัวได้ไม่ดี ทำให้หายใจลำบาก" },
+    { d: "Hemothorax (ภาวะเลือดออกในช่องปอด)", s: "ผู้ป่วยประสบอุบัติเหตุซี่โครงหัก มีอาการหอบเหนื่อย ความดันต่ำ และตรวจพบของเหลวในช่องอก", sys: 0,
+      o: "ช่องปอด (Pleural cavity) ภายในทรวงอก (Thoracic cavity)",
+      e: "เป็นภาวะเลือดออกในช่องปอด มักเกิดจากอุบัติเหตุซี่โครงหักไปทิ่มหลอดเลือด เลือดที่คั่งจะเบียดเนื้อปอดเช่นเดียวกับ Pneumothorax" },
+    { d: "Respiratory Distress Syndrome ในทารกคลอดก่อนกำหนด", s: "ทารกคลอดก่อนกำหนดหายใจเร็ว หน้าอกบุ๋ม และถุงลมแฟบง่ายเมื่อหายใจออก", sys: 0,
+      o: "ถุงลมย่อย (Alveoli) โดยเฉพาะเซลล์ Pneumocyte type II",
+      e: "Pneumocyte type II ทำหน้าที่สร้าง Surfactant เพื่อลดแรงตึงผิวและป้องกันไม่ให้ถุงลมแฟบ หากสร้างได้ไม่พอ ถุงลมจะแฟบและแลกเปลี่ยนแก๊สไม่ได้" },
+    { d: "การสำลักอาหารเข้าหลอดลม (Aspiration)", s: "ผู้สูงอายุไอรุนแรงทันทีขณะกลืนอาหาร หน้าเขียว หายใจไม่ออกชั่วขณะ", sys: 0,
+      o: "ฝาปิดกล่องเสียง (Epiglottis) และกล่องเสียง (Larynx)",
+      e: "Epiglottis ทำหน้าที่ปิดกล่องเสียงขณะกลืนเพื่อป้องกันการสำลัก หากทำงานไม่ประสานกัน อาหารจะตกเข้าหลอดลม ร่างกายจึงใช้กลไก Reflex การไอเพื่อขับออก" },
+
+    // ---- Circulatory ----
+    { d: "Cardiac tamponade (ภาวะหัวใจบีบรัด)", s: "ผู้ป่วยมีความดันโลหิตต่ำ หลอดเลือดดำที่คอโป่ง เสียงหัวใจเบาลง และเข้าสู่ภาวะช็อก", sys: 1,
+      o: "ถุงเยื่อหุ้มหัวใจ (Pericardium) และช่อง Pericardial cavity",
+      e: "เกิดจากมีของเหลว (น้ำหรือเลือด) ปริมาณมากในถุงเยื่อหุ้มหัวใจ ทำให้แรงดันเพิ่มขึ้น เลือดไหลกลับเข้าหัวใจได้ไม่สะดวก ปริมาณเลือดออกจากหัวใจจึงน้อยลงจนเกิดความดันต่ำและช็อกได้" },
+    { d: "ลิ้นหัวใจไมทรัลรั่ว (Mitral valve regurgitation)", s: "ผู้ป่วยเหนื่อยง่าย นอนราบไม่ได้ ฟังได้ยินเสียงฟู่ของหัวใจ และมีเลือดไหลย้อนกลับขณะหัวใจบีบตัว", sys: 1,
+      o: "ลิ้น Bicuspid (Mitral valve) ระหว่างหัวใจห้องบนซ้ายและห้องล่างซ้าย",
+      e: "ลิ้นหัวใจทำหน้าที่ป้องกันไม่ให้เลือดไหลย้อนกลับ ลิ้น Mitral กั้นระหว่าง Left atrium กับ Left ventricle หากปิดไม่สนิท เลือดจะไหลย้อนกลับขึ้นห้องบนขณะหัวใจห้องล่างบีบตัว" },
+    { d: "หัวใจเต้นผิดจังหวะจาก SA node ผิดปกติ", s: "ผู้ป่วยใจสั่น วูบ หน้ามืด ตรวจ EKG พบจังหวะการเต้นไม่สม่ำเสมอ", sys: 1,
+      o: "SA node (ตัวเริ่มสัญญาณไฟฟ้า) บริเวณหัวใจห้องบนขวา",
+      e: "SA node เป็นจุดกำเนิดคลื่นไฟฟ้าหัวใจ ส่งต่อไป AV node แล้วผ่าน Bundle of His และ Purkinje fiber ไปยังห้องล่าง หาก SA node ผิดปกติ จังหวะการเต้นทั้งหมดจะรวนตามไปด้วย" },
+    { d: "หลอดเลือดดำขอด (Varicose vein)", s: "ผู้ป่วยยืนทำงานนานหลายปี มีเส้นเลือดที่ขาโป่งพองคดเคี้ยว ปวดหน่วงขาตอนเย็น", sys: 1,
+      o: "ลิ้นกั้น (Valve) ภายในหลอดเลือดดำ (Vein) ที่ขา",
+      e: "หลอดเลือดดำมีผนังบางกว่าหลอดเลือดแดง และมีลิ้นกั้น (Valve) คอยป้องกันเลือดไหลย้อนกลับ เมื่อลิ้นเสื่อม เลือดจึงคั่งค้างทำให้หลอดเลือดโป่งพอง" },
+    { d: "ภาวะโลหิตจาง (Anemia)", s: "ผู้ป่วยอ่อนเพลีย เหนื่อยง่าย ผิวและเยื่อบุตาซีด ตรวจพบระดับฮีโมโกลบินต่ำ", sys: 1,
+      o: "เม็ดเลือดแดง (Erythrocyte) ในส่วนเซลล์เม็ดเลือดของเลือด",
+      e: "เม็ดเลือดแดงรูปร่าง Biconcave disc ทำหน้าที่จับออกซิเจน มีอายุประมาณ 120 วัน เมื่อมีจำนวนหรือคุณภาพลดลง การลำเลียงออกซิเจนไปเลี้ยงเนื้อเยื่อจึงไม่เพียงพอ" },
+
+    // ---- Digestive ----
+    { d: "GERD (โรคกรดไหลย้อน)", s: "ผู้ป่วยแสบร้อนกลางอก เรอเปรี้ยว อาการแย่ลงหลังกินอิ่มและเวลานอนราบ", sys: 2,
+      o: "หูรูดหลอดอาหาร (Esophageal sphincter) ส่วนที่ต่อกับกระเพาะอาหาร",
+      e: "หูรูดส่วนบนของกระเพาะอาหารทำหน้าที่ป้องกันการรั่วไหลของอาหารที่ย่อยแล้วกลับขึ้นหลอดอาหาร หากหูรูดทำงานผิดปกติ จะเกิดภาวะกรดไหลย้อน (GERD)" },
+    { d: "ไส้ติ่งอักเสบ (Appendicitis)", s: "ผู้ป่วยปวดท้องรอบสะดือแล้วย้ายมาปวดที่ท้องน้อยด้านขวาล่าง กดเจ็บชัดเจน มีไข้", sys: 2,
+      o: "ไส้ติ่ง (Vermiform appendix) ที่ยื่นออกจาก Cecum ของลำไส้ใหญ่",
+      e: "ไส้ติ่งยื่นออกจากส่วน Cecum ซึ่งเป็นลำไส้ใหญ่ส่วนที่ต่อกับ Ileum ตำแหน่งกดเจ็บทางกายภาพเรียกว่า McBurney's point อยู่ห่างจากสะดือประมาณ 2/3 ของเส้นที่ลากไปยังกระดูกเชิงกราน ASIS" },
+    { d: "นิ่วในถุงน้ำดี (Cholelithiasis)", s: "ผู้ป่วยปวดจุกใต้ชายโครงขวาหลังกินอาหารมัน กดเจ็บบริเวณขอบซี่โครงขวาตัดกับขอบกล้ามเนื้อหน้าท้อง", sys: 2,
+      o: "ถุงน้ำดี (Gall bladder) และท่อ Common bile duct",
+      e: "ถุงน้ำดีเก็บสะสมและทำให้น้ำดีเข้มข้นก่อนส่งผ่าน Common bile duct ไปยังลำไส้เล็ก จุดกดเจ็บทางกายภาพของถุงน้ำดีเรียกว่า Murphy's point" },
+    { d: "แผลในกระเพาะอาหาร (Peptic ulcer)", s: "ผู้ป่วยปวดแสบท้องบริเวณลิ้นปี่เวลาท้องว่าง ดีขึ้นเมื่อกินอาหาร", sys: 2,
+      o: "เยื่อบุกระเพาะอาหาร (Mucosa) และ Parietal cell ที่สร้างกรด HCl",
+      e: "Parietal cell ในกระเพาะอาหารสร้างกรด HCl และช่วยดูดซึมวิตามิน B12 ส่วน Chief cell สร้าง Pepsinogen ย่อยโปรตีน เมื่อกรดทำลายชั้นเยื่อบุมากกว่าที่ร่างกายซ่อมแซมได้ จึงเกิดแผล" },
+    { d: "ภาวะขาดวิตามิน B12 จากการตัดกระเพาะอาหาร", s: "ผู้ป่วยหลังผ่าตัดกระเพาะอาหาร มีอาการซีด อ่อนเพลีย ชาปลายมือปลายเท้า", sys: 2,
+      o: "Parietal cell ในผนังกระเพาะอาหาร (Stomach)",
+      e: "Parietal cell นอกจากสร้างกรด HCl แล้ว ยังช่วยในการดูดซึมวิตามิน B12 เมื่อสูญเสียเซลล์กลุ่มนี้ ร่างกายจึงดูดซึมวิตามิน B12 ได้ไม่เพียงพอ" },
+    { d: "ตับแข็ง (Cirrhosis)", s: "ผู้ป่วยตัวเหลืองตาเหลือง ท้องมาน มีจ้ำเลือดง่าย และมีภาวะสับสน", sys: 2,
+      o: "ตับ (Liver) อวัยวะที่ใหญ่ที่สุดในช่องท้อง มี 4 กลีบ",
+      e: "ตับทำหน้าที่สร้างน้ำดี เก็บสะสมอาหารในรูปไกลโคเจน กำจัดสารพิษ และทำลายเม็ดเลือดแดงที่หมดอายุ เมื่อเนื้อตับถูกทำลายเป็นพังผืด หน้าที่เหล่านี้จึงเสียไปทั้งหมด" },
+
+    // ---- Male reproductive ----
+    { d: "ต่อมลูกหมากโต (Benign Prostatic Hyperplasia)", s: "ชายสูงอายุปัสสาวะลำบาก ต้องเบ่ง ปัสสาวะไม่สุด และตื่นมาปัสสาวะบ่อยตอนกลางคืน", sys: 3,
+      o: "ต่อมลูกหมาก (Prostate gland) ที่ล้อมรอบท่อปัสสาวะส่วน Prostatic urethra",
+      e: "ต่อมลูกหมากอยู่ใต้กระเพาะปัสสาวะและล้อมรอบท่อปัสสาวะ เมื่อต่อมโตขึ้นจึงกดเบียดท่อปัสสาวะทำให้ปัสสาวะลำบาก ในผู้สูงอายุอาจพบผลึก Corpora amylacea ในต่อมได้" },
+    { d: "ภาวะอัณฑะไม่ลงถุง (Cryptorchidism)", s: "ทารกเพศชายแรกเกิด ตรวจไม่พบอัณฑะในถุงอัณฑะข้างหนึ่ง คลำพบอยู่บริเวณขาหนีบ", sys: 3,
+      o: "อัณฑะ (Testis) ถุงอัณฑะ (Scrotum) และช่องขาหนีบ (Inguinal canal)",
+      e: "ขณะเป็นตัวอ่อน อัณฑะอยู่ในช่องท้อง และจะเคลื่อนลงมาในถุงอัณฑะผ่านช่องขาหนีบเพื่อรักษาอุณหภูมิให้ต่ำกว่าร่างกาย หากเคลื่อนไม่สำเร็จจะส่งผลต่อการสร้างอสุจิ" },
+    { d: "ภาวะมีบุตรยากจากความผิดปกติของ Sertoli cell", s: "ชายวัยเจริญพันธุ์ตรวจน้ำเชื้อพบจำนวนอสุจิน้อยผิดปกติ แต่ระดับฮอร์โมนเพศชายปกติ", sys: 3,
+      o: "Seminiferous tubules ภายในอัณฑะ โดยเฉพาะ Sertoli cell",
+      e: "Seminiferous tubules เป็นแหล่งผลิตอสุจิ ประกอบด้วย Spermatogonium (เซลล์ต้นกำเนิด) และ Sertoli cell (เซลล์พี่เลี้ยงคอยให้อาหารอสุจิ) ส่วนฮอร์โมนเพศชายสร้างจาก Leydig cell ที่อยู่ระหว่างท่อ จึงอาจยังปกติได้" },
+    { d: "ผลจากการทำหมันชาย (Vasectomy)", s: "ชายที่ผ่านการทำหมัน ยังหลั่งน้ำอสุจิและมีฮอร์โมนปกติ แต่ตรวจไม่พบตัวอสุจิในน้ำเชื้อ", sys: 3,
+      o: "ท่อนำอสุจิ (Vas deferens)",
+      e: "การทำหมันชายทำโดยการผูกหรือตัดท่อนำอสุจิ (Vas deferens) อสุจิจึงเดินทางจากอัณฑะออกมาไม่ได้ แต่ต่อมสร้างน้ำเลี้ยงอสุจิและต่อมลูกหมากยังทำงานตามปกติ จึงยังมีการหลั่งน้ำอสุจิอยู่" },
+
+    // ---- Female reproductive ----
+    { d: "การตั้งครรภ์นอกมดลูก (Ectopic pregnancy)", s: "หญิงวัยเจริญพันธุ์ขาดประจำเดือน มีเลือดออกกะปริดกะปรอย และปวดท้องน้อยรุนแรงข้างเดียว", sys: 4,
+      o: "ท่อนำไข่ (Uterine tube) โดยเฉพาะส่วน Ampulla",
+      e: "การปฏิสนธิเกิดขึ้นตามปกติที่บริเวณ Ampulla ของท่อนำไข่ จากนั้นตัวอ่อนต้องเคลื่อนไปฝังตัวที่ผนังมดลูก หากฝังตัวค้างอยู่ในท่อนำไข่จะเกิดการตั้งครรภ์นอกมดลูก" },
+    { d: "เยื่อบุโพรงมดลูกเจริญผิดที่ (Endometriosis)", s: "หญิงวัยเจริญพันธุ์ปวดประจำเดือนรุนแรงขึ้นเรื่อย ๆ ปวดขณะมีเพศสัมพันธ์ และมีบุตรยาก", sys: 4,
+      o: "เยื่อบุโพรงมดลูกชั้น Endometrium ของมดลูก (Uterus)",
+      e: "ผนังมดลูกมี 3 ชั้น คือ Endometrium (ชั้นในสุดที่หลุดลอกเป็นประจำเดือน), Myometrium (ชั้นกล้ามเนื้อเรียบที่หนาที่สุด) และ Perimetrium เมื่อเนื้อเยื่อ Endometrium ไปเจริญนอกโพรงมดลูก จะตอบสนองต่อฮอร์โมนและทำให้ปวดตามรอบเดือน" },
+    { d: "ภาวะไม่ตกไข่จากฮอร์โมน LH ผิดปกติ", s: "หญิงวัยเจริญพันธุ์ประจำเดือนมาไม่สม่ำเสมอ ตรวจไม่พบการตกไข่ และมีบุตรยาก", sys: 4,
+      o: "รังไข่ (Ovary) และ Corpus luteum ภายใต้การควบคุมของฮอร์โมน LH",
+      e: "FSH กระตุ้นการเจริญของไข่ ส่วน LH กระตุ้นการตกไข่ (Ovulation) และกระตุ้นให้ corpus luteum สร้าง Progesterone หาก LH ผิดปกติ การตกไข่จึงไม่เกิดขึ้น" },
+    { d: "การตรวจการตั้งครรภ์ด้วยฮอร์โมน HCG", s: "หญิงขาดประจำเดือน 2 สัปดาห์ ตรวจปัสสาวะพบผลบวก ยืนยันการตั้งครรภ์", sys: 4,
+      o: "รก (Placenta) ที่สร้างฮอร์โมน HCG และผนังมดลูก (Endometrium)",
+      e: "HCG สร้างจากรกเพื่อรักษาความหนาของผนังมดลูกแทน corpus luteum จึงนำมาใช้ในการตรวจการตั้งครรภ์" },
+    { d: "ท่อน้ำนมอุดตันในมารดาหลังคลอด", s: "มารดาหลังคลอดมีก้อนแข็งเจ็บที่เต้านม น้ำนมไหลไม่สะดวก", sys: 4,
+      o: "ต่อมน้ำนม (Mammary gland) และท่อ Lactiferous duct",
+      e: "ต่อมน้ำนมเป็นต่อมเหงื่อที่เปลี่ยนรูปมา (modified sweat gland) มี 15-20 พู ส่งน้ำนมผ่านท่อ Lactiferous duct และ sinus เมื่อท่อเหล่านี้อุดตัน น้ำนมจึงคั่งเป็นก้อน" },
+
+    // ---- Endocrine ----
+    { d: "โรคเบาหวาน (Diabetes mellitus)", s: "ผู้ป่วยปัสสาวะบ่อย กระหายน้ำมาก น้ำหนักลด และตรวจพบระดับน้ำตาลในเลือดสูง", sys: 5,
+      o: "ตับอ่อน (Pancreas) ส่วน Islets of Langerhans โดยเฉพาะ Beta cells",
+      e: "Beta cells ใน Islets of Langerhans ผลิต Insulin เพื่อลดน้ำตาลในเลือด เมื่อขาด Insulin จะเกิดเบาหวาน แบ่งเป็นชนิดที่ 1 (ตับอ่อนผลิตไม่ได้) และชนิดที่ 2 (ร่างกายดื้อต่อฮอร์โมน)" },
+    { d: "โรคเบาจืด (Diabetes insipidus)", s: "ผู้ป่วยปัสสาวะปริมาณมากและใส กระหายน้ำตลอดเวลา แต่ระดับน้ำตาลในเลือดปกติ", sys: 5,
+      o: "ต่อมใต้สมองส่วนหลัง (Neurohypophysis) ที่หลั่งฮอร์โมน ADH",
+      e: "ADH ทำหน้าที่ดูดน้ำกลับที่ไต เมื่อขาด ADH ร่างกายจะสูญเสียน้ำทางปัสสาวะปริมาณมาก ทำให้เกิดโรคเบาจืด ต่างจากเบาหวานที่น้ำตาลในเลือดสูง" },
+    { d: "โรคคอพอก (Goiter)", s: "ผู้ใหญ่มีก้อนโตบริเวณลำคอด้านหน้า เคลื่อนขึ้นลงตามการกลืน", sys: 5,
+      o: "ต่อมไทรอยด์ (Thyroid gland) รูปร่างคล้ายตัว H อยู่หน้ากล่องเสียง",
+      e: "ต่อมไทรอยด์มีเซลล์ Follicular สร้าง Thyroxin คุมเมตาบอลิซึม หากไทรอยด์ผิดปกติในผู้ใหญ่ทำให้เป็นโรคคอพอก (Goiter) ส่วนในเด็กจะทำให้เป็นโรคเอ๋อ (Cretinism)" },
+    { d: "โรคเอ๋อ (Cretinism)", s: "เด็กเล็กมีพัฒนาการช้า ตัวเตี้ย สติปัญญาบกพร่อง ตรวจพบฮอร์โมนไทรอยด์ต่ำ", sys: 5,
+      o: "ต่อมไทรอยด์ (Thyroid gland) และฮอร์โมน Thyroxin",
+      e: "Thyroxin จากเซลล์ Follicular ของต่อมไทรอยด์ควบคุมเมตาบอลิซึมและการเจริญเติบโต การขาดฮอร์โมนนี้ในเด็กทำให้เป็นโรคเอ๋อ (Cretinism)" },
+    { d: "โรคคนยักษ์ (Gigantism)", s: "เด็กมีความสูงเพิ่มขึ้นผิดปกติอย่างรวดเร็ว สูงกว่าเพื่อนวัยเดียวกันมาก", sys: 5,
+      o: "ต่อมใต้สมองส่วนหน้า (Adenohypophysis) ที่สร้าง Growth hormone (GH)",
+      e: "GH ควบคุมการเจริญเติบโต หากหลั่งมากเกินไปในเด็ก (ก่อนปิด epiphyseal plate) จะทำให้เป็นคนยักษ์ (Gigantism) ถ้าน้อยไปจะเป็นคนแคระ (Dwarfism)" },
+    { d: "Acromegaly (ภาวะกระดูกส่วนปลายโตผิดปกติ)", s: "ผู้ใหญ่สังเกตว่าใบหน้า มือ และเท้าใหญ่ขึ้นเรื่อย ๆ ต้องเปลี่ยนขนาดแหวนและรองเท้า", sys: 5,
+      o: "ต่อมใต้สมองส่วนหน้า (Adenohypophysis) และฮอร์โมน GH",
+      e: "หาก GH หลั่งมากเกินไปในผู้ใหญ่ (หลังปิด epiphyseal plate แล้ว) กระดูกจะไม่ยาวขึ้นแต่จะหนาขึ้น ทำให้กระดูกใบหน้า มือ และเท้าโตผิดปกติ เรียกว่า Acromegaly" },
+    { d: "Cushing's syndrome จากคอร์ติซอลสูง", s: "ผู้ป่วยหน้ากลม อ้วนลงพุง มีรอยแตกสีม่วงที่หน้าท้อง ความดันโลหิตสูง", sys: 5,
+      o: "ต่อมหมวกไตชั้นนอก (Adrenal cortex)",
+      e: "Adrenal cortex แบ่งเป็น 3 โซน สร้างฮอร์โมนต่างกัน ได้แก่ Aldosterone (คุมสมดุลเกลือแร่), Cortisol (ตอบสนองต่อความเครียด) และ Androgen เมื่อ Cortisol สูงเกินไปจะทำให้เกิดกลุ่มอาการนี้" },
+    { d: "เนื้องอกต่อมหมวกไตชั้นใน (Pheochromocytoma)", s: "ผู้ป่วยมีอาการใจสั่น เหงื่อแตก ปวดศีรษะ และความดันโลหิตสูงเป็นพัก ๆ", sys: 5,
+      o: "ต่อมหมวกไตชั้นใน (Adrenal medulla) ที่มีเซลล์ Chromaffin",
+      e: "Adrenal medulla มีเซลล์ Chromaffin สร้าง Adrenalin และ Noradrenalin เพื่อกระตุ้นร่างกายในภาวะตกใจ (Sympathetic) เมื่อหลั่งมากผิดปกติจึงเกิดอาการใจสั่น เหงื่อแตก และความดันสูงเป็นพัก ๆ" },
+    { d: "ภาวะแคลเซียมในเลือดต่ำหลังผ่าตัดคอ", s: "ผู้ป่วยหลังผ่าตัดต่อมไทรอยด์มีอาการชาปลายมือปลายเท้า มือจีบเกร็ง และกล้ามเนื้อกระตุก", sys: 5,
+      o: "ต่อมพาราไทรอยด์ (Parathyroid gland) 4 ต่อมที่อยู่หลังต่อมไทรอยด์",
+      e: "ต่อมพาราไทรอยด์มีเซลล์ Chief cell สร้าง Parathormone เพื่อเพิ่มระดับแคลเซียมในเลือด หากถูกตัดหรือบาดเจ็บระหว่างผ่าตัดไทรอยด์ ระดับแคลเซียมจะลดลงจนเกิดอาการชาและเกร็ง" },
+    { d: "ภาวะนอนไม่หลับจากเมลาโทนินผิดปกติ", s: "ผู้ป่วยมีวงจรการนอนผิดเวลา นอนไม่หลับตอนกลางคืนแต่ง่วงตอนกลางวัน", sys: 5,
+      o: "ต่อมไพเนียล (Pineal gland) ในสมองส่วนกลาง",
+      e: "ต่อมไพเนียลสร้าง Melatonin ควบคุมวงจรการหลับ-ตื่น และยับยั้งการเจริญของอวัยวะสืบพันธุ์ ในเนื้อต่อมมักพบ Pineal sand หรือ Brain sand" }
+  ];
+
+  // ================= ANATOMY: MCQ BANK =================
+  const ANAT_BANK = [
+    // Respiratory
+    { q: "ระบบทางเดินหายใจแบ่งองค์ประกอบออกเป็นกี่ส่วน อะไรบ้าง", choices: ["2 ส่วน คือ ส่วนนำอากาศและส่วนแลกเปลี่ยนแก๊ส", "3 ส่วน คือ จมูก คอหอย ปอด", "2 ส่วน คือ ปอดซ้ายและปอดขวา", "4 ส่วน ตามจำนวนกลีบปอด"], a: 0, e: "แบ่งเป็น 2 ส่วน คือ ส่วนนำอากาศ (Air Conducting Part) และส่วนแลกเปลี่ยนแก๊ส (Respiratory Part)" },
+    { q: "เยื่อบุผิวในโพรงจมูกที่ทำหน้าที่รับกลิ่น คือชนิดใด", choices: ["Olfactory epithelium", "Respiratory epithelium", "Transitional epithelium", "Stratified squamous epithelium"], a: 0, e: "Olfactory epithelium อยู่ด้านบนสุดของโพรงจมูกทำหน้าที่รับกลิ่น ส่วน Respiratory epithelium มี Goblet cell สร้างเมือกและ Cilia ดักจับสิ่งแปลกปลอม" },
+    { q: "คอหอย (Pharynx) แบ่งออกเป็นกี่ส่วน", choices: ["3 ส่วน คือ Nasopharynx, Oropharynx, Laryngopharynx", "2 ส่วน คือ ส่วนบนและส่วนล่าง", "4 ส่วน", "ไม่มีการแบ่งส่วน"], a: 0, e: "คอหอยแบ่งเป็น 3 ส่วน คือ Nasopharynx (มีท่อ Eustachian), Oropharynx (ใช้กลืนอาหาร) และ Laryngopharynx (ส่วนสุดท้ายก่อนแยกเข้าหลอดอาหารและกล่องเสียง)" },
+    { q: "ท่อ Eustachian เชื่อมต่อระหว่างส่วนใด", choices: ["Nasopharynx กับหูชั้นกลาง", "Oropharynx กับหลอดอาหาร", "กล่องเสียงกับหลอดลม", "โพรงจมูกกับไซนัส"], a: 0, e: "ท่อ Eustachian อยู่ที่ Nasopharynx เชื่อมกับหูชั้นกลาง ทำหน้าที่ปรับความดันอากาศ" },
+    { q: "หลอดลมคอมีกระดูกอ่อนรูปตัวใด และมีหน้าที่อย่างไร", choices: ["รูปตัว C ป้องกันการยุบตัวของหลอดลม", "รูปตัว O เพิ่มความยืดหยุ่น", "รูปตัว H รองรับกล่องเสียง", "ไม่มีกระดูกอ่อน"], a: 0, e: "หลอดลมคอมีกระดูกอ่อนรูปตัว C ป้องกันการยุบตัว เมื่อแตกแขนงเป็น Bronchiole ส่วนหลังจะไม่มีกระดูกอ่อนแล้ว" },
+    { q: "ส่วนสุดท้ายที่ทำหน้าที่นำอากาศ (ยังไม่แลกเปลี่ยนแก๊ส) คือข้อใด", choices: ["Terminal bronchiole", "Respiratory bronchiole", "Alveolar sac", "Alveoli"], a: 0, e: "ส่วนสุดท้ายที่ทำหน้าที่นำอากาศคือ Terminal bronchiole ถัดจากนั้นคือ Respiratory bronchiole ซึ่งเข้าสู่ส่วนแลกเปลี่ยนแก๊สแล้ว" },
+    { q: "เซลล์ใดในถุงลมย่อยทำหน้าที่แลกเปลี่ยนแก๊ส", choices: ["Pneumocyte type I", "Pneumocyte type II", "Dust cell", "Goblet cell"], a: 0, e: "Pneumocyte type I ทำหน้าที่แลกเปลี่ยนแก๊ส ส่วน type II สร้าง Surfactant และ Dust cell เป็น Macrophage กำจัดสิ่งแปลกปลอม" },
+    { q: "Surfactant สร้างจากเซลล์ใด และมีหน้าที่อย่างไร", choices: ["Pneumocyte type II ลดแรงตึงผิวป้องกันถุงลมแฟบ", "Pneumocyte type I แลกเปลี่ยนแก๊ส", "Dust cell กำจัดฝุ่น", "Goblet cell สร้างเมือก"], a: 0, e: "Pneumocyte type II สร้าง Surfactant เพื่อลดแรงตึงผิวและป้องกันไม่ให้ถุงลมแฟบ" },
+    { q: "ปอดขวาและปอดซ้ายมีจำนวนกลีบ (lobe) เท่าใด", choices: ["ขวา 3 กลีบ ซ้าย 2 กลีบ", "ขวา 2 กลีบ ซ้าย 3 กลีบ", "ทั้งสองข้างมี 3 กลีบเท่ากัน", "ทั้งสองข้างมี 2 กลีบเท่ากัน"], a: 0, e: "ปอดขวามี 3 lobe (แบ่งด้วย horizontal และ oblique fissure) ส่วนปอดซ้ายมี 2 lobe (แบ่งด้วย oblique fissure)" },
+    { q: "เยื่อหุ้มปอดชั้นที่คลุมเนื้อปอดโดยตรงเรียกว่าอะไร", choices: ["Visceral pleura", "Parietal pleura", "Pericardium", "Peritoneum"], a: 0, e: "Visceral pleura คลุมเนื้อปอด ส่วน Parietal pleura คลุมภายในช่องปอด ระหว่างสองชั้นมี Pleural fluid ช่วยหล่อลื่น" },
+    { q: "ขณะหายใจเข้า (Inspiration) เกิดการเปลี่ยนแปลงอย่างไร", choices: ["กะบังลมเคลื่อนต่ำลง ปริมาตรช่องอกเพิ่มขึ้น ความดันลดลง", "กะบังลมเคลื่อนสูงขึ้น ปริมาตรลดลง ความดันเพิ่มขึ้น", "กะบังลมไม่เคลื่อนไหว", "ซี่โครงลดต่ำลง ปริมาตรเพิ่มขึ้น"], a: 0, e: "หายใจเข้า กะบังลมหดตัวเคลื่อนต่ำลง ซี่โครงยกสูงขึ้น ปริมาตรช่องอกเพิ่มขึ้น ความดันลดลง อากาศจึงไหลเข้าสู่ถุงลม" },
+    { q: "การหายใจออกตามปกติเกิดจากกลไกใด", choices: ["การคลายตัวของกะบังลม (Elastic recoil)", "การหดตัวอย่างแรงของกะบังลม", "การหดตัวของกล้ามเนื้อหน้าท้องเสมอ", "การขยายตัวของถุงลม"], a: 0, e: "การหายใจออกปกติเกิดจากการคลายตัวของกะบังลม (Elastic recoil) แต่หากหายใจออกแรง ๆ ต้องใช้กล้ามเนื้อยึดซี่โครงแถบในและกล้ามเนื้อหน้าท้องช่วย" },
+
+    // Circulatory
+    { q: "เลือดจัดเป็นเนื้อเยื่อประเภทใด", choices: ["Special connective tissue", "Epithelial tissue", "Muscular tissue", "Nervous tissue"], a: 0, e: "เลือดจัดเป็น Special connective tissue (เนื้อเยื่อเกี่ยวพันชนิดพิเศษ) ประกอบด้วยน้ำเลือด 55% และเซลล์เม็ดเลือด 45%" },
+    { q: "สัดส่วนของน้ำเลือด (Plasma) และเซลล์เม็ดเลือดเป็นเท่าใด", choices: ["Plasma 55% : เซลล์เม็ดเลือด 45%", "Plasma 45% : เซลล์เม็ดเลือด 55%", "Plasma 70% : เซลล์เม็ดเลือด 30%", "เท่ากันคือ 50% : 50%"], a: 0, e: "เมื่อปั่นแยก จะได้น้ำเลือด (Plasma) 55% และเซลล์เม็ดเลือด (Blood cells) 45%" },
+    { q: "เม็ดเลือดแดงมีอายุประมาณเท่าใด และมีรูปร่างอย่างไร", choices: ["120 วัน รูปร่างกลมแบนตรงกลางเว้า (Biconcave disc)", "30 วัน รูปร่างกลม", "120 วัน รูปร่างเป็นแท่ง", "1 ปี รูปร่างกลมนูน"], a: 0, e: "เม็ดเลือดแดงรูปร่าง Biconcave disc เพื่อเพิ่มพื้นที่ผิวในการจับออกซิเจน เมื่อโตเต็มที่จะไม่มีนิวเคลียสและออร์แกเนลล์ มีอายุประมาณ 120 วัน" },
+    { q: "เม็ดเลือดขาวกลุ่มที่มีแกรนูล (Granulocytes) ได้แก่ข้อใด", choices: ["Neutrophil, Basophil, Eosinophil", "Monocyte, Lymphocyte", "Erythrocyte, Platelet", "Megakaryocyte, Plasma cell"], a: 0, e: "Granulocytes ได้แก่ neutrophil, basophil, eosinophil ส่วน Agranulocytes ได้แก่ monocyte และ lymphocyte" },
+    { q: "เกล็ดเลือด (Platelet) สร้างมาจากเซลล์ใด", choices: ["Megakaryocyte", "Erythrocyte", "Lymphocyte", "Monocyte"], a: 0, e: "เกล็ดเลือดเป็นชิ้นส่วนของเซลล์ที่สร้างจาก Megakaryocyte ทำหน้าที่ช่วยในการแข็งตัวของเลือด" },
+    { q: "ผนังหัวใจมี 3 ชั้น เรียงจากนอกเข้าในอย่างไร", choices: ["Epicardium, Myocardium, Endocardium", "Endocardium, Myocardium, Epicardium", "Pericardium, Myocardium, Endocardium", "Tunica intima, media, adventitia"], a: 0, e: "ผนังหัวใจเรียงจากนอกเข้าใน คือ Epicardium (ชั้นนอกมีไขมันห่อหุ้ม), Myocardium (ชั้นกล้ามเนื้อหัวใจ) และ Endocardium (ชั้นในสุด)" },
+    { q: "ลิ้น Tricuspid กั้นระหว่างห้องใดของหัวใจ", choices: ["Right atrium กับ Right ventricle", "Left atrium กับ Left ventricle", "Right ventricle กับ Pulmonary artery", "Left ventricle กับ Aorta"], a: 0, e: "Tricuspid valve กั้นระหว่าง rt. atrium และ rt. ventricle ส่วน Bicuspid (Mitral) กั้นระหว่าง lt. atrium และ lt. ventricle" },
+    { q: "ลิ้นหัวใจชนิด Semilunar valve ได้แก่ข้อใด", choices: ["Pulmonary และ Aortic semilunar valve", "Tricuspid และ Bicuspid valve", "Mitral และ Tricuspid valve", "Aortic และ Mitral valve"], a: 0, e: "Semilunar valve กั้นระหว่างห้อง ventricle และหลอดเลือด ได้แก่ pulmonary semilunar valve และ aortic semilunar valve" },
+    { q: "จุดเริ่มต้นสัญญาณไฟฟ้าหัวใจคือข้อใด", choices: ["SA node", "AV node", "Bundle of His", "Purkinje fiber"], a: 0, e: "SA node เป็นตัวเริ่มสัญญาณไฟฟ้า อยู่บริเวณหัวใจห้องบนขวา จากนั้นส่งไป AV node แล้วผ่าน Bundle of His และ Purkinje fiber" },
+    { q: "คลื่น QRS complex ใน EKG แสดงถึงเหตุการณ์ใด", choices: ["หัวใจห้องล่างหดตัว", "หัวใจห้องบนหดตัว", "หัวใจห้องล่างคืนตัว", "หัวใจหยุดเต้น"], a: 0, e: "P wave = หัวใจห้องบนหดตัว, QRS complex = หัวใจห้องล่างหดตัว, T wave = หัวใจห้องล่างคืนตัว" },
+    { q: "หลอดเลือดชนิดใดมีลิ้นกั้น (Valve) เพื่อป้องกันเลือดไหลย้อนกลับ", choices: ["Vein (หลอดเลือดดำ)", "Artery (หลอดเลือดแดง)", "Capillary (หลอดเลือดฝอย)", "มีทุกชนิด"], a: 0, e: "Vein นำเลือดกลับเข้าสู่หัวใจ มีผนังบางกว่าและมีลิ้นกั้น (Valve) เพื่อป้องกันเลือดไหลย้อนกลับ" },
+    { q: "ผนังหลอดเลือดขนาดใหญ่ประกอบด้วยเนื้อเยื่อ 3 ชั้น ชั้นในสุดคือข้อใด", choices: ["Tunica intima", "Tunica media", "Tunica adventitia", "Endocardium"], a: 0, e: "Tunica intima (ชั้นในสุด) ประกอบด้วยเนื้อเยื่อบุผิว Endothelium, Tunica media (ชั้นกลาง) มีเส้นใยยืดหยุ่นปนกล้ามเนื้อเรียบ และ Tunica adventitia (ชั้นนอก)" },
+    { q: "ในทางกายวิภาค คำว่า artery หมายถึงอะไร", choices: ["หลอดเลือดที่ออกจากหัวใจ", "หลอดเลือดที่มีออกซิเจนสูงเสมอ", "หลอดเลือดที่กลับเข้าสู่หัวใจ", "หลอดเลือดที่มีลิ้นกั้น"], a: 0, e: "ในทางอนาโตมี artery หมายถึงเลือดที่ออกจากหัวใจ ส่วน vein หมายถึงเลือดที่กลับเข้าสู่หัวใจ (ไม่ได้ยึดตามปริมาณออกซิเจน)" },
+    { q: "ค่าความดันโลหิตปกติอยู่ที่ประมาณเท่าใด", choices: ["120/80 mmHg", "140/90 mmHg", "100/60 mmHg", "160/100 mmHg"], a: 0, e: "ค่าปกติอยู่ที่ประมาณ 120/80 mmHg โดย Systolic คือความดันสูงสุดขณะหัวใจบีบตัว และ Diastolic คือความดันต่ำสุดขณะหัวใจคลายตัว" },
+    { q: "Hepatic-portal system ทำหน้าที่อะไร", choices: ["ลำเลียงสารอาหารที่ย่อยแล้วจากทางเดินอาหารเข้าสู่ตับ", "ลำเลียงเลือดแดงจากหัวใจไปเลี้ยงตับ", "ลำเลียงน้ำเหลืองเข้าสู่หัวใจ", "ลำเลียงของเสียจากไตสู่กระเพาะปัสสาวะ"], a: 0, e: "Hepatic-portal system เป็นระบบหลอดเลือดดำที่ลำเลียงสารอาหารที่ย่อยแล้วจากทางเดินอาหารผ่าน Portal vein เข้าสู่ตับ ก่อนส่งเข้าสู่หัวใจทาง Inferior vena cava" },
+    { q: "อวัยวะน้ำเหลืองที่ใหญ่ที่สุดในร่างกายคือข้อใด", choices: ["ม้าม (Spleen)", "ต่อมไทมัส (Thymus)", "ต่อมน้ำเหลือง (Lymph node)", "ทอนซิล (Tonsil)"], a: 0, e: "ม้ามเป็นอวัยวะน้ำเหลืองที่ใหญ่ที่สุด แบ่งเป็น Red pulp (กำจัดเม็ดเลือดแดงหมดอายุ) และ White pulp (สร้างภูมิคุ้มกัน)" },
+    { q: "Thoracic duct รับน้ำเหลืองจากบริเวณใด", choices: ["ร่างกายส่วนล่างและซีกซ้ายทั้งหมด", "ซีกขวาบนเท่านั้น", "เฉพาะช่องอก", "เฉพาะศีรษะและคอ"], a: 0, e: "Thoracic duct รับน้ำเหลืองจากร่างกายส่วนล่างและซีกซ้ายทั้งหมด ส่วน Right lymphatic duct รับจากซีกขวาบน" },
+
+    // Digestive
+    { q: "ผนังทางเดินอาหารประกอบด้วยเนื้อเยื่อกี่ชั้น เรียงจากในออกนอกอย่างไร", choices: ["4 ชั้น คือ Mucosa, Submucosa, Muscularis, Serosa", "3 ชั้น คือ Mucosa, Muscularis, Serosa", "4 ชั้น คือ Serosa, Muscularis, Submucosa, Mucosa", "5 ชั้น"], a: 0, e: "ผนังทางเดินอาหารมี 4 ชั้น จากในออกนอก คือ Mucosa, Submucosa, Muscularis และ Serosa" },
+    { q: "ปมประสาท Meissner's plexus อยู่ในชั้นใดของผนังทางเดินอาหาร", choices: ["Submucosa", "Mucosa", "Muscularis", "Serosa"], a: 0, e: "Meissner's plexus อยู่ในชั้น Submucosa ควบคุมการหลั่งของต่อมและการหดตัวของกล้ามเนื้อชั้นใน ส่วน Auerbach's plexus อยู่ในชั้น Muscularis ควบคุมการบีบตัว" },
+    { q: "ตุ่มรับรสบนลิ้น (papillae) แบบใดที่ไม่มีตุ่มรับรส", choices: ["Filiform", "Fungiform", "Circumvallate", "Foliate"], a: 0, e: "ลิ้นมีตุ่มรับรสหรือ papillae 4 แบบ โดยแบบ Filiform เป็นชนิดเดียวที่ไม่มีตุ่มรับรส" },
+    { q: "หลอดอาหารมีความยาวประมาณเท่าใด และกล้ามเนื้อช่วงบน 1/3 เป็นชนิดใด", choices: ["15-25 ซม. กล้ามเนื้อลาย", "15-25 ซม. กล้ามเนื้อเรียบ", "30-40 ซม. กล้ามเนื้อลาย", "8-10 ซม. กล้ามเนื้อเรียบ"], a: 0, e: "หลอดอาหารยาว 15-25 ซม. กล้ามเนื้อช่วงบน 1/3 เป็นกล้ามเนื้อลาย และช่วงล่าง 1/3 เป็นกล้ามเนื้อเรียบ" },
+    { q: "รอยย่นภายในกระเพาะอาหารเรียกว่าอะไร", choices: ["Rugae", "Villi", "Haustra", "Taenia coli"], a: 0, e: "กระเพาะอาหารรูปร่างตัว J มีรอยย่นภายในเรียกว่า Rugae" },
+    { q: "Chief cell ในกระเพาะอาหารทำหน้าที่อะไร", choices: ["สร้าง Pepsinogen ย่อยโปรตีน", "สร้างกรด HCl", "สร้างเมือกปกป้องผนัง", "ดูดซึมวิตามิน B12"], a: 0, e: "Chief cell สร้าง Pepsinogen เพื่อย่อยโปรตีน ส่วน Parietal cell สร้างกรด HCl และช่วยดูดซึมวิตามิน B12" },
+    { q: "กระเพาะอาหารแบ่งเป็นส่วนต่าง ๆ ข้อใดคือส่วนโค้งปลายล่างสุด", choices: ["Pylorus", "Cardia", "Fundus", "Body"], a: 0, e: "กระเพาะอาหารแบ่งเป็น cardia (รอบรูเปิดหลอดอาหาร), fundus (ส่วนโค้ง), body (ส่วนกลาง) และ pylorus (โค้งปลายล่างสุด)" },
+    { q: "ลำไส้เล็กส่วนต้นที่มีรูปตัว C และเกิดการย่อยมากที่สุด คือข้อใด", choices: ["Duodenum", "Jejunum", "Ileum", "Cecum"], a: 0, e: "Duodenum เป็นลำไส้เล็กส่วนต้น รูปตัว C อยู่ติดกับตับอ่อน เกิดการย่อยมากที่สุด" },
+    { q: "โครงสร้างที่ช่วยเพิ่มพื้นที่ผิวในการดูดซึมของลำไส้เล็กคือข้อใด", choices: ["Villi และ Microvilli", "Rugae", "Haustra", "Taenia coli"], a: 0, e: "ลำไส้เล็กมี Villi และ Microvilli เพื่อเพิ่มพื้นที่ผิวในการดูดซึมอาหาร และมี Peyer's patches ช่วยระบบภูมิคุ้มกัน" },
+    { q: "ลักษณะพิเศษของลำไส้ใหญ่ ได้แก่ข้อใด", choices: ["Omental appendices, Taenia coli และ Haustra", "Villi, Microvilli และ Peyer's patches", "Rugae และ Chief cell", "Fundus, Body และ Pylorus"], a: 0, e: "ลำไส้ใหญ่มีถุงไขมัน (Omental appendices), แถบกล้ามเนื้อ (Taenia coli) และกระพุ้งลำไส้ (Haustra)" },
+    { q: "Colon แบ่งย่อยเป็นกี่ส่วน", choices: ["4 ส่วน คือ ascending, transverse, descending และ sigmoid", "3 ส่วน", "2 ส่วน", "5 ส่วน"], a: 0, e: "Colon แบ่งเป็น 4 ส่วน คือ ลำไส้ใหญ่ส่วนขึ้น (ascending), ส่วนขวาง (transverse), ส่วนลง (descending) และ sigmoid" },
+    { q: "ต่อมน้ำลายหลักมีกี่คู่ อะไรบ้าง", choices: ["3 คู่ คือ Parotid, Submandibular และ Sublingual", "2 คู่ คือ Parotid และ Sublingual", "4 คู่", "1 คู่"], a: 0, e: "ต่อมน้ำลายมี 3 คู่หลัก คือ Parotid (ข้างแก้ม), Submandibular (ใต้ขากรรไกร) และ Sublingual (ใต้ลิ้น) สร้างเอนไซม์ Amylase ย่อยคาร์โบไฮเดรต" },
+    { q: "ตับอ่อนสร้างฮอร์โมนใดบ้างเพื่อควบคุมระดับน้ำตาลในเลือด", choices: ["Insulin และ Glucagon", "Amylase และ Lipase", "Thyroxin และ Calcitonin", "Cortisol และ Aldosterone"], a: 0, e: "ตับอ่อนส่งน้ำย่อย (Amylase, Trypsin, Lipase) ไปที่ Duodenum และสร้างฮอร์โมน Insulin กับ Glucagon ควบคุมระดับน้ำตาลในเลือด" },
+    { q: "Murphy's point เป็นตำแหน่งทางกายภาพของอวัยวะใด", choices: ["ถุงน้ำดี", "ไส้ติ่ง", "ตับอ่อน", "กระเพาะอาหาร"], a: 0, e: "Murphy's point คือตำแหน่งของถุงน้ำดี (จุดตัดขอบซี่โครงขวากับขอบกล้ามเนื้อหน้าท้อง) ส่วน McBurney's point คือตำแหน่งของไส้ติ่ง" },
+
+    // Male reproductive
+    { q: "อัณฑะเคลื่อนลงสู่ถุงอัณฑะผ่านช่องใด และเพื่อจุดประสงค์ใด", choices: ["Inguinal canal เพื่อรักษาอุณหภูมิให้ต่ำกว่าร่างกาย", "Vertebral foramen เพื่อป้องกันการกระแทก", "Foramen magnum เพื่อเชื่อมกับเส้นประสาท", "Pleural cavity เพื่อลดแรงเสียดทาน"], a: 0, e: "ขณะเป็นตัวอ่อนอัณฑะอยู่ในท้อง เมื่อโตขึ้นจะเคลื่อนลงมาในถุงอัณฑะ (Scrotum) ผ่านช่องขาหนีบ (Inguinal canal) เพื่อรักษาอุณหภูมิให้ต่ำกว่าร่างกาย" },
+    { q: "เซลล์ใดในอัณฑะทำหน้าที่สร้างฮอร์โมนเพศชาย", choices: ["Leydig cells", "Sertoli cells", "Spermatogonium", "Chief cells"], a: 0, e: "Leydig cells อยู่ระหว่างท่อ ทำหน้าที่สร้างฮอร์โมนเพศชาย ส่วน Sertoli cells เป็นเซลล์พี่เลี้ยงคอยให้อาหารอสุจิ" },
+    { q: "กระบวนการสร้างอสุจิเริ่มจากเซลล์ใด", choices: ["Spermatogonium (2n)", "Spermatid (n)", "Sertoli cell", "Leydig cell"], a: 0, e: "Spermatogenesis เริ่มจาก Spermatogonium (2n) แบ่งตัวผ่าน Primary และ Secondary spermatocyte จนกลายเป็น Spermatid (n) และพัฒนาเป็น Sperm" },
+    { q: "ต่อมสร้างน้ำเลี้ยงอสุจิ (Seminal vesicle) มีหน้าที่อย่างไร", choices: ["สร้างสารที่เป็นด่างและน้ำตาล Fructose เป็นอาหารให้อสุจิ", "สร้างเมือกหล่อลื่นขณะมีเพศสัมพันธ์", "สร้างฮอร์โมนเพศชาย", "เก็บพักอสุจิให้เจริญเติบโต"], a: 0, e: "Seminal vesicle สร้างสารที่เป็นด่าง (Alkaline fluid) เพื่อปรับสมดุลกรดในช่องคลอด และสร้างน้ำตาล Fructose เป็นอาหารให้อสุจิ" },
+    { q: "ผลึกที่อาจพบในต่อมลูกหมากของผู้สูงอายุเรียกว่าอะไร", choices: ["Corpora amylacea", "Herring body", "Pineal sand", "Hassall's corpuscle"], a: 0, e: "ต่อมลูกหมากมี 4 กลีบ อยู่ใต้กระเพาะปัสสาวะล้อมรอบท่อปัสสาวะ ในผู้สูงอายุอาจพบผลึกที่เรียกว่า Corpora amylacea" },
+    { q: "องคชาติประกอบด้วยเนื้อเยื่อคัดหลั่ง (Erectile tissue) กี่มัด", choices: ["3 มัด คือ Corpus cavernosum 2 แท่ง และ Corpus spongiosum 1 แท่ง", "2 มัด", "4 มัด", "1 มัด"], a: 0, e: "องคชาติมีเนื้อเยื่อคัดหลั่ง 3 มัด คือ Corpus cavernosum 2 แท่ง และ Corpus spongiosum 1 แท่ง (ภายในมีท่อปัสสาวะ Spongy urethra)" },
+    { q: "หลอดเก็บอสุจิ (Epididymis) มีลักษณะและหน้าที่อย่างไร", choices: ["รูปร่างตัว C อยู่ด้านบนอัณฑะ เป็นที่พักให้อสุจิเจริญเติบโตจนแข็งแรง", "รูปร่างตัว J สร้างฮอร์โมนเพศ", "เป็นต่อมสร้างเมือกหล่อลื่น", "เป็นท่อฉีดอสุจิเข้าสู่ท่อปัสสาวะ"], a: 0, e: "Epididymis รูปร่างตัว C อยู่ด้านบนอัณฑะ เป็นที่พักให้อสุจิเจริญเติบโตจนแข็งแรง" },
+
+    // Female reproductive
+    { q: "การปฏิสนธิเกิดขึ้นที่ตำแหน่งใดของท่อนำไข่", choices: ["Ampulla", "Isthmus", "Infundibulum", "Fimbria"], a: 0, e: "ท่อนำไข่แบ่งเป็น Isthmus (แคบสุด), Ampulla (ส่วนพองที่เกิดการปฏิสนธิ), Infundibulum และ Fimbria (ส่วนปลายคล้ายปากแตร)" },
+    { q: "ผนังมดลูกชั้นใดที่หลุดลอกเป็นประจำเดือน", choices: ["Endometrium", "Myometrium", "Perimetrium", "Serosa"], a: 0, e: "ผนังมดลูกมี 3 ชั้น คือ Endometrium (ชั้นในสุดที่หลุดลอกเป็นประจำเดือน), Myometrium (ชั้นกล้ามเนื้อเรียบที่หนาที่สุด) และ Perimetrium (ชั้นนอกสุด)" },
+    { q: "วงจรประจำเดือนแบ่งเป็นกี่ระยะหลัก", choices: ["4 ระยะ คือ Menstruation, Proliferative, Secretory และ Ischemic", "3 ระยะ", "2 ระยะ", "5 ระยะ"], a: 0, e: "แบ่งเป็น 4 ระยะ คือ Menstruation (หลุดลอก 7-10 วัน), Proliferative (Endometrium หนาตัวจาก Estrogen), Secretory (Corpus luteum สร้าง Progesterone) และ Ischemic" },
+    { q: "ฮอร์โมนใดกระตุ้นการตกไข่ (Ovulation)", choices: ["LH", "FSH", "Estrogen", "Progesterone"], a: 0, e: "LH กระตุ้นการตกไข่ (Ovulation) และกระตุ้นให้ corpus luteum สร้าง progesterone ส่วน FSH กระตุ้นการเจริญของไข่" },
+    { q: "Progesterone สร้างจากโครงสร้างใด และมีหน้าที่อย่างไร", choices: ["Corpus luteum ช่วยให้ผนังมดลูกหนาตัว", "รังไข่ กระตุ้นลักษณะความเป็นเพศหญิง", "รก ใช้ตรวจการตั้งครรภ์", "ต่อมใต้สมอง กระตุ้นการตกไข่"], a: 0, e: "Progesterone สร้างจาก corpus luteum ช่วยให้ผนังมดลูกหนาตัวเพื่อรองรับตัวอ่อน" },
+    { q: "เซลล์ไข่หยุดแบ่งตัวในระยะใด จนกว่าจะมีการปฏิสนธิ", choices: ["Metaphase II", "Prophase I", "Anaphase I", "Telophase II"], a: 0, e: "เซลล์ไข่เริ่มจาก Oogonium (2n) พัฒนาเป็น Primary oocyte ซึ่งจะหยุดแบ่งตัวในระยะ Metaphase II จนกว่าจะมีการปฏิสนธิจึงจะแบ่งเสร็จสิ้น" },
+    { q: "ต่อมน้ำนม (Mammary gland) พัฒนามาจากต่อมชนิดใด", choices: ["ต่อมเหงื่อที่เปลี่ยนรูปมา (modified sweat gland)", "ต่อมไขมัน", "ต่อมน้ำลาย", "ต่อมไร้ท่อ"], a: 0, e: "ต่อมน้ำนมเป็นต่อมเหงื่อที่เปลี่ยนรูปมา (modified sweat gland) ประกอบด้วยพู 15-20 พู ส่งน้ำนมผ่านท่อ Lactiferous duct และ sinus" },
+    { q: "รังไข่ (Ovary) แบ่งโครงสร้างออกเป็นส่วนใดบ้าง", choices: ["Cortex (เก็บเซลล์ไข่และ follicle) และ Medulla (มีหลอดเลือด)", "Endometrium และ Myometrium", "Red pulp และ White pulp", "Parenchyma และ Stroma เท่านั้น"], a: 0, e: "รังไข่แบ่งเป็น Cortex (ชั้นนอกที่เก็บเซลล์ไข่และ follicle) และ Medulla (ชั้นในที่มีหลอดเลือด)" },
+
+    // Endocrine
+    { q: "ต่อมใต้สมอง (Pituitary gland) ถือเป็นต่อมใด และตั้งอยู่ที่ใด", choices: ["Master gland ตั้งอยู่ในแอ่ง sella turcica ของกระดูก sphenoid", "ต่อมรอง ตั้งอยู่หน้ากล่องเสียง", "Master gland ตั้งอยู่หลังกระดูกอก", "ต่อมรอง ตั้งอยู่เหนือไต"], a: 0, e: "ต่อมใต้สมองถือเป็น Master gland ตั้งอยู่ในแอ่งกระดูก sphenoid (sella turcica) แบ่งเป็น Adenohypophysis (ส่วนหน้า) และ Neurohypophysis (ส่วนหลัง)" },
+    { q: "ต่อมใต้สมองส่วนหลัง (Neurohypophysis) หลั่งฮอร์โมนใด", choices: ["ADH และ Oxytocin", "GH และ Prolactin", "ACTH และ TSH", "FSH และ LH"], a: 0, e: "Neurohypophysis ไม่ได้สร้างฮอร์โมนเอง แต่เป็นที่เก็บและหลั่ง ADH (ดูดน้ำกลับที่ไต) และ Oxytocin (บีบตัวมดลูกและต่อมน้ำนม) ที่ส่งมาจาก Hypothalamus" },
+    { q: "จุดเด่นทางจุลกายวิภาคของต่อมใต้สมองส่วนหลังคือข้อใด", choices: ["Herring body", "Hassall's corpuscle", "Pineal sand", "Corpora amylacea"], a: 0, e: "ในต่อมใต้สมองส่วนหลังพบ Herring body ซึ่งเป็นผลึกที่เกิดจากการสะสมของแกรนูลฮอร์โมน" },
+    { q: "เซลล์ Parafollicular (C-cell) ของต่อมไทรอยด์สร้างฮอร์โมนใด", choices: ["Calcitonin ลดแคลเซียมในเลือด", "Thyroxin คุมเมตาบอลิซึม", "Parathormone เพิ่มแคลเซียมในเลือด", "Cortisol ตอบสนองต่อความเครียด"], a: 0, e: "เซลล์ Follicular สร้าง Thyroxin คุมเมตาบอลิซึม ส่วนเซลล์ Parafollicular (C-cell) สร้าง Calcitonin ลดแคลเซียมในเลือด" },
+    { q: "ต่อมพาราไทรอยด์มีกี่ต่อม และสร้างฮอร์โมนใด", choices: ["4 ต่อม สร้าง Parathormone เพิ่มแคลเซียมในเลือด", "2 ต่อม สร้าง Calcitonin", "4 ต่อม สร้าง Thyroxin", "3 ต่อม สร้าง Insulin"], a: 0, e: "ต่อมพาราไทรอยด์เป็นต่อมเล็ก ๆ 4 ต่อมอยู่หลังไทรอยด์ มีเซลล์ Chief cell สร้าง Parathormone เพื่อเพิ่มระดับแคลเซียมในเลือด" },
+    { q: "ต่อมหมวกไตชั้นในมีเซลล์ใด และสร้างสารใด", choices: ["Chromaffin สร้าง Adrenalin และ Noradrenalin", "Chief cell สร้าง Parathormone", "Follicular สร้าง Thyroxin", "Beta cells สร้าง Insulin"], a: 0, e: "Adrenal Medulla มีเซลล์ Chromaffin สร้าง Adrenalin และ Noradrenalin เพื่อกระตุ้นร่างกายในภาวะตกใจ (Sympathetic)" },
+    { q: "Alpha cells ใน Islets of Langerhans ผลิตฮอร์โมนใด", choices: ["Glucagon เพิ่มน้ำตาลในเลือด", "Insulin ลดน้ำตาลในเลือด", "Somatostatin คุม GH", "Cortisol ตอบสนองความเครียด"], a: 0, e: "Alpha cells ผลิต Glucagon (เพิ่มน้ำตาล), Beta cells ผลิต Insulin (ลดน้ำตาล) และ Delta cells ผลิต Somatostatin (คุม GH)" },
+    { q: "ต่อมไทมัสสร้างสารใด และมีลักษณะพิเศษอย่างไร", choices: ["Thymosin ช่วยสร้าง T-cell พบ Hassall's corpuscle", "Melatonin คุมวงจรหลับ-ตื่น พบ Pineal sand", "Thyroxin คุมเมตาบอลิซึม", "Insulin ลดน้ำตาลในเลือด"], a: 0, e: "ต่อมไทมัสอยู่หลังกระดูกอก สร้าง Thymosin ช่วยสร้างเม็ดเลือดขาว T-cell มีลักษณะพิเศษคือพบ Hassall's corpuscle ในเนื้อต่อม" },
+    { q: "ต่อมไพเนียลสร้างฮอร์โมนใด และพบผลึกชนิดใดในเนื้อต่อม", choices: ["Melatonin พบ Pineal sand (Brain sand)", "Thymosin พบ Hassall's corpuscle", "ADH พบ Herring body", "Calcitonin พบ Corpora amylacea"], a: 0, e: "ต่อมไพเนียลอยู่ในสมองส่วนกลาง สร้าง Melatonin คุมวงจรการหลับ-ตื่น และยับยั้งการเจริญของอวัยวะสืบพันธุ์ ในเนื้อต่อมมักพบ Pineal sand หรือ Brain sand" },
+    { q: "โครงสร้างของต่อมไร้ท่อประกอบด้วยส่วนใดบ้าง", choices: ["Stroma (เปลือกหุ้ม) และ Parenchyma (เซลล์ผลิตฮอร์โมน)", "Duct portion และ Secretion unit", "Cortex และ Medulla เท่านั้น", "Mucosa และ Submucosa"], a: 0, e: "ต่อมไร้ท่อประกอบด้วย Stroma (ส่วนเปลือกหุ้ม) และ Parenchyma (กลุ่มเซลล์ที่ผลิตฮอร์โมน) ภายในเซลล์มีไมโทคอนเดรียและ Golgi body จำนวนมาก" },
+    { q: "ระบบต่อมไร้ท่อต่างจากระบบประสาทอย่างไร", choices: ["ตอบสนองช้ากว่าแต่ให้ผลยาวนานกว่า", "ตอบสนองเร็วกว่าและให้ผลยาวนานกว่า", "ตอบสนองเร็วกว่าแต่ผลอยู่ไม่นาน", "ตอบสนองและให้ผลเท่ากันทุกประการ"], a: 0, e: "ระบบประสาทตอบสนองเร็วแต่ผลอยู่ไม่นาน ส่วนระบบต่อมไร้ท่อตอบสนองช้ากว่าแต่ให้ผลที่ยาวนานกว่า" }
+  ];
+
+  // ================= ANATOMY: FLASHCARDS =================
+  const ANAT_CARDS = [
+    // Respiratory
+    { term: "Air Conducting Part", def: "ส่วนนำอากาศ ได้แก่ โพรงจมูก คอหอย กล่องเสียง หลอดลม จนถึง Terminal bronchiole ซึ่งเป็นส่วนสุดท้ายที่ทำหน้าที่นำอากาศ" },
+    { term: "Respiratory Part", def: "ส่วนแลกเปลี่ยนแก๊ส ได้แก่ Respiratory bronchiole, ถุงลม (alveolar sac) และถุงลมย่อย (Alveoli)" },
+    { term: "Epiglottis", def: "ฝาปิดกล่องเสียง คอยปิดเมื่อกลืนอาหารเพื่อป้องกันการสำลัก ภายในกล่องเสียงมีสายเสียง (Vocal cord)" },
+    { term: "Pneumocyte type I", def: "เซลล์ในถุงลมย่อย ทำหน้าที่แลกเปลี่ยนแก๊ส" },
+    { term: "Pneumocyte type II", def: "เซลล์ในถุงลมย่อย สร้างสาร Surfactant เพื่อลดแรงตึงผิวและป้องกันไม่ให้ถุงลมแฟบ" },
+    { term: "Dust cell", def: "เซลล์เม็ดเลือดขาวชนิด Macrophage ที่คอยกำจัดสิ่งแปลกปลอมในถุงลม" },
+    { term: "Pleural cavity", def: "ช่องปอด บุด้วยเยื่อหุ้ม 2 ชั้น คือ Parietal pleura (คลุมภายในช่องปอด) และ Visceral pleura (คลุมเนื้อปอด) ภายในมี Pleural fluid ช่วยหล่อลื่น" },
+    { term: "Mediastinum", def: "ช่องกลางอกระหว่างปอดทั้งสองข้าง เป็นที่อยู่ของหลอดอาหาร หลอดลม หลอดเลือด และหัวใจ แบ่งเป็น superior และ inferior mediastinum" },
+    { term: "กลีบปอด (Lobe)", def: "ปอดขวามี 3 lobe (แบ่งด้วย horizontal และ oblique fissure) ปอดซ้ายมี 2 lobe (แบ่งด้วย oblique fissure)" },
+    { term: "การหายใจเข้า (Inspiration)", def: "กะบังลมหดตัวเคลื่อนต่ำลง ซี่โครงยกสูงขึ้น ปริมาตรช่องอกเพิ่มขึ้น ความดันลดลง อากาศจึงไหลเข้าสู่ถุงลม" },
+
+    // Circulatory
+    { term: "Plasma (น้ำเลือด)", def: "คิดเป็น 55% ของเลือด เป็นของเหลวสีเหลืองใส ประกอบด้วยน้ำและโปรตีน Albumin, Globulin, Fibrinogen รวมถึงเกลือแร่และฮอร์โมน" },
+    { term: "Erythrocyte (เม็ดเลือดแดง)", def: "รูปร่างกลมแบนตรงกลางเว้า (Biconcave disc) เพิ่มพื้นที่ผิวจับออกซิเจน เมื่อโตเต็มที่ไม่มีนิวเคลียส มีอายุประมาณ 120 วัน" },
+    { term: "Granulocytes", def: "เม็ดเลือดขาวกลุ่มที่มีแกรนูล ได้แก่ neutrophil, basophil, eosinophil (กลุ่มไม่มีแกรนูลคือ monocyte, lymphocyte)" },
+    { term: "Platelet (เกล็ดเลือด)", def: "ชิ้นส่วนของเซลล์ที่สร้างจาก Megakaryocyte ทำหน้าที่ช่วยในการแข็งตัวของเลือด" },
+    { term: "Pericardium", def: "เยื่อหุ้มหัวใจมี 2 ชั้น คือ Fibrous (ชั้นนอก) และ Serous (ชั้นใน) ระหว่างชั้นมี Pericardial fluid ช่วยหล่อลื่นขณะหัวใจบีบตัว" },
+    { term: "ผนังหัวใจ 3 ชั้น", def: "Epicardium (ชั้นนอกมีไขมันห่อหุ้ม), Myocardium (ชั้นกล้ามเนื้อหัวใจ) และ Endocardium (ชั้นในสุดที่บุต่อเนื่องไปกับหลอดเลือด)" },
+    { term: "Atrioventricular valve", def: "ลิ้นกั้นระหว่างห้อง atrium กับ ventricle มี 2 ลิ้น คือ Tricuspid (ขวา) และ Bicuspid/Mitral (ซ้าย)" },
+    { term: "Semilunar valve", def: "ลิ้นกั้นระหว่างห้อง ventricle และหลอดเลือด ได้แก่ pulmonary semilunar valve และ aortic semilunar valve" },
+    { term: "SA node", def: "ตัวเริ่มสัญญาณไฟฟ้าหัวใจ อยู่บริเวณหัวใจห้องบนขวา ส่งต่อไป AV node แล้วผ่าน Bundle of His และ Purkinje fiber ไปยังห้องล่าง" },
+    { term: "EKG", def: "กราฟคลื่นไฟฟ้าหัวใจ ประกอบด้วย P wave (ห้องบนหดตัว), QRS complex (ห้องล่างหดตัว) และ T wave (ห้องล่างคืนตัว)" },
+    { term: "Artery vs Vein", def: "ในทางอนาโตมี artery หมายถึงหลอดเลือดที่ออกจากหัวใจ ส่วน vein หมายถึงหลอดเลือดที่กลับเข้าสู่หัวใจ โดย vein มีผนังบางกว่าและมีลิ้นกั้น (Valve)" },
+    { term: "ผนังหลอดเลือด 3 ชั้น", def: "Tunica intima (ชั้นในสุด มี Endothelium), Tunica media (ชั้นกลาง มีเส้นใยยืดหยุ่นปนกล้ามเนื้อเรียบ) และ Tunica adventitia (ชั้นนอก)" },
+    { term: "Hepatic-portal system", def: "ระบบหลอดเลือดดำที่ลำเลียงสารอาหารที่ย่อยแล้วจากทางเดินอาหารผ่าน Portal vein เข้าสู่ตับ ก่อนส่งเข้าสู่หัวใจทาง Inferior vena cava" },
+    { term: "ม้าม (Spleen)", def: "อวัยวะน้ำเหลืองที่ใหญ่ที่สุด แบ่งเป็น Red pulp (กำจัดเม็ดเลือดแดงหมดอายุ) และ White pulp (สร้างภูมิคุ้มกัน)" },
+
+    // Digestive
+    { term: "ผนังทางเดินอาหาร 4 ชั้น", def: "จากในออกนอก คือ Mucosa, Submucosa (มี Meissner's plexus), Muscularis (มี Auerbach's plexus) และ Serosa" },
+    { term: "Rugae", def: "รอยย่นภายในกระเพาะอาหาร ซึ่งมีรูปร่างตัว J" },
+    { term: "Chief cell", def: "เซลล์ในกระเพาะอาหารที่สร้าง Pepsinogen เพื่อย่อยโปรตีน" },
+    { term: "Parietal cell", def: "เซลล์ในกระเพาะอาหารที่สร้างกรด HCl และช่วยดูดซึมวิตามิน B12" },
+    { term: "ส่วนของกระเพาะอาหาร", def: "cardia (รอบรูเปิดหลอดอาหาร), fundus (ส่วนโค้ง), body (ส่วนกลาง) และ pylorus (โค้งปลายล่างสุด)" },
+    { term: "ลำไส้เล็ก 3 ส่วน", def: "Duodenum (ส่วนต้น รูปตัว C เกิดการย่อยมากที่สุด), Jejunum (ส่วนกลาง) และ Ileum (ส่วนปลาย) ทุกส่วนมี Peyer's patches, Villi และ Microvilli" },
+    { term: "ลักษณะพิเศษของลำไส้ใหญ่", def: "มีถุงไขมัน (Omental appendices), แถบกล้ามเนื้อ (Taenia coli) และกระพุ้งลำไส้ (Haustra)" },
+    { term: "Cecum", def: "ส่วนของลำไส้ใหญ่ที่ต่อกับ ileum ปลายมีไส้ติ่ง (vermiform appendix) ยื่นออกมา" },
+    { term: "ต่อมน้ำลาย 3 คู่", def: "Parotid (ข้างแก้ม), Submandibular (ใต้ขากรรไกร) และ Sublingual (ใต้ลิ้น) สร้างเอนไซม์ Amylase ย่อยคาร์โบไฮเดรต" },
+    { term: "ตับ (Liver)", def: "อวัยวะที่ใหญ่ที่สุดในท้อง มี 4 กลีบ สร้างน้ำดี เก็บสะสมไกลโคเจน กำจัดสารพิษ และทำลายเม็ดเลือดแดงที่หมดอายุ" },
+    { term: "Murphy's point", def: "ตำแหน่งทางกายภาพของถุงน้ำดี คือจุดตัดขอบซี่โครงขวากับขอบกล้ามเนื้อหน้าท้อง" },
+    { term: "McBurney's point", def: "ตำแหน่งทางกายภาพของไส้ติ่ง อยู่ห่างจากสะดือประมาณ 2/3 ของเส้นที่ลากไปยังกระดูกเชิงกราน ASIS" },
+
+    // Male reproductive
+    { term: "Seminiferous tubules", def: "ท่อขดเคี้ยวในอัณฑะที่เป็นแหล่งผลิตอสุจิ ประกอบด้วย Spermatogonium (เซลล์ต้นกำเนิด) และ Sertoli cells (เซลล์พี่เลี้ยงให้อาหารอสุจิ)" },
+    { term: "Leydig cells", def: "เซลล์ที่อยู่ระหว่างท่อในอัณฑะ ทำหน้าที่สร้างฮอร์โมนเพศชาย (Testosterone)" },
+    { term: "Spermatogenesis", def: "เริ่มจาก Spermatogonium (2n) แบ่งตัวผ่าน Primary และ Secondary spermatocyte จนกลายเป็น Spermatid (n) และพัฒนาเป็น Sperm" },
+    { term: "Epididymis", def: "หลอดเก็บอสุจิ รูปร่างตัว C อยู่ด้านบนอัณฑะ เป็นที่พักให้อสุจิเจริญเติบโตจนแข็งแรง" },
+    { term: "Vas deferens", def: "ท่อนำอสุจิ ต่อจากหลอดเก็บอสุจิผ่าน Spermatic cord เข้าสู่ช่องท้อง ส่วนปลายที่พองออกเรียกว่า Ampulla — การทำหมันชาย (Vasectomy) คือการผูกหรือตัดท่อนี้" },
+    { term: "Seminal vesicle", def: "ต่อมสร้างน้ำเลี้ยงอสุจิ สร้างสารที่เป็นด่าง (Alkaline fluid) เพื่อปรับสมดุลกรดในช่องคลอด และสร้างน้ำตาล Fructose เป็นอาหารให้อสุจิ" },
+    { term: "Prostate gland", def: "ต่อมลูกหมาก อยู่ใต้กระเพาะปัสสาวะล้อมรอบท่อปัสสาวะ มี 4 กลีบ สร้างสารช่วยหล่อเลี้ยงอสุจิ ในผู้สูงอายุอาจพบผลึก Corpora amylacea" },
+    { term: "องคชาติ (Penis)", def: "มีเนื้อเยื่อคัดหลั่ง 3 มัด คือ Corpus cavernosum 2 แท่ง และ Corpus spongiosum 1 แท่ง (ภายในมีท่อ Spongy urethra) ส่วนปลายบานออกเป็น Glans penis" },
+
+    // Female reproductive
+    { term: "รังไข่ (Ovary)", def: "ตั้งอยู่ใน ovarian fossa แบ่งเป็น Cortex (ชั้นนอกเก็บเซลล์ไข่และ follicle) และ Medulla (ชั้นในมีหลอดเลือด)" },
+    { term: "ท่อนำไข่ (Uterine tube)", def: "แบ่งเป็น Isthmus (แคบสุด), Ampulla (ส่วนพองที่เกิดการปฏิสนธิ), Infundibulum และ Fimbria (ปลายคล้ายปากแตร) บุด้วย simple columnar epithelium ที่มี cilia" },
+    { term: "ผนังมดลูก 3 ชั้น", def: "Endometrium (ชั้นในสุดที่หลุดลอกเป็นประจำเดือน), Myometrium (ชั้นกล้ามเนื้อเรียบที่หนาที่สุด) และ Perimetrium (ชั้นนอกสุด)" },
+    { term: "วงจรประจำเดือน 4 ระยะ", def: "Menstruation (หลุดลอก 7-10 วัน), Proliferative (Endometrium หนาตัวจาก Estrogen), Secretory (Corpus luteum สร้าง Progesterone) และ Ischemic (Progesterone ลดลง)" },
+    { term: "FSH และ LH", def: "FSH กระตุ้นการเจริญของไข่ ส่วน LH กระตุ้นการตกไข่ (Ovulation) และกระตุ้นให้ corpus luteum สร้าง progesterone" },
+    { term: "HCG", def: "ฮอร์โมนที่สร้างจากรก เพื่อรักษาความหนาของผนังมดลูกแทน corpus luteum ใช้ในการตรวจการตั้งครรภ์" },
+    { term: "Oogenesis", def: "เซลล์ไข่เริ่มจาก Oogonium (2n) พัฒนาเป็น Primary oocyte ซึ่งหยุดแบ่งตัวในระยะ Metaphase II จนกว่าจะมีการปฏิสนธิ" },
+    { term: "ต่อมน้ำนม (Mammary gland)", def: "ต่อมเหงื่อที่เปลี่ยนรูปมา (modified sweat gland) มี 15-20 พู ส่งน้ำนมผ่านท่อ Lactiferous duct และ sinus" },
+
+    // Endocrine
+    { term: "Adenohypophysis", def: "ต่อมใต้สมองส่วนหน้า ควบคุมโดยฮอร์โมนจาก Hypothalamus ผ่านระบบหลอดเลือด สร้าง GH, Prolactin, ACTH, TSH, FSH, LH, MSH และ Endorphin" },
+    { term: "Neurohypophysis", def: "ต่อมใต้สมองส่วนหลัง ไม่ได้สร้างฮอร์โมนเอง แต่เก็บและหลั่ง ADH (ดูดน้ำกลับที่ไต) และ Oxytocin (บีบตัวมดลูกและต่อมน้ำนม) พบ Herring body" },
+    { term: "ต่อมไทรอยด์ (Thyroid)", def: "รูปร่างคล้ายตัว H อยู่หน้ากล่องเสียง มีเซลล์ Follicular สร้าง Thyroxin (คุมเมตาบอลิซึม) และ Parafollicular/C-cell สร้าง Calcitonin (ลดแคลเซียม)" },
+    { term: "ต่อมพาราไทรอยด์", def: "ต่อมเล็ก ๆ 4 ต่อมอยู่หลังไทรอยด์ มีเซลล์ Chief cell สร้าง Parathormone เพื่อเพิ่มระดับแคลเซียมในเลือด" },
+    { term: "Adrenal Cortex", def: "ต่อมหมวกไตชั้นนอก แบ่งเป็น 3 โซน สร้าง Aldosterone (คุมสมดุลเกลือแร่), Cortisol (ตอบสนองความเครียด) และ Androgen (ฮอร์โมนเพศ)" },
+    { term: "Adrenal Medulla", def: "ต่อมหมวกไตชั้นใน มีเซลล์ Chromaffin สร้าง Adrenalin และ Noradrenalin เพื่อกระตุ้นร่างกายในภาวะตกใจ (Sympathetic)" },
+    { term: "Islets of Langerhans", def: "ส่วนต่อมไร้ท่อของตับอ่อน มี Alpha cells (Glucagon เพิ่มน้ำตาล), Beta cells (Insulin ลดน้ำตาล) และ Delta cells (Somatostatin คุม GH)" },
+    { term: "ต่อมไทมัส (Thymus)", def: "อยู่หลังกระดูกอก สร้าง Thymosin ช่วยสร้างเม็ดเลือดขาว T-cell ลักษณะพิเศษคือพบ Hassall's corpuscle ในเนื้อต่อม" },
+    { term: "ต่อมไพเนียล (Pineal)", def: "อยู่ในสมองส่วนกลาง สร้าง Melatonin คุมวงจรการหลับ-ตื่น และยับยั้งการเจริญของอวัยวะสืบพันธุ์ ในเนื้อต่อมมักพบ Pineal sand" },
+    { term: "ความผิดปกติของ GH", def: "ในเด็กถ้ามากไปเป็นคนยักษ์ (Gigantism) ถ้าน้อยไปเป็นคนแคระ (Dwarfism) ในผู้ใหญ่ถ้ามากไปทำให้กระดูกใบหน้า มือ เท้าโตผิดปกติ (Acromegaly)" },
+    { term: "Diabetes insipidus vs mellitus", def: "เบาจืด (insipidus) เกิดจากการขาด ADH ทำให้ปัสสาวะมากและใส ส่วนเบาหวาน (mellitus) เกิดจากการขาด Insulin ทำให้น้ำตาลในเลือดสูง" },
+    { term: "Cretinism vs Goiter", def: "ไทรอยด์ผิดปกติ: ขาดในเด็กทำให้เป็นโรคเอ๋อ (Cretinism) ส่วนในผู้ใหญ่ทำให้เป็นโรคคอพอก (Goiter)" }
+  ];
+
+  // ================= ANATOMY: ESSAY BANK =================
+  const ANAT_ESSAY = [
+    { q: "จงอธิบายองค์ประกอบของระบบทางเดินหายใจ ว่าแบ่งเป็นกี่ส่วน และแต่ละส่วนมีอวัยวะใดบ้าง", a: "แบ่งเป็น 2 ส่วน คือ 1) ส่วนนำอากาศ (Air Conducting Part) ได้แก่ โพรงจมูก คอหอย กล่องเสียง หลอดลม หลอดลมฝอย จนถึง Terminal bronchiole และ 2) ส่วนแลกเปลี่ยนแก๊ส (Respiratory Part) ได้แก่ Respiratory bronchiole ถุงลม (alveolar sac) และถุงลมย่อย (Alveoli)" },
+    { q: "จงอธิบายหน้าที่ของเซลล์สำคัญ 3 ชนิดในถุงลมย่อย (Alveoli)", a: "Pneumocyte type I ทำหน้าที่แลกเปลี่ยนแก๊ส, Pneumocyte type II สร้างสาร Surfactant เพื่อลดแรงตึงผิวและป้องกันไม่ให้ถุงลมแฟบ และ Dust cell ซึ่งเป็นเม็ดเลือดขาวชนิด Macrophage คอยกำจัดสิ่งแปลกปลอมในถุงลม" },
+    { q: "จงอธิบายกลไกการหายใจเข้าและหายใจออก", a: "หายใจเข้า (Inspiration): กะบังลมหดตัวเคลื่อนต่ำลง กล้ามเนื้อยึดซี่โครงแถบนอกหดตัวยกซี่โครงขึ้น ทำให้ปริมาตรช่องอกเพิ่มขึ้น ความดันลดลง อากาศจึงไหลเข้าสู่ถุงลม ส่วนหายใจออก (Expiration) ปกติเกิดจากการคลายตัวของกะบังลม (Elastic recoil) แต่ถ้าหายใจออกแรง ๆ ต้องใช้กล้ามเนื้อยึดซี่โครงแถบในและกล้ามเนื้อหน้าท้องช่วย" },
+    { q: "จงอธิบายเส้นทางการไหลเวียนเลือดผ่านปอด (Pulmonary circulation) ตามลำดับ", a: "เลือดดำจาก SVC และ IVC เทเข้าหัวใจห้องบนขวา → ผ่านลิ้น Tricuspid สู่ห้องล่างขวา → ส่งไปฟอกที่ปอดผ่าน Pulmonary artery (และลิ้น pulmonary semilunar) → เลือดแดงที่ฟอกแล้วกลับเข้าหัวใจห้องบนซ้ายผ่าน Pulmonary vein → ผ่านลิ้น Bicuspid สู่ห้องล่างซ้าย → บีบตัวส่งเลือดแดงไปทั่วร่างกายผ่าน Aorta" },
+    { q: "จงอธิบายระบบคลื่นไฟฟ้าหัวใจ และองค์ประกอบของกราฟ EKG", a: "หัวใจสร้างกระแสไฟฟ้าได้เอง โดย 1) SA node เป็นตัวเริ่มสัญญาณอยู่บริเวณหัวใจห้องบนขวา 2) AV node รับสัญญาณจากห้องบนส่งต่อไปห้องล่าง 3) Bundle of His และ Purkinje fiber นำสัญญาณไปยังผนังกล้ามเนื้อห้องล่างเพื่อให้หดตัว ส่วนกราฟ EKG ประกอบด้วย P wave (ห้องบนหดตัว), QRS complex (ห้องล่างหดตัว) และ T wave (ห้องล่างคืนตัว)" },
+    { q: "จงเปรียบเทียบโครงสร้างและหน้าที่ของ Artery, Vein และ Capillary", a: "Artery (หลอดเลือดแดง) นำเลือดออกจากหัวใจ ผนังหนาเพื่อรองรับแรงดันสูง, Vein (หลอดเลือดดำ) นำเลือดกลับเข้าสู่หัวใจ ผนังบางกว่าและมีลิ้นกั้น (Valve) ป้องกันเลือดไหลย้อนกลับ ส่วน Capillary (หลอดเลือดฝอย) มีผนังบางที่สุดเพียงเซลล์ชั้นเดียว เพื่อใช้แลกเปลี่ยนสารระหว่างเลือดและเนื้อเยื่อ" },
+    { q: "จงอธิบายชั้นเนื้อเยื่อ 4 ชั้นของผนังทางเดินอาหาร พร้อมระบุปมประสาทที่พบ", a: "จากในออกนอก คือ 1) Mucosa ชั้นเยื่อเมือกที่สัมผัสอาหาร มี Epithelium, Lamina propria และ Muscularis mucosae 2) Submucosa เนื้อเยื่อเกี่ยวพันที่มีหลอดเลือดและปมประสาท Meissner's plexus ควบคุมการหลั่งของต่อม 3) Muscularis กล้ามเนื้อเรียบ 2 ชั้น ช่วยบีบตัว ควบคุมโดยปมประสาท Auerbach's plexus และ 4) Serosa ชั้นนอกสุดที่ถูกปกคลุมด้วยเยื่อบุช่องท้อง (Peritoneum)" },
+    { q: "จงอธิบายหน้าที่ของอวัยวะช่วยย่อย (Associated Organs) ทั้ง 4 ชนิด", a: "1) ต่อมน้ำลาย 3 คู่ (Parotid, Submandibular, Sublingual) สร้างเอนไซม์ Amylase ย่อยคาร์โบไฮเดรต 2) ตับ อวัยวะที่ใหญ่ที่สุดในท้อง สร้างน้ำดี เก็บไกลโคเจน กำจัดสารพิษ ทำลายเม็ดเลือดแดงหมดอายุ 3) ถุงน้ำดี เก็บและทำให้น้ำดีเข้มข้นก่อนส่งผ่าน Common bile duct ไปลำไส้เล็ก 4) ตับอ่อน ส่งน้ำย่อยไป Duodenum และสร้าง Insulin กับ Glucagon" },
+    { q: "จงอธิบายกระบวนการสร้างอสุจิ (Spermatogenesis) และเส้นทางการเดินทางของอสุจิ", a: "Spermatogenesis เริ่มจาก Spermatogonium (2n) แบ่งตัวผ่านระยะ Primary และ Secondary spermatocyte จนกลายเป็น Spermatid (n) และพัฒนาเป็น Sperm ที่มีหาง ส่วนเส้นทางเดินทางคือ Seminiferous tubule → Epididymis → Vas deferens → Ejaculatory duct (รวมกับท่อจาก Seminal vesicle) → Prostate gland → Urethra ในองคชาติ" },
+    { q: "จงอธิบายหน้าที่ของต่อมต่าง ๆ ในระบบสืบพันธุ์เพศชาย", a: "1) Seminal vesicle สร้างสารที่เป็นด่างเพื่อปรับสมดุลกรดในช่องคลอด และสร้างน้ำตาล Fructose เป็นอาหารให้อสุจิ 2) Prostate gland สร้างสารช่วยหล่อเลี้ยงอสุจิ เช่น acid phosphatase, amylase 3) Cowper's gland (Bulbourethral) สร้างเมือกหล่อลื่นขณะมีเพศสัมพันธ์" },
+    { q: "จงอธิบายโครงสร้างของท่อนำไข่ (Uterine tube) และระบุตำแหน่งที่เกิดการปฏิสนธิ", a: "ท่อนำไข่แบ่งเป็น Isthmus (แคบสุด), Ampulla (ส่วนพองที่เกิดการปฏิสนธิ), Infundibulum และ Fimbria (ส่วนปลายคล้ายปากแตร) บุด้วยเนื้อเยื่อ simple columnar epithelium ที่มี cilia ช่วยพัดโบกไข่ การปฏิสนธิเกิดขึ้นที่บริเวณ Ampulla" },
+    { q: "จงอธิบายวงจรประจำเดือน (Menstrual cycle) ทั้ง 4 ระยะ", a: "1) Menstruation: การหลุดลอกของผนังมดลูกชั้น functional layer ใช้เวลา 7-10 วัน 2) Proliferative stage: Endometrium หนาตัวขึ้นจากการกระตุ้นของ Estrogen 3) Secretory stage: Corpus luteum สร้าง Progesterone ทำให้ผนังมดลูกพร้อมรับตัวอ่อน 4) Ischemic stage: ระดับ Progesterone ลดลง เลือดเริ่มไม่ไปเลี้ยงผนังมดลูกก่อนหลุดลอก" },
+    { q: "จงอธิบายหน้าที่ของฮอร์โมนสำคัญในระบบสืบพันธุ์เพศหญิง", a: "FSH กระตุ้นการเจริญของไข่, LH กระตุ้นการตกไข่และกระตุ้นให้ corpus luteum สร้าง progesterone, Estrogen สร้างจากรังไข่กระตุ้นลักษณะความเป็นเพศหญิง, Progesterone สร้างจาก corpus luteum ช่วยให้ผนังมดลูกหนาตัว และ HCG สร้างจากรกเพื่อรักษาความหนาของผนังมดลูกแทน corpus luteum ใช้ตรวจการตั้งครรภ์" },
+    { q: "จงเปรียบเทียบต่อมใต้สมองส่วนหน้าและส่วนหลัง ทั้งด้านการควบคุมและฮอร์โมนที่หลั่ง", a: "ต่อมใต้สมองส่วนหน้า (Adenohypophysis) ควบคุมโดยฮอร์โมนจาก Hypothalamus ผ่านระบบหลอดเลือด และสร้างฮอร์โมนเอง ได้แก่ GH, Prolactin, ACTH, TSH, FSH & LH, MSH และ Endorphin ส่วนต่อมใต้สมองส่วนหลัง (Neurohypophysis) ไม่ได้สร้างฮอร์โมนเอง แต่เป็นที่เก็บและหลั่ง ADH และ Oxytocin ที่ส่งมาจาก Hypothalamus ผ่านแขนงประสาท พบจุดเด่นคือ Herring body" },
+    { q: "จงอธิบายโครงสร้างและฮอร์โมนของต่อมหมวกไต ทั้งชั้นนอกและชั้นใน", a: "ชั้นนอก (Adrenal Cortex) แบ่งเป็น 3 โซน สร้างฮอร์โมนต่างกัน ได้แก่ Aldosterone (คุมสมดุลเกลือแร่), Cortisol (ตอบสนองต่อความเครียด) และ Androgen (ฮอร์โมนเพศ) ส่วนชั้นใน (Adrenal Medulla) มีเซลล์ Chromaffin สร้าง Adrenalin และ Noradrenalin เพื่อกระตุ้นร่างกายในภาวะตกใจ (Sympathetic)" },
+    { q: "จงอธิบายความผิดปกติที่เกิดจากฮอร์โมน GH ทั้งในเด็กและผู้ใหญ่", a: "ในเด็ก หาก GH มากเกินไปจะเป็นคนยักษ์ (Gigantism) ถ้าน้อยเกินไปจะเป็นคนแคระ (Dwarfism) ส่วนในผู้ใหญ่หาก GH มากเกินไปจะทำให้กระดูกใบหน้า มือ และเท้าโตผิดปกติ เรียกว่า Acromegaly" },
+    { q: "จงเปรียบเทียบโรคเบาจืด (Diabetes insipidus) และโรคเบาหวาน (Diabetes mellitus)", a: "โรคเบาจืดเกิดจากการขาดฮอร์โมน ADH จากต่อมใต้สมองส่วนหลัง ทำให้ดูดน้ำกลับที่ไตไม่ได้ ปัสสาวะมากและใส แต่ระดับน้ำตาลปกติ ส่วนโรคเบาหวานเกิดจากการขาด Insulin จาก Beta cells ของตับอ่อน ทำให้น้ำตาลในเลือดสูง แบ่งเป็นชนิดที่ 1 (ตับอ่อนผลิตไม่ได้) และชนิดที่ 2 (ร่างกายดื้อต่อฮอร์โมน)" },
+    { q: "จงอธิบายหน้าที่ของเซลล์ใน Islets of Langerhans ของตับอ่อน", a: "Islets of Langerhans เป็นส่วนต่อมไร้ท่อของตับอ่อน ประกอบด้วย Alpha cells ผลิต Glucagon (เพิ่มน้ำตาลในเลือด), Beta cells ผลิต Insulin (ลดน้ำตาลในเลือด) และ Delta cells ผลิต Somatostatin (คุม GH)" },
+    { q: "จงอธิบายความแตกต่างระหว่างระบบต่อมไร้ท่อและระบบประสาทในการควบคุมร่างกาย", a: "ทั้งสองระบบทำงานร่วมกันเพื่อรักษาสมดุลของร่างกาย โดยระบบประสาทตอบสนองเร็วแต่ผลอยู่ไม่นาน ส่วนระบบต่อมไร้ท่อตอบสนองช้ากว่าแต่ให้ผลที่ยาวนานกว่า โดยอาศัยการหลั่งฮอร์โมนเข้าสู่กระแสเลือดเพื่อไปยังอวัยวะเป้าหมาย (Target organ) ที่มีความจำเพาะเจาะจง" },
+    { q: "จงอธิบายลักษณะเด่นทางจุลกายวิภาคของต่อมไทรอยด์ พาราไทรอยด์ ไทมัส และไพเนียล", a: "ต่อมไทรอยด์รูปคล้ายตัว H มีเซลล์ Follicular สร้าง Thyroxin และ Parafollicular (C-cell) สร้าง Calcitonin, ต่อมพาราไทรอยด์ 4 ต่อมอยู่หลังไทรอยด์ มีเซลล์ Chief cell สร้าง Parathormone, ต่อมไทมัสพบ Hassall's corpuscle และต่อมไพเนียลพบ Pineal sand หรือ Brain sand" }
+  ];
+
+  // ================= ANATOMY ENGINE =================
+  const LETTERS = ['ก', 'ข', 'ค', 'ง'];
+  const A_ROUND = 10;
+  const CASE_ROUND = 8;
+  const A_ESSAY_ROUND = 5;
+
+  function switchMain(name) {
+    document.getElementById('main-thai').classList.toggle('active', name === 'thai');
+    document.getElementById('main-anat').classList.toggle('active', name === 'anat');
+    document.getElementById('mt-thai').classList.toggle('active', name === 'thai');
+    document.getElementById('mt-anat').classList.toggle('active', name === 'anat');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchTabA(name) {
+    ['acase', 'aquiz', 'aessay', 'afc'].forEach(k => {
+      document.getElementById('panel-' + k).classList.toggle('active', k === name);
+      document.getElementById('tab-' + k).classList.toggle('active', k === name);
+    });
+  }
+
+  // ---------- shared choice renderer ----------
+  function renderChoices(boxId, choices, onPick) {
+    const box = document.getElementById(boxId);
+    box.innerHTML = '';
+    choices.forEach((choice, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'choice';
+      btn.innerHTML = '<span>' + choice + '</span><span class="letter">' + LETTERS[i] + '</span>';
+      btn.onclick = () => onPick(i);
+      box.appendChild(btn);
+    });
+  }
+
+  function markChoices(boxId, correct, picked) {
+    document.querySelectorAll('#' + boxId + ' .choice').forEach((btn, idx) => {
+      btn.disabled = true;
+      if (idx === correct) btn.classList.add('correct');
+      else if (idx === picked) btn.classList.add('wrong');
+    });
+  }
+
+  function gradeText(pct) {
+    if (pct === 1) return "ยอดเยี่ยม! ตอบถูกครบทุกข้อ แม่นยำมาก";
+    if (pct >= 0.8) return "เก่งมาก ใกล้เต็มแล้ว ลองอีกรอบเพื่อความแม่นยำ";
+    if (pct >= 0.5) return "พื้นฐานดี ลองทบทวนบัตรคำแล้วมาทดสอบใหม่";
+    return "ยังไม่แม่นนัก แนะนำให้ไปทบทวนบัตรคำก่อนสุ่มชุดใหม่";
+  }
+
+  // ---------- Disease case mode ----------
+  let caseRound = [], cIdx = 0, cScore = 0, cAnswered = false;
+
+  function startCases() {
+    caseRound = shuffle(CASE_BANK).slice(0, CASE_ROUND).map(item => {
+      const order = shuffle(SYSTEMS.map((_, i) => i)).slice(0, 3);
+      if (!order.includes(item.sys)) order[2] = item.sys;
+      const finalOrder = shuffle(order);
+      return {
+        d: item.d, s: item.s, o: item.o, e: item.e,
+        choices: finalOrder.map(i => SYSTEMS[i]),
+        correct: finalOrder.indexOf(item.sys)
+      };
+    });
+    cIdx = 0; cScore = 0; cAnswered = false;
+    document.getElementById('case-result').style.display = 'none';
+    document.getElementById('case-active').style.display = 'block';
+    document.getElementById('c-total').textContent = caseRound.length;
+    renderCase();
+  }
+
+  function renderCase() {
+    const item = caseRound[cIdx];
+    document.getElementById('c-index').textContent = cIdx + 1;
+    document.getElementById('c-score').textContent = cScore;
+    document.getElementById('c-progress').style.width = (cIdx / caseRound.length * 100) + '%';
+    document.getElementById('case-disease').textContent = item.d;
+    document.getElementById('case-symptom').textContent = item.s;
+    renderChoices('case-choices', item.choices, pickCase);
+    cAnswered = false;
+    document.getElementById('case-verdict-box').style.display = 'none';
+    document.getElementById('case-verdict-box').classList.remove('is-correct', 'is-wrong');
+    const nb = document.getElementById('case-next');
+    nb.disabled = true;
+    nb.textContent = (cIdx === caseRound.length - 1) ? 'ดูผลคะแนน' : 'เคสถัดไป';
+  }
+
+  function pickCase(i) {
+    if (cAnswered) return;
+    cAnswered = true;
+    const item = caseRound[cIdx];
+    markChoices('case-choices', item.correct, i);
+    const ok = i === item.correct;
+    if (ok) cScore++;
+    document.getElementById('c-score').textContent = cScore;
+    const box = document.getElementById('case-verdict-box');
+    box.classList.toggle('is-correct', ok);
+    box.classList.toggle('is-wrong', !ok);
+    document.getElementById('case-verdict').textContent = ok
+      ? 'ถูกต้อง! ' + item.choices[item.correct]
+      : 'ไม่ถูกต้อง — ระบบที่ถูกคือ ' + item.choices[item.correct];
+    document.getElementById('case-organ').textContent = item.o;
+    document.getElementById('case-explain').textContent = item.e;
+    box.style.display = 'block';
+    document.getElementById('case-next').disabled = false;
+  }
+
+  function nextCase() {
+    if (!cAnswered) return;
+    if (cIdx === caseRound.length - 1) {
+      document.getElementById('c-progress').style.width = '100%';
+      document.getElementById('case-active').style.display = 'none';
+      document.getElementById('case-result').style.display = 'block';
+      document.getElementById('c-final').textContent = cScore;
+      document.getElementById('c-fintotal').textContent = caseRound.length;
+      document.getElementById('c-verdict-text').textContent = gradeText(cScore / caseRound.length);
+      return;
+    }
+    cIdx++;
+    renderCase();
+  }
+
+  // ---------- Anatomy MCQ ----------
+  let aRound = [], aIdx = 0, aScore = 0, aAnswered = false;
+
+  function startAQuiz() {
+    aRound = shuffle(ANAT_BANK).slice(0, A_ROUND).map(item => {
+      const order = shuffle(item.choices.map((c, i) => i));
+      return {
+        q: item.q,
+        choices: order.map(i => item.choices[i]),
+        correct: order.indexOf(item.a),
+        explain: item.e || ""
+      };
+    });
+    aIdx = 0; aScore = 0; aAnswered = false;
+    document.getElementById('aquiz-result').style.display = 'none';
+    document.getElementById('aquiz-active').style.display = 'block';
+    document.getElementById('aq-total').textContent = aRound.length;
+    renderAQuestion();
+  }
+
+  function renderAQuestion() {
+    const item = aRound[aIdx];
+    document.getElementById('aq-index').textContent = aIdx + 1;
+    document.getElementById('aq-score').textContent = aScore;
+    document.getElementById('aq-progress').style.width = (aIdx / aRound.length * 100) + '%';
+    document.getElementById('aq-text').textContent = item.q;
+    renderChoices('aq-choices', item.choices, pickA);
+    aAnswered = false;
+    const box = document.getElementById('aq-explain-box');
+    box.style.display = 'none';
+    box.classList.remove('is-correct', 'is-wrong');
+    const nb = document.getElementById('aq-next');
+    nb.disabled = true;
+    nb.textContent = (aIdx === aRound.length - 1) ? 'ดูผลคะแนน' : 'ข้อถัดไป';
+  }
+
+  function pickA(i) {
+    if (aAnswered) return;
+    aAnswered = true;
+    const item = aRound[aIdx];
+    markChoices('aq-choices', item.correct, i);
+    const ok = i === item.correct;
+    if (ok) aScore++;
+    document.getElementById('aq-score').textContent = aScore;
+    const box = document.getElementById('aq-explain-box');
+    box.classList.toggle('is-correct', ok);
+    box.classList.toggle('is-wrong', !ok);
+    document.getElementById('aq-verdict').textContent = ok
+      ? 'ถูกต้อง!'
+      : 'ไม่ถูกต้อง — คำตอบที่ถูกคือ ' + LETTERS[item.correct] + '. ' + item.choices[item.correct];
+    document.getElementById('aq-explain').textContent = item.explain;
+    box.style.display = 'block';
+    document.getElementById('aq-next').disabled = false;
+  }
+
+  function nextAQuestion() {
+    if (!aAnswered) return;
+    if (aIdx === aRound.length - 1) {
+      document.getElementById('aq-progress').style.width = '100%';
+      document.getElementById('aquiz-active').style.display = 'none';
+      document.getElementById('aquiz-result').style.display = 'block';
+      document.getElementById('aq-final').textContent = aScore;
+      document.getElementById('aq-fintotal').textContent = aRound.length;
+      document.getElementById('aq-verdict-text').textContent = gradeText(aScore / aRound.length);
+      return;
+    }
+    aIdx++;
+    renderAQuestion();
+  }
+
+  // ---------- Anatomy essay ----------
+  function buildEssayList(listId, bank, count) {
+    const picks = shuffle(bank).slice(0, count);
+    const list = document.getElementById(listId);
+    list.innerHTML = '';
+    picks.forEach((item, idx) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'essay-item';
+
+      const qEl = document.createElement('p');
+      qEl.className = 'essay-q';
+      qEl.innerHTML = '<span class="essay-number">' + (idx + 1) + '</span><span>' + item.q + '</span>';
+
+      const textarea = document.createElement('textarea');
+      textarea.placeholder = 'เขียนคำตอบของคุณที่นี่…';
+
+      const actions = document.createElement('div');
+      actions.className = 'essay-actions';
+      const revealBtn = document.createElement('button');
+      revealBtn.className = 'btn btn-ghost';
+      revealBtn.style.padding = '8px 16px';
+      revealBtn.style.fontSize = '13.5px';
+      revealBtn.textContent = 'ดูเฉลย';
+
+      const answerBox = document.createElement('div');
+      answerBox.className = 'essay-answer';
+      const tag = document.createElement('p');
+      tag.className = 'tag';
+      tag.textContent = 'แนวคำตอบ';
+      const ansP = document.createElement('p');
+      ansP.textContent = item.a;
+      answerBox.appendChild(tag);
+      answerBox.appendChild(ansP);
+
+      revealBtn.onclick = () => {
+        const shown = answerBox.classList.toggle('shown');
+        revealBtn.textContent = shown ? 'ซ่อนเฉลย' : 'ดูเฉลย';
+      };
+
+      actions.appendChild(revealBtn);
+      wrap.appendChild(qEl);
+      wrap.appendChild(textarea);
+      wrap.appendChild(actions);
+      wrap.appendChild(answerBox);
+      list.appendChild(wrap);
+    });
+  }
+
+  function startAEssay() {
+    buildEssayList('aessay-list', ANAT_ESSAY, A_ESSAY_ROUND);
+  }
+
+  // ---------- Anatomy flashcards ----------
+  let aDeck = [], aCardIdx = 0;
+
+  function shuffleADeck() {
+    aDeck = shuffle(ANAT_CARDS);
+    aCardIdx = 0;
+    document.getElementById('afc-total').textContent = aDeck.length;
+    renderACard();
+  }
+
+  function renderACard() {
+    const card = aDeck[aCardIdx];
+    document.getElementById('afc-card').classList.remove('flipped');
+    document.getElementById('afc-index').textContent = aCardIdx + 1;
+    document.getElementById('afc-term').textContent = card.term;
+    document.getElementById('afc-def').textContent = card.def;
+  }
+
+  function flipACard() {
+    document.getElementById('afc-card').classList.toggle('flipped');
+  }
+
+  function nextACard() {
+    aCardIdx = (aCardIdx + 1) % aDeck.length;
+    renderACard();
+  }
+
+  function prevACard() {
+    aCardIdx = (aCardIdx - 1 + aDeck.length) % aDeck.length;
+    renderACard();
+  }
+
+  // ---------- Anatomy init ----------
+  startCases();
+  startAQuiz();
+  startAEssay();
+  shuffleADeck();
 </script>
